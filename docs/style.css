@@ -16,12 +16,12 @@
   --shadow-float: rgba(0, 0, 0, 0.7) 0 20px 60px,
     rgba(148, 163, 184, 0.1) 0 0 0 1px inset;
   --container: 1240px;
-  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
-  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+--font-heading: "Pretendard Variable", Pretendard, -apple-system,
+  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+--font-body: "Pretendard Variable", Pretendard, -apple-system,
+  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+--font-mono: "Pretendard Variable", Pretendard, -apple-system,
+  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
 }
 
 * {
