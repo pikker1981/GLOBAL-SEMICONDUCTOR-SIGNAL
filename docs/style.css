@@ -13,15 +13,11 @@
   --danger: #fb565b;
   --warning: #ffba00;
   --shadow-warm: rgba(92, 88, 85, 0.2) 0 0 15px;
-  --shadow-float: rgba(0, 0, 0, 0.7) 0 20px 60px,
-    rgba(148, 163, 184, 0.1) 0 0 0 1px inset;
+  --shadow-float: rgba(0, 0, 0, 0.7) 0 20px 60px, rgba(148, 163, 184, 0.1) 0 0 0 1px inset;
   --container: 1240px;
---font-heading: "Pretendard Variable", Pretendard, -apple-system,
-  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
---font-body: "Pretendard Variable", Pretendard, -apple-system,
-  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
---font-mono: "Pretendard Variable", Pretendard, -apple-system,
-  BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
+  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 * {
@@ -201,9 +197,7 @@ main,
   height: 9px;
   border-radius: 9999px;
   background: var(--green);
-  box-shadow:
-    0 0 0 6px rgba(0, 217, 146, 0.08),
-    0 0 18px rgba(0, 217, 146, 0.65);
+  box-shadow: 0 0 0 6px rgba(0, 217, 146, 0.08), 0 0 18px rgba(0, 217, 146, 0.65);
 }
 
 .hero-layout {
@@ -338,10 +332,7 @@ main,
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  transition:
-    border-color 160ms ease,
-    color 160ms ease,
-    background 160ms ease;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
 }
 
 .reload-btn {
@@ -436,10 +427,7 @@ main,
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: var(--shadow-warm);
-  transition:
-    transform 160ms ease,
-    border-color 160ms ease,
-    background 160ms ease;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .feed-card:hover {
@@ -533,9 +521,7 @@ main,
   background: #0b0b0c;
   border: 1px solid var(--border);
   border-radius: 6px;
-  transition:
-    border-color 160ms ease,
-    color 160ms ease;
+  transition: border-color 160ms ease, color 160ms ease;
 }
 
 .open-link:hover,
@@ -620,11 +606,9 @@ main,
 }
 
 @keyframes pulseGlow {
-  0%,
-  100% {
+  0%, 100% {
     filter: drop-shadow(0 0 2px var(--green));
   }
-
   50% {
     filter: drop-shadow(0 0 8px var(--green));
   }
@@ -697,71 +681,35 @@ main,
     width: 100%;
   }
 }
-.filter-groups {
-  display: grid;
-  gap: 12px;
-}
 
-.filter-group {
-  display: grid;
-  gap: 8px;
-}
-
-.filter-group-label {
-  color: var(--tertiary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.source-type-badge {
-  display: inline-flex;
-  width: fit-content;
-  padding: 6px 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-radius: 9999px;
-  border: 1px solid var(--border);
-}
-
-.source-gdelt {
-  color: var(--green);
-  background: rgba(0, 217, 146, 0.08);
-  border-color: rgba(0, 217, 146, 0.45);
-}
-
-.source-rss {
-  color: var(--purple);
-  background: rgba(129, 140, 248, 0.1);
-  border-color: rgba(129, 140, 248, 0.48);
-}
-
-.source-arxiv {
-  color: var(--mint);
-  background: rgba(47, 214, 161, 0.08);
-  border-color: rgba(47, 214, 161, 0.45);
-}
-
-.source-unknown {
-  color: var(--tertiary);
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--border);
-}
-
-@media (max-width: 980px) {
-  .filter-groups {
-    gap: 14px;
-  }
-}
 /* ================================
-   Layout refinement: centered search + feed cards
+   Full update overrides: Pretendard, centered layout, source filters, animations, K-INVEST
    ================================ */
+:root {
+  --font-heading: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+  --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+  --font-mono: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+}
+
+body,
+button,
+input,
+code,
+pre,
+.card-meta,
+.card-kicker,
+.card-region,
+.source-type-badge,
+.filter,
+.filter-group-label,
+.status-code code,
+.brand strong,
+.brand em,
+.feed-meta,
+.footer {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif !important;
+}
 
 .toolbar {
   grid-template-columns: 1fr;
@@ -770,7 +718,7 @@ main,
 }
 
 .search-box {
-  width: min(100%, 980px);
+  width: min(100%, 680px);
   justify-self: center;
 }
 
@@ -779,26 +727,37 @@ main,
 }
 
 .filter-groups {
+  display: grid;
+  gap: 12px;
   width: min(100%, 980px);
   margin: 0 auto;
   justify-items: center;
 }
 
 .filter-group {
+  display: grid;
+  gap: 8px;
   width: 100%;
   justify-items: center;
 }
 
 .filter-group-label {
+  color: var(--tertiary);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-align: center;
+  text-transform: uppercase;
 }
 
-.filter-group .filters {
+.filter-group .filters,
+.filters {
   justify-content: center;
 }
 
 .feed-meta {
-  width: min(100%, 1160px);
+  width: min(100%, 1080px);
   margin: 18px auto;
 }
 
@@ -808,54 +767,11 @@ main,
 }
 
 .feed-card {
-  width: 100%;
-  margin: 0 auto;
-}
-
-#paginationBlock {
-  width: min(100%, 1080px);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#paginationControls {
-  justify-content: center !important;
-}
-
-@media (max-width: 980px) {
-  .toolbar {
-    justify-items: stretch;
-  }
-
-  .search-box,
-  .filter-groups,
-  .feed-meta,
-  .feed-list,
-  #paginationBlock {
-    width: 100%;
-  }
-
-  .search-box label,
-  .filter-group-label {
-    text-align: left;
-  }
-
-  .filter-group {
-    justify-items: start;
-  }
-
-  .filter-group .filters {
-    justify-content: flex-start;
-  }
-}
-/* ================================
-   Card animation: ripple + typewriter
-   ================================ */
-
-.feed-card {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .feed-card > * {
@@ -928,40 +844,78 @@ main,
   animation: caretBlink 0.72s steps(1) infinite;
 }
 
+.source-type-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+}
+
+.source-gdelt {
+  color: var(--green);
+  background: rgba(0, 217, 146, 0.08);
+  border-color: rgba(0, 217, 146, 0.45);
+}
+
+.source-rss {
+  color: var(--purple);
+  background: rgba(129, 140, 248, 0.1);
+  border-color: rgba(129, 140, 248, 0.48);
+}
+
+.source-arxiv {
+  color: var(--mint);
+  background: rgba(47, 214, 161, 0.08);
+  border-color: rgba(47, 214, 161, 0.45);
+}
+
+.source-k-invest {
+  color: var(--warning);
+  background: rgba(255, 186, 0, 0.08);
+  border-color: rgba(255, 186, 0, 0.48);
+}
+
+.source-unknown {
+  color: var(--tertiary);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border);
+}
+
+.source-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+#paginationBlock {
+  width: min(100%, 1080px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#paginationControls {
+  justify-content: center !important;
+}
+
 @keyframes signalRipple {
-  0% {
-    transform: scale(0.72) rotate(0deg);
-  }
-
-  50% {
-    transform: scale(0.9) rotate(8deg);
-  }
-
-  100% {
-    transform: scale(1.08) rotate(16deg);
-  }
+  0% { transform: scale(0.72) rotate(0deg); }
+  50% { transform: scale(0.9) rotate(8deg); }
+  100% { transform: scale(1.08) rotate(16deg); }
 }
 
 @keyframes signalSweep {
-  0% {
-    transform: translateX(-130%) skewX(-12deg);
-  }
-
-  100% {
-    transform: translateX(130%) skewX(-12deg);
-  }
+  0% { transform: translateX(-130%) skewX(-12deg); }
+  100% { transform: translateX(130%) skewX(-12deg); }
 }
 
 @keyframes caretBlink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-
-  46%,
-  100% {
-    opacity: 0;
-  }
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -976,27 +930,41 @@ main,
     display: none;
   }
 }
-body,
-button,
-input,
-code,
-pre,
-.card-meta,
-.card-kicker,
-.card-region,
-.source-type-badge,
-.filter,
-.filter-group-label,
-.status-code code,
-.brand strong,
-.brand em,
-.feed-meta,
-.footer {
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif !important;
+
+@media (max-width: 1100px) {
+  .source-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-.source-k-invest {
-  color: var(--warning);
-  background: rgba(255, 186, 0, 0.08);
-  border-color: rgba(255, 186, 0, 0.48);
+
+@media (max-width: 980px) {
+  .toolbar {
+    justify-items: stretch;
+  }
+
+  .search-box,
+  .filter-groups,
+  .feed-meta,
+  .feed-list,
+  #paginationBlock {
+    width: 100%;
+  }
+
+  .search-box label,
+  .filter-group-label {
+    text-align: left;
+  }
+
+  .filter-group {
+    justify-items: start;
+  }
+
+  .filter-group .filters,
+  .filters {
+    justify-content: flex-start;
+  }
+
+  .source-grid {
+    grid-template-columns: 1fr;
+  }
 }

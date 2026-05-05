@@ -6,15 +6,15 @@
   <title>GLOBAL SEMICONDUCTOR SIGNAL</title>
   <meta
     name="description"
-    content="전 세계 반도체 뉴스와 논문 원문 피드를 수집해 보여주는 글로벌 반도체 뉴스 페이지"
+    content="전 세계 반도체 뉴스와 논문, 한국 주식 투자 인사이트 원문 피드를 수집해 보여주는 글로벌 반도체 뉴스 페이지"
   />
 
-<link
-  rel="stylesheet"
-  as="style"
-  crossorigin
-  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"
-/>
+  <link
+    rel="stylesheet"
+    as="style"
+    crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"
+  />
 
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -57,7 +57,7 @@
           </h1>
 
           <p>
-            전 세계 반도체 뉴스와 논문 원문 피드를 수집해 보여주는 GitHub 기반 페이지입니다.
+            전 세계 반도체 뉴스와 논문 원문 피드, 한국 주식 투자 인사이트 피드를 수집해 보여주는 GitHub 기반 페이지입니다.
             뉴스 전문은 재게시하지 않고, 원문 제목·스니펫·초록·출처·링크 중심으로 표시합니다.
           </p>
         </div>
@@ -108,82 +108,80 @@
           <input
             id="searchInput"
             type="search"
-            placeholder="TSMC, HBM, ASML, EUV, foundry..."
+            placeholder="TSMC, HBM, ASML, EUV, foundry, 코스피, 수급, 실적..."
             autocomplete="off"
           />
         </div>
 
-<div class="filter-groups" aria-label="Feed filters">
-  <div class="filter-group">
-    <span class="filter-group-label">TYPE</span>
+        <div class="filter-groups" aria-label="Feed filters">
+          <div class="filter-group">
+            <span class="filter-group-label">TYPE</span>
 
-<div class="filters">
-  <button class="filter active" data-filter-group="source" data-filter-value="all">
-    ALL
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="GDELT">
-    GDELT
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="RSS">
-    RSS
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="arXiv">
-    arXiv
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">
-    K-INVEST
-  </button>
-</div>
-  </div>
+            <div class="filters">
+              <button class="filter active" data-filter-group="content" data-filter-value="all">
+                ALL
+              </button>
+              <button class="filter" data-filter-group="content" data-filter-value="news">
+                NEWS
+              </button>
+              <button class="filter" data-filter-group="content" data-filter-value="paper">
+                PAPERS
+              </button>
+              <button class="filter" data-filter-group="content" data-filter-value="k-invest">
+                K-INVEST
+              </button>
+            </div>
+          </div>
 
-  <div class="filter-group">
-    <span class="filter-group-label">REGION</span>
+          <div class="filter-group">
+            <span class="filter-group-label">REGION</span>
 
-    <div class="filters">
-      <button class="filter active" data-filter-group="region" data-filter-value="all">
-        ALL
-      </button>
-      <button class="filter" data-filter-group="region" data-filter-value="Asia">
-        ASIA
-      </button>
-      <button class="filter" data-filter-group="region" data-filter-value="Europe">
-        EUROPE
-      </button>
-      <button class="filter" data-filter-group="region" data-filter-value="Americas">
-        AMERICAS
-      </button>
-      <button class="filter" data-filter-group="region" data-filter-value="Global">
-        GLOBAL
-      </button>
-    </div>
-  </div>
+            <div class="filters">
+              <button class="filter active" data-filter-group="region" data-filter-value="all">
+                ALL
+              </button>
+              <button class="filter" data-filter-group="region" data-filter-value="Asia">
+                ASIA
+              </button>
+              <button class="filter" data-filter-group="region" data-filter-value="Europe">
+                EUROPE
+              </button>
+              <button class="filter" data-filter-group="region" data-filter-value="Americas">
+                AMERICAS
+              </button>
+              <button class="filter" data-filter-group="region" data-filter-value="Global">
+                GLOBAL
+              </button>
+            </div>
+          </div>
 
-  <div class="filter-group">
-    <span class="filter-group-label">SOURCE</span>
+          <div class="filter-group">
+            <span class="filter-group-label">SOURCE</span>
 
-<div class="filters">
-  <button class="filter active" data-filter-group="source" data-filter-value="all">
-    ALL
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="GDELT">
-    GDELT
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="RSS">
-    RSS
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="arXiv">
-    arXiv
-  </button>
-  <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">
-    K-INVEST
-  </button>
-</div>
-  </div>
-</div>
+            <div class="filters">
+              <button class="filter active" data-filter-group="source" data-filter-value="all">
+                ALL
+              </button>
+              <button class="filter" data-filter-group="source" data-filter-value="GDELT">
+                GDELT
+              </button>
+              <button class="filter" data-filter-group="source" data-filter-value="RSS">
+                RSS
+              </button>
+              <button class="filter" data-filter-group="source" data-filter-value="arXiv">
+                arXiv
+              </button>
+              <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">
+                K-INVEST
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="feed-meta">
         <span id="resultCount">—</span>
-        <span id="activeFilter">FILTER: ALL</span>
+        <span id="activeFilter">FILTER: TYPE=ALL / REGION=ALL / SOURCE=ALL</span>
       </div>
 
       <div class="feed-list" id="feedList" aria-live="polite"></div>
@@ -212,6 +210,14 @@
         </article>
 
         <article class="source-card">
+          <span>RSS</span>
+          <h3>Newsrooms</h3>
+          <p>
+            기업 뉴스룸, 반도체 전문 매체, 한국 산업 매체 RSS에서 원문 링크 중심 피드를 수집합니다.
+          </p>
+        </article>
+
+        <article class="source-card">
           <span>PAPERS</span>
           <h3>arXiv</h3>
           <p>
@@ -220,10 +226,10 @@
         </article>
 
         <article class="source-card">
-          <span>NEXT</span>
-          <h3>RSS / Newsrooms</h3>
+          <span>K-INVEST</span>
+          <h3>Korean Market Signals</h3>
           <p>
-            TSMC, Samsung, SK hynix, Intel, ASML 등 공식 뉴스룸 RSS를 추가할 수 있습니다.
+            한국 주식시장, 실적, 수급, 증권사 리포트, 산업 흐름 관련 기사 피드를 별도 탭으로 수집합니다.
           </p>
         </article>
       </div>
@@ -232,7 +238,7 @@
 
   <footer class="footer">
     <span>GLOBAL SEMICONDUCTOR SIGNAL</span>
-    <span>Original links only · No full news republication</span>
+    <span>Original links only · No full news republication · Not investment advice</span>
   </footer>
 
   <script src="./app.js"></script>
