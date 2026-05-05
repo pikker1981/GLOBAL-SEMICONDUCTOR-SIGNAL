@@ -128,6 +128,7 @@ function getSourceBadgeClass(sourceType) {
   if (normalized === "rss") return "source-rss";
   if (normalized === "gdelt") return "source-gdelt";
   if (normalized === "arxiv") return "source-arxiv";
+  if (normalized === "k-invest") return "source-k-invest";
 
   return "source-unknown";
 }
@@ -174,8 +175,10 @@ function applyFilters() {
   state.filteredItems = state.items.filter((item) => {
     const sourceType = getSourceType(item);
 
-    const matchesContent =
-      state.filters.content === "all" || item.type === state.filters.content;
+const matchesContent =
+  state.filters.content === "all" ||
+  item.type === state.filters.content ||
+  (state.filters.content === "k-invest" && sourceType === "K-INVEST");
 
     const matchesRegion =
       state.filters.region === "all" || item.region === state.filters.region;
