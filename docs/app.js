@@ -2,7 +2,9 @@ const state = {
   items: [],
   filteredItems: [],
   filter: { type: "all", value: "all" },
-  query: ""
+  query: "",
+  currentPage: 1,
+  pageSize: 10
 };
 
 const els = {
@@ -17,6 +19,37 @@ const els = {
   searchInput: document.getElementById("searchInput"),
   reloadButton: document.getElementById("reloadButton")
 };
+
+const paginationEls = createPaginationElements();
+
+function createPaginationElements() {
+  const wrapper = document.createElement("div");
+  wrapper.id = "paginationBlock";
+  wrapper.className = "hidden";
+  wrapper.style.marginTop = "22px";
+
+  const meta = document.createElement("div");
+  meta.id = "paginationMeta";
+  meta.className = "feed-meta";
+  meta.style.justifyContent = "center";
+
+  const controls = document.createElement("div");
+  controls.id = "paginationControls";
+  controls.className = "filters";
+  controls.style.justifyContent = "center";
+  controls.style.marginTop = "12px";
+
+  wrapper.appendChild(meta);
+  wrapper.appendChild(controls);
+
+  els.feedList.insertAdjacentElement("afterend", wrapper);
+
+  return {
+    wrapper,
+    meta,
+    controls
+  };
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -76,6 +109,26 @@ function normalizeText(item) {
     .toLowerCase();
 }
 
+function resetPage() {
+  state.currentPage = 1;
+}
+
+function getTotalPages() {
+  return Math.max(1, Math.ceil(state.filteredItems.length / state.pageSize));
+}
+
+function clampCurrentPage() {
+  const totalPages = getTotalPages();
+
+  if (state.currentPage < 1) {
+    state.currentPage = 1;
+  }
+
+  if (state.currentPage > totalPages) {
+    state.currentPage = totalPages;
+  }
+}
+
 function applyFilters() {
   const query = state.query.trim().toLowerCase();
 
@@ -90,6 +143,7 @@ function applyFilters() {
     return matchesFilter && matchesSearch;
   });
 
+  clampCurrentPage();
   renderFeed();
 }
 
@@ -104,10 +158,159 @@ function renderStats(meta = {}) {
   els.lastUpdated.textContent = formatDate(meta.generated_at);
 }
 
+function getVisiblePageNumbers(currentPage, totalPages) {
+  const maxButtons = 7;
+
+  if (totalPages <= maxButtons) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const pages = new Set();
+
+  pages.add(1);
+  pages.add(totalPages);
+  pages.add(currentPage);
+  pages.add(currentPage - 1);
+  pages.add(currentPage + 1);
+
+  if (currentPage <= 3) {
+    pages.add(2);
+    pages.add(3);
+    pages.add(4);
+  }
+
+  if (currentPage >= totalPages - 2) {
+    pages.add(totalPages - 1);
+    pages.add(totalPages - 2);
+    pages.add(totalPages - 3);
+  }
+
+  return Array.from(pages)
+    .filter((page) => page >= 1 && page <= totalPages)
+    .sort((a, b) => a - b);
+}
+
+function createPaginationButton(label, options = {}) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = options.active ? "filter active" : "filter";
+  button.textContent = label;
+
+  if (options.disabled) {
+    button.disabled = true;
+    button.style.opacity = "0.4";
+    button.style.cursor = "not-allowed";
+  }
+
+  if (typeof options.onClick === "function") {
+    button.addEventListener("click", options.onClick);
+  }
+
+  return button;
+}
+
+function renderPagination() {
+  const totalItems = state.filteredItems.length;
+  const totalPages = getTotalPages();
+  const currentPage = state.currentPage;
+
+  if (totalItems <= state.pageSize) {
+    paginationEls.wrapper.classList.add("hidden");
+    paginationEls.meta.textContent = "";
+    paginationEls.controls.innerHTML = "";
+    return;
+  }
+
+  paginationEls.wrapper.classList.remove("hidden");
+
+  const start = (currentPage - 1) * state.pageSize + 1;
+  const end = Math.min(currentPage * state.pageSize, totalItems);
+
+  paginationEls.meta.textContent = `PAGE ${currentPage} / ${totalPages} · SHOWING ${start}-${end} OF ${totalItems}`;
+
+  paginationEls.controls.innerHTML = "";
+
+  const prevButton = createPaginationButton("← PREV", {
+    disabled: currentPage === 1,
+    onClick: () => {
+      if (state.currentPage > 1) {
+        state.currentPage -= 1;
+        renderFeed();
+        scrollToFeedTop();
+      }
+    }
+  });
+
+  paginationEls.controls.appendChild(prevButton);
+
+  const pageNumbers = getVisiblePageNumbers(currentPage, totalPages);
+
+  pageNumbers.forEach((page, index) => {
+    const previousPage = pageNumbers[index - 1];
+
+    if (previousPage && page - previousPage > 1) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "…";
+      ellipsis.style.display = "inline-flex";
+      ellipsis.style.alignItems = "center";
+      ellipsis.style.padding = "0 4px";
+      ellipsis.style.color = "var(--tertiary)";
+      ellipsis.style.fontFamily = "var(--font-mono)";
+      paginationEls.controls.appendChild(ellipsis);
+    }
+
+    const pageButton = createPaginationButton(String(page), {
+      active: page === currentPage,
+      onClick: () => {
+        state.currentPage = page;
+        renderFeed();
+        scrollToFeedTop();
+      }
+    });
+
+    paginationEls.controls.appendChild(pageButton);
+  });
+
+  const nextButton = createPaginationButton("NEXT →", {
+    disabled: currentPage === totalPages,
+    onClick: () => {
+      if (state.currentPage < totalPages) {
+        state.currentPage += 1;
+        renderFeed();
+        scrollToFeedTop();
+      }
+    }
+  });
+
+  paginationEls.controls.appendChild(nextButton);
+}
+
+function scrollToFeedTop() {
+  const feedSection = document.getElementById("feed");
+
+  if (!feedSection) return;
+
+  feedSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 function renderFeed() {
   const count = state.filteredItems.length;
+  const totalPages = getTotalPages();
 
-  els.resultCount.textContent = `${count} RESULTS`;
+  clampCurrentPage();
+
+  const startIndex = (state.currentPage - 1) * state.pageSize;
+  const endIndex = startIndex + state.pageSize;
+  const visibleItems = state.filteredItems.slice(startIndex, endIndex);
+
+  if (count === 0) {
+    els.resultCount.textContent = "0 RESULTS";
+  } else {
+    els.resultCount.textContent = `${count} RESULTS · PAGE ${state.currentPage}/${totalPages}`;
+  }
 
   els.activeFilter.textContent =
     state.filter.type === "all"
@@ -118,7 +321,7 @@ function renderFeed() {
 
   els.emptyState.classList.toggle("hidden", count !== 0);
 
-  els.feedList.innerHTML = state.filteredItems
+  els.feedList.innerHTML = visibleItems
     .map((item) => {
       const isPaper = item.type === "paper";
       const title = escapeHtml(item.title || "Untitled");
@@ -170,6 +373,8 @@ function renderFeed() {
       `;
     })
     .join("");
+
+  renderPagination();
 }
 
 async function loadFeed() {
@@ -179,6 +384,8 @@ async function loadFeed() {
       <p>latest.json 데이터를 불러오는 중입니다.</p>
     </div>
   `;
+
+  paginationEls.wrapper.classList.add("hidden");
 
   try {
     const response = await fetch(`./data/latest.json?ts=${Date.now()}`);
@@ -195,6 +402,7 @@ async function loadFeed() {
       (a, b) => new Date(b.published_at || 0) - new Date(a.published_at || 0)
     );
 
+    resetPage();
     renderStats(payload.meta || {});
     applyFilters();
   } catch (error) {
@@ -206,6 +414,8 @@ async function loadFeed() {
         <p>docs/data/latest.json 파일을 불러오지 못했습니다.</p>
       </div>
     `;
+
+    paginationEls.wrapper.classList.add("hidden");
   }
 }
 
@@ -222,12 +432,14 @@ document.querySelectorAll(".filter").forEach((button) => {
       value: button.dataset.filterValue
     };
 
+    resetPage();
     applyFilters();
   });
 });
 
 els.searchInput.addEventListener("input", (event) => {
   state.query = event.target.value;
+  resetPage();
   applyFilters();
 });
 
