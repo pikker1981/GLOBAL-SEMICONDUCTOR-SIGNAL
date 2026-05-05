@@ -32,10 +32,10 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs" / "data" / "latest.json"
 
-MAX_GDELT_NEWS = 80
-MAX_RSS_NEWS = 120
-MAX_K_INVEST_NEWS = 80
-MAX_PAPERS = 40
+MAX_GDELT_NEWS = 250
+MAX_RSS_NEWS = 400
+MAX_K_INVEST_NEWS = 250
+MAX_PAPERS = 100
 
 RSS_MAX_AGE_DAYS = 30
 K_INVEST_MAX_AGE_DAYS = 14
@@ -315,7 +315,7 @@ def http_get_text(url: str) -> str:
 def fetch_gdelt_news() -> list[FeedItem]:
     items: list[FeedItem] = []
     for query in NEWS_QUERIES:
-        params = {"query": query, "mode": "ArtList", "format": "json", "maxrecords": 50, "sort": "HybridRel", "timespan": "48h"}
+        params = {"query": query, "mode": "ArtList", "format": "json", "maxrecords": 100, "sort": "HybridRel", "timespan": "96h"}
         print(f"[INFO] GDELT query: {query}")
         try:
             data = http_get_json(GDELT_ENDPOINT, params)
@@ -373,7 +373,7 @@ def fetch_rss_news() -> list[FeedItem]:
         entries = parsed.entries or []
         print(f"[INFO] RSS entries: {name} / {len(entries)}")
         kept = old = irrelevant = 0
-        for entry in entries[:60]:
+        for entry in entries[:150]:
             title = clean_text(entry.get("title"))
             link = normalize_url(clean_text(entry.get("link")))
             snippet = get_entry_summary(entry)
@@ -406,7 +406,7 @@ def fetch_k_invest_news() -> list[FeedItem]:
         entries = parsed.entries or []
         print(f"[INFO] K-INVEST entries: {name} / {len(entries)}")
         kept = old = irrelevant = 0
-        for entry in entries[:60]:
+        for entry in entries[:150]:
             title = clean_text(entry.get("title"))
             link = normalize_url(clean_text(entry.get("link")))
             snippet = get_entry_summary(entry)
@@ -427,7 +427,7 @@ def fetch_k_invest_news() -> list[FeedItem]:
 
 
 def fetch_arxiv_papers() -> list[FeedItem]:
-    params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "submittedDate", "sortOrder": "descending"}
+    params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "lastUpdatedDate", "sortOrder": "descending"}
     try:
         response = requests.get(ARXIV_ENDPOINT, params=params, timeout=REQUEST_TIMEOUT, headers={"User-Agent": USER_AGENT})
         response.raise_for_status()
