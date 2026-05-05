@@ -21,7 +21,8 @@ const els = {
   feedList: document.getElementById("feedList"),
   emptyState: document.getElementById("emptyState"),
   searchInput: document.getElementById("searchInput"),
-  reloadButton: document.getElementById("reloadButton")
+  reloadButton: document.getElementById("reloadButton"),
+  worldCount: document.getElementById("worldCount")
 };
 
 const paginationEls = createPaginationElements();
@@ -88,6 +89,7 @@ function getSourceType(item) {
   if (item.source_type) return item.source_type;
   if (item.type === "paper") return "arXiv";
   if (item.source === "arXiv") return "arXiv";
+  if (item.type === "world") return "WORLD-NEWS";
   if (String(item.content_mode || "").toLowerCase().includes("k_invest")) return "K-INVEST";
   if (String(item.content_mode || "").toLowerCase().includes("rss")) return "RSS";
   if (item.type === "news") return "GDELT";
@@ -100,6 +102,7 @@ function getSourceBadgeClass(sourceType) {
   if (normalized === "gdelt") return "source-gdelt";
   if (normalized === "arxiv") return "source-arxiv";
   if (normalized === "k-invest") return "source-k-invest";
+  if (normalized === "world-news") return "source-world-news";
   return "source-unknown";
 }
 
@@ -143,7 +146,8 @@ function applyFilters() {
     const matchesContent =
       state.filters.content === "all" ||
       item.type === state.filters.content ||
-      (state.filters.content === "k-invest" && sourceType === "K-INVEST");
+      (state.filters.content === "k-invest" && sourceType === "K-INVEST") ||
+      (state.filters.content === "world" && sourceType === "WORLD-NEWS");
 
     const matchesRegion =
       state.filters.region === "all" || item.region === state.filters.region;
@@ -164,10 +168,12 @@ function renderStats(meta = {}) {
   const total = state.items.length;
   const news = state.items.filter((item) => item.type === "news").length;
   const papers = state.items.filter((item) => item.type === "paper").length;
+  const world = state.items.filter((item) => item.type === "world").length;
 
   els.totalCount.textContent = total;
   els.newsCount.textContent = news;
   els.paperCount.textContent = papers;
+  if (els.worldCount) els.worldCount.textContent = world;
   els.lastUpdated.textContent = formatDate(meta.generated_at);
 }
 

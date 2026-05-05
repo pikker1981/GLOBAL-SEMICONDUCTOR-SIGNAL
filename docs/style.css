@@ -882,6 +882,12 @@ pre,
   border-color: rgba(255, 186, 0, 0.48);
 }
 
+.source-world-news {
+  color: #60b8ff;
+  background: rgba(96, 184, 255, 0.08);
+  border-color: rgba(96, 184, 255, 0.40);
+}
+
 .source-unknown {
   color: var(--tertiary);
   background: rgba(255, 255, 255, 0.03);
