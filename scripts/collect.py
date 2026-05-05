@@ -24,7 +24,7 @@ import re
 import time
 import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -40,10 +40,14 @@ OUTPUT = ROOT / "docs" / "data" / "latest.json"
 MAX_GDELT_NEWS = 80
 MAX_RSS_NEWS = 120
 MAX_PAPERS = 40
+
+RSS_MAX_AGE_DAYS = 30
+PAPER_MAX_AGE_DAYS = 180
+
 REQUEST_TIMEOUT = 25
 
 USER_AGENT = (
-    "semiconductor-global-signal/1.1 "
+    "semiconductor-global-signal/1.3 "
     "(original-link-only collector; contact: repository owner)"
 )
 
@@ -62,9 +66,7 @@ ARXIV_QUERY = (
     'OR all:"semiconductor device" OR all:"advanced packaging" OR all:"AI accelerator"'
 )
 
-# RSS는 실패해도 전체 수집이 멈추지 않게 설계한다.
 RSS_FEEDS = [
-    # 기업 / 뉴스룸
     {
         "name": "Samsung Global Newsroom",
         "url": "https://news.samsung.com/global/feed",
@@ -107,8 +109,6 @@ RSS_FEEDS = [
         "country": "United States",
         "source_group": "company"
     },
-
-    # 산업 전문 매체
     {
         "name": "Semiconductor Engineering",
         "url": "https://semiengineering.com/feed/",
@@ -168,6 +168,15 @@ SPECIALIST_RSS_SOURCES = {
     "EE Times Asia"
 }
 
+COMPANY_SIGNAL_SOURCES = {
+    "Samsung Global Newsroom",
+    "SK hynix Newsroom",
+    "NVIDIA Press Room",
+    "NVIDIA Developer Blog",
+    "AMD Press Releases",
+    "Intel Newsroom"
+}
+
 SEMICONDUCTOR_KEYWORDS = [
     "semiconductor",
     "semiconductors",
@@ -206,13 +215,27 @@ SEMICONDUCTOR_KEYWORDS = [
     "synopsys",
     "cadence",
     "advanced packaging",
-    "coWoS",
+    "cowos",
     "interposer",
     "substrate",
     "gan",
     "sic",
     "silicon carbide",
     "gallium nitride",
+    "ai chip",
+    "gpu",
+    "accelerator",
+    "data center",
+    "datacenter",
+    "server",
+    "processor",
+    "cpu",
+    "xpu",
+    "epyc",
+    "xeon",
+    "cuda",
+    "inference",
+    "training",
     "반도체",
     "파운드리",
     "메모리",
@@ -223,7 +246,6 @@ SEMICONDUCTOR_KEYWORDS = [
 ]
 
 COUNTRY_REGION = {
-    # Asia
     "China": "Asia",
     "Taiwan": "Asia",
     "Japan": "Asia",
@@ -238,7 +260,6 @@ COUNTRY_REGION = {
     "Philippines": "Asia",
     "Israel": "Asia",
 
-    # Europe
     "Netherlands": "Europe",
     "Germany": "Europe",
     "France": "Europe",
@@ -255,7 +276,6 @@ COUNTRY_REGION = {
     "Poland": "Europe",
     "Czech Republic": "Europe",
 
-    # Americas
     "United States": "Americas",
     "United States of America": "Americas",
     "Canada": "Americas",
@@ -317,7 +337,7 @@ def normalize_url(url: str) -> str:
         return ""
 
     try:
-        parsed = urlsplit(url)
+        parsed = urlsplit(clean_text(url))
         query_pairs = parse_qsl(parsed.query, keep_blank_values=True)
 
         filtered_pairs = [
@@ -339,7 +359,7 @@ def normalize_url(url: str) -> str:
             )
         )
     except Exception:
-        return url
+        return clean_text(url)
 
 
 def parse_gdelt_date(value: str | None) -> str:
@@ -366,6 +386,58 @@ def parse_struct_time(value) -> str:
         return ""
 
 
+def parse_datetime_safe(value: str | None) -> datetime | None:
+    if not value:
+        return None
+
+    value = clean_text(value)
+
+    try:
+        if value.endswith("Z"):
+            value = value.replace("Z", "+00:00")
+
+        dt = datetime.fromisoformat(value)
+
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        pass
+
+    common_formats = [
+        "%a, %d %b %Y %H:%M:%S %z",
+        "%a, %d %b %Y %H:%M:%S %Z",
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%d"
+    ]
+
+    for fmt in common_formats:
+        try:
+            dt = datetime.strptime(value, fmt)
+
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+
+            return dt.astimezone(timezone.utc)
+        except Exception:
+            continue
+
+    return None
+
+
+def is_recent_enough(published_at: str, max_age_days: int, allow_unknown: bool = True) -> bool:
+    dt = parse_datetime_safe(published_at)
+
+    if dt is None:
+        return allow_unknown
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days)
+
+    return dt >= cutoff
+
+
 def infer_region(country: str | None) -> str:
     if not country:
         return "Global"
@@ -378,6 +450,33 @@ def is_semiconductor_relevant(title: str, snippet: str, source_name: str) -> boo
         return True
 
     text = f"{title} {snippet}".lower()
+
+    if source_name in COMPANY_SIGNAL_SOURCES:
+        company_signal_keywords = [
+            "ai",
+            "gpu",
+            "accelerator",
+            "data center",
+            "datacenter",
+            "server",
+            "compute",
+            "inference",
+            "training",
+            "processor",
+            "cpu",
+            "xpu",
+            "epyc",
+            "xeon",
+            "cuda",
+            "hbm",
+            "memory",
+            "foundry",
+            "semiconductor",
+            "chip"
+        ]
+
+        if any(keyword in text for keyword in company_signal_keywords):
+            return True
 
     return any(keyword.lower() in text for keyword in SEMICONDUCTOR_KEYWORDS)
 
@@ -413,7 +512,6 @@ def http_get_json(url: str, params: dict) -> dict:
             try:
                 return response.json()
             except json.JSONDecodeError:
-                # GDELT가 content-type은 JSON인데 strict JSON 파싱이 깨지는 경우가 있어 fallback.
                 return json.loads(text, strict=False)
 
         except Exception as exc:
@@ -488,7 +586,7 @@ def get_gdelt_title(article: dict) -> str:
 
 
 def get_gdelt_url(article: dict) -> str:
-    return clean_text(
+    return normalize_url(
         article.get("url")
         or article.get("url_mobile")
         or article.get("link")
@@ -534,7 +632,7 @@ def fetch_gdelt_news() -> list[FeedItem]:
 
         for article in articles:
             title = get_gdelt_title(article)
-            url = normalize_url(get_gdelt_url(article))
+            url = get_gdelt_url(article)
 
             if not title or not url:
                 continue
@@ -617,9 +715,14 @@ def fetch_rss_news() -> list[FeedItem]:
             print(f"[WARN] RSS parse warning: {name} / {getattr(parsed, 'bozo_exception', '')}")
 
         entries = parsed.entries or []
+
         print(f"[INFO] RSS entries: {name} / {len(entries)}")
 
-        for entry in entries[:30]:
+        kept_count = 0
+        old_count = 0
+        irrelevant_count = 0
+
+        for entry in entries[:60]:
             title = clean_text(entry.get("title"))
             link = normalize_url(clean_text(entry.get("link")))
             snippet = get_entry_summary(entry)
@@ -628,7 +731,12 @@ def fetch_rss_news() -> list[FeedItem]:
             if not title or not link:
                 continue
 
+            if not is_recent_enough(published_at, RSS_MAX_AGE_DAYS, allow_unknown=True):
+                old_count += 1
+                continue
+
             if not is_semiconductor_relevant(title, snippet, name):
+                irrelevant_count += 1
                 continue
 
             items.append(
@@ -645,6 +753,13 @@ def fetch_rss_news() -> list[FeedItem]:
                     content_mode="rss_snippet_only"
                 )
             )
+
+            kept_count += 1
+
+        print(
+            f"[INFO] RSS kept: {name} / {kept_count} "
+            f"(old={old_count}, irrelevant={irrelevant_count})"
+        )
 
         time.sleep(2)
 
@@ -685,6 +800,9 @@ def fetch_arxiv_papers() -> list[FeedItem]:
         abstract = limit_text(entry.findtext("atom:summary", default="", namespaces=ns), max_len=900)
         published_at = clean_text(entry.findtext("atom:published", default="", namespaces=ns))
         url = normalize_url(clean_text(entry.findtext("atom:id", default="", namespaces=ns)))
+
+        if not is_recent_enough(published_at, PAPER_MAX_AGE_DAYS, allow_unknown=True):
+            continue
 
         authors = []
 
@@ -741,10 +859,7 @@ def dedupe(items: Iterable[FeedItem]) -> list[FeedItem]:
 
 
 def sort_items(items: list[FeedItem]) -> list[FeedItem]:
-    def key(item: FeedItem) -> str:
-        return item.published_at or ""
-
-    return sorted(items, key=key, reverse=True)
+    return sorted(items, key=lambda item: item.published_at or "", reverse=True)
 
 
 def main() -> None:
@@ -763,6 +878,8 @@ def main() -> None:
             "news_count": len(news),
             "paper_count": len(papers),
             "total_count": len(items),
+            "rss_max_age_days": RSS_MAX_AGE_DAYS,
+            "paper_max_age_days": PAPER_MAX_AGE_DAYS,
             "policy": "Original links only. No full news republication.",
             "sources": [
                 "GDELT",
