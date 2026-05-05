@@ -976,3 +976,22 @@ main,
     display: none;
   }
 }
+body,
+button,
+input,
+code,
+pre,
+.card-meta,
+.card-kicker,
+.card-region,
+.source-type-badge,
+.filter,
+.filter-group-label,
+.status-code code,
+.brand strong,
+.brand em,
+.feed-meta,
+.footer {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif !important;
+}
