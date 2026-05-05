@@ -113,30 +113,64 @@
           />
         </div>
 
-        <div class="filters" aria-label="Feed filters">
-          <button class="filter active" data-filter-type="all" data-filter-value="all">
-            ALL
-          </button>
-          <button class="filter" data-filter-type="type" data-filter-value="news">
-            NEWS
-          </button>
-          <button class="filter" data-filter-type="type" data-filter-value="paper">
-            PAPERS
-          </button>
-          <button class="filter" data-filter-type="region" data-filter-value="Asia">
-            ASIA
-          </button>
-          <button class="filter" data-filter-type="region" data-filter-value="Europe">
-            EUROPE
-          </button>
-          <button class="filter" data-filter-type="region" data-filter-value="Americas">
-            AMERICAS
-          </button>
-          <button class="filter" data-filter-type="region" data-filter-value="Global">
-            GLOBAL
-          </button>
-        </div>
-      </div>
+<div class="filter-groups" aria-label="Feed filters">
+  <div class="filter-group">
+    <span class="filter-group-label">TYPE</span>
+
+    <div class="filters">
+      <button class="filter active" data-filter-group="content" data-filter-value="all">
+        ALL
+      </button>
+      <button class="filter" data-filter-group="content" data-filter-value="news">
+        NEWS
+      </button>
+      <button class="filter" data-filter-group="content" data-filter-value="paper">
+        PAPERS
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-group-label">REGION</span>
+
+    <div class="filters">
+      <button class="filter active" data-filter-group="region" data-filter-value="all">
+        ALL
+      </button>
+      <button class="filter" data-filter-group="region" data-filter-value="Asia">
+        ASIA
+      </button>
+      <button class="filter" data-filter-group="region" data-filter-value="Europe">
+        EUROPE
+      </button>
+      <button class="filter" data-filter-group="region" data-filter-value="Americas">
+        AMERICAS
+      </button>
+      <button class="filter" data-filter-group="region" data-filter-value="Global">
+        GLOBAL
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-group-label">SOURCE</span>
+
+    <div class="filters">
+      <button class="filter active" data-filter-group="source" data-filter-value="all">
+        ALL
+      </button>
+      <button class="filter" data-filter-group="source" data-filter-value="GDELT">
+        GDELT
+      </button>
+      <button class="filter" data-filter-group="source" data-filter-value="RSS">
+        RSS
+      </button>
+      <button class="filter" data-filter-group="source" data-filter-value="arXiv">
+        arXiv
+      </button>
+    </div>
+  </div>
+</div>
 
       <div class="feed-meta">
         <span id="resultCount">—</span>
