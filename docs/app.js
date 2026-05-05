@@ -1,7 +1,11 @@
 const state = {
   items: [],
   filteredItems: [],
-  filter: { type: "all", value: "all" },
+  filters: {
+    content: "all",
+    region: "all",
+    source: "all"
+  },
   query: "",
   currentPage: 1,
   pageSize: 10
@@ -94,6 +98,40 @@ function compactDate(value) {
   }).format(date);
 }
 
+function getSourceType(item) {
+  if (item.source_type) {
+    return item.source_type;
+  }
+
+  if (item.type === "paper") {
+    return "arXiv";
+  }
+
+  if (item.source === "arXiv") {
+    return "arXiv";
+  }
+
+  if (String(item.content_mode || "").toLowerCase().includes("rss")) {
+    return "RSS";
+  }
+
+  if (item.type === "news") {
+    return "GDELT";
+  }
+
+  return "UNKNOWN";
+}
+
+function getSourceBadgeClass(sourceType) {
+  const normalized = String(sourceType || "").toLowerCase();
+
+  if (normalized === "rss") return "source-rss";
+  if (normalized === "gdelt") return "source-gdelt";
+  if (normalized === "arxiv") return "source-arxiv";
+
+  return "source-unknown";
+}
+
 function normalizeText(item) {
   return [
     item.title,
@@ -102,6 +140,7 @@ function normalizeText(item) {
     item.source,
     item.country,
     item.region,
+    getSourceType(item),
     Array.isArray(item.authors) ? item.authors.join(" ") : ""
   ]
     .filter(Boolean)
@@ -133,14 +172,20 @@ function applyFilters() {
   const query = state.query.trim().toLowerCase();
 
   state.filteredItems = state.items.filter((item) => {
-    const matchesFilter =
-      state.filter.type === "all" ||
-      (state.filter.type === "type" && item.type === state.filter.value) ||
-      (state.filter.type === "region" && item.region === state.filter.value);
+    const sourceType = getSourceType(item);
+
+    const matchesContent =
+      state.filters.content === "all" || item.type === state.filters.content;
+
+    const matchesRegion =
+      state.filters.region === "all" || item.region === state.filters.region;
+
+    const matchesSource =
+      state.filters.source === "all" || sourceType === state.filters.source;
 
     const matchesSearch = !query || normalizeText(item).includes(query);
 
-    return matchesFilter && matchesSearch;
+    return matchesContent && matchesRegion && matchesSource && matchesSearch;
   });
 
   clampCurrentPage();
@@ -296,6 +341,14 @@ function scrollToFeedTop() {
   });
 }
 
+function renderActiveFilterText() {
+  const content = String(state.filters.content).toUpperCase();
+  const region = String(state.filters.region).toUpperCase();
+  const source = String(state.filters.source).toUpperCase();
+
+  els.activeFilter.textContent = `FILTER: TYPE=${content} / REGION=${region} / SOURCE=${source}`;
+}
+
 function renderFeed() {
   const count = state.filteredItems.length;
   const totalPages = getTotalPages();
@@ -312,18 +365,16 @@ function renderFeed() {
     els.resultCount.textContent = `${count} RESULTS · PAGE ${state.currentPage}/${totalPages}`;
   }
 
-  els.activeFilter.textContent =
-    state.filter.type === "all"
-      ? "FILTER: ALL"
-      : `FILTER: ${state.filter.type.toUpperCase()} / ${String(
-          state.filter.value
-        ).toUpperCase()}`;
+  renderActiveFilterText();
 
   els.emptyState.classList.toggle("hidden", count !== 0);
 
   els.feedList.innerHTML = visibleItems
     .map((item) => {
       const isPaper = item.type === "paper";
+      const sourceType = getSourceType(item);
+      const sourceClass = getSourceBadgeClass(sourceType);
+
       const title = escapeHtml(item.title || "Untitled");
       const desc = escapeHtml(
         item.abstract || item.snippet || "No snippet available."
@@ -340,6 +391,7 @@ function renderFeed() {
         <article class="feed-card">
           <div class="card-side">
             <span class="card-kicker">${isPaper ? "PAPER" : "NEWS"}</span>
+            <span class="source-type-badge ${sourceClass}">${escapeHtml(sourceType)}</span>
             <span class="card-region">${region}</span>
             <span class="card-region">${compactDate(item.published_at)}</span>
           </div>
@@ -352,6 +404,7 @@ function renderFeed() {
             <p class="card-desc">${desc}</p>
 
             <div class="card-meta">
+              <span>ORIGIN: ${escapeHtml(sourceType)}</span>
               <span>SOURCE: ${metaSource}</span>
               ${country ? `<span>COUNTRY: ${country}</span>` : ""}
               <span>PUBLISHED: ${formatDate(item.published_at)}</span>
@@ -419,18 +472,18 @@ async function loadFeed() {
   }
 }
 
-document.querySelectorAll(".filter").forEach((button) => {
+document.querySelectorAll("[data-filter-group]").forEach((button) => {
   button.addEventListener("click", () => {
+    const group = button.dataset.filterGroup;
+    const value = button.dataset.filterValue;
+
     document
-      .querySelectorAll(".filter")
+      .querySelectorAll(`[data-filter-group="${group}"]`)
       .forEach((item) => item.classList.remove("active"));
 
     button.classList.add("active");
 
-    state.filter = {
-      type: button.dataset.filterType,
-      value: button.dataset.filterValue
-    };
+    state.filters[group] = value;
 
     resetPage();
     applyFilters();
