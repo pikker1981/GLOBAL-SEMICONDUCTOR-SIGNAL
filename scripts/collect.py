@@ -45,9 +45,12 @@ USER_AGENT = (
 GDELT_ENDPOINT = "https://api.gdeltproject.org/api/v2/doc/doc"
 ARXIV_ENDPOINT = "https://export.arxiv.org/api/query"
 
+# GDELT는 OR 블록을 괄호로 묶는 방식이 안전하다.
 NEWS_QUERIES = [
-    'semiconductor OR "chip industry" OR foundry OR HBM OR DRAM OR NAND OR EUV OR ASML OR TSMC OR "SK hynix" OR "Samsung Electronics" OR Intel OR Micron OR "advanced packaging"',
-    '半導体 OR 半导体 OR 반도체 OR semiconducteur OR Halbleiter'
+    '(semiconductor OR "chip industry" OR foundry OR HBM OR DRAM OR NAND OR EUV)',
+    '(TSMC OR ASML OR Intel OR Micron OR NVIDIA OR AMD)',
+    '("Samsung Electronics" OR "SK hynix" OR "advanced packaging" OR "AI chip")',
+    '(半導体 OR 半导体 OR 반도체 OR semiconducteur OR Halbleiter)'
 ]
 
 ARXIV_QUERY = (
@@ -129,7 +132,7 @@ def clean_text(value: str | None) -> str:
     if not value:
         return ""
 
-    value = html.unescape(value)
+    value = html.unescape(str(value))
     value = re.sub(r"<[^>]+>", " ", value)
     value = re.sub(r"\s+", " ", value)
 
@@ -163,9 +166,23 @@ def http_get_json(url: str, params: dict) -> dict:
         timeout=REQUEST_TIMEOUT,
         headers={"User-Agent": USER_AGENT}
     )
+
     response.raise_for_status()
 
-    return response.json()
+    text = response.text.strip()
+
+    if not text:
+        raise ValueError("Empty response from API")
+
+    try:
+        return response.json()
+    except json.JSONDecodeError as exc:
+        preview = text[:500].replace("\n", " ")
+        raise ValueError(
+            f"Non-JSON response from API. Status={response.status_code}, "
+            f"Content-Type={response.headers.get('content-type')}, "
+            f"Preview={preview}"
+        ) from exc
 
 
 def get_gdelt_country(article: dict) -> str:
@@ -173,6 +190,7 @@ def get_gdelt_country(article: dict) -> str:
         article.get("sourceCountry")
         or article.get("sourcecountry")
         or article.get("source_country")
+        or article.get("sourceCountryCode")
         or ""
     )
 
@@ -182,7 +200,25 @@ def get_gdelt_source(article: dict) -> str:
         article.get("sourceCommonName")
         or article.get("sourcecommonname")
         or article.get("domain")
+        or article.get("source")
         or "Unknown"
+    )
+
+
+def get_gdelt_title(article: dict) -> str:
+    return clean_text(
+        article.get("title")
+        or article.get("name")
+        or ""
+    )
+
+
+def get_gdelt_url(article: dict) -> str:
+    return clean_text(
+        article.get("url")
+        or article.get("url_mobile")
+        or article.get("link")
+        or ""
     )
 
 
@@ -191,6 +227,7 @@ def get_gdelt_snippet(article: dict, title: str) -> str:
         article.get("snippet")
         or article.get("description")
         or article.get("summary")
+        or article.get("seendate")
         or ""
     )
 
@@ -210,15 +247,21 @@ def fetch_gdelt_news() -> list[FeedItem]:
             "timespan": "48h"
         }
 
+        print(f"[INFO] GDELT query: {query}")
+
         try:
             data = http_get_json(GDELT_ENDPOINT, params)
         except Exception as exc:
             print(f"[WARN] GDELT query failed: {exc}")
             continue
 
-        for article in data.get("articles", []):
-            title = clean_text(article.get("title"))
-            url = article.get("url") or ""
+        articles = data.get("articles", [])
+
+        print(f"[INFO] GDELT articles: {len(articles)}")
+
+        for article in articles:
+            title = get_gdelt_title(article)
+            url = get_gdelt_url(article)
 
             if not title or not url:
                 continue
