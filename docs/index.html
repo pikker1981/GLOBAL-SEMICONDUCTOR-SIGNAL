@@ -267,8 +267,10 @@
           <input id="ghTokenInput" type="password" placeholder="ghp_..." autocomplete="off" />
         </div>
         <p class="modal-hint">
-          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">토큰 발급 →</a>
-          <code>workflow</code> 또는 <code>repo</code> 권한 필요
+          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Classic 토큰 발급 →</a>
+          Scopes에서 <code>workflow</code> 체크 필수 (<code>repo</code>만으로는 부족)<br>
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained 토큰 →</a>
+          Repository permissions &gt; <code>Actions: Read and Write</code> 선택
         </p>
       </div>
       <div class="modal-footer">

@@ -573,6 +573,21 @@ async function triggerWorkflow(owner, repo, token) {
     }
   );
   if (!res.ok) {
+    if (res.status === 403) {
+      const err = new Error("TOKEN_PERMISSION");
+      err.status = 403;
+      throw err;
+    }
+    if (res.status === 401) {
+      const err = new Error("TOKEN_INVALID");
+      err.status = 401;
+      throw err;
+    }
+    if (res.status === 404) {
+      const err = new Error("TOKEN_NOT_FOUND");
+      err.status = 404;
+      throw err;
+    }
     const body = await res.text();
     throw new Error(`GitHub API ${res.status}: ${body}`);
   }
@@ -644,8 +659,28 @@ async function startUpdate() {
     setTimeout(() => setUpdateState("idle", "지금 업데이트"), 4000);
   } catch (error) {
     console.error("[Update]", error);
-    setUpdateState("error", `✕ ${error.message}`);
-    setTimeout(() => setUpdateState("idle", "지금 업데이트"), 5000);
+    if (error.message === "TOKEN_PERMISSION") {
+      setUpdateState("error", "✕ 토큰 권한 부족 — 설정을 확인하세요");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else if (error.message === "TOKEN_INVALID") {
+      setUpdateState("error", "✕ 토큰이 유효하지 않습니다");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else if (error.message === "TOKEN_NOT_FOUND") {
+      setUpdateState("error", "✕ Owner/Repo를 확인하세요");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else {
+      setUpdateState("error", `✕ ${error.message}`);
+      setTimeout(() => setUpdateState("idle", "지금 업데이트"), 5000);
+    }
   }
 }
 
