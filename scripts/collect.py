@@ -4,6 +4,7 @@ Global Semiconductor Signal collector.
 
 역할:
 - GDELT에서 글로벌 반도체 뉴스 메타데이터 수집
+- RSS에서 반도체 전문 매체/기업 뉴스룸 메타데이터 수집
 - arXiv에서 반도체 관련 논문 메타데이터 수집
 - docs/data/latest.json 파일 생성
 
@@ -15,6 +16,7 @@ Global Semiconductor Signal collector.
 
 from __future__ import annotations
 
+import calendar
 import hashlib
 import html
 import json
@@ -25,27 +27,29 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from zoneinfo import ZoneInfo
 
+import feedparser
 import requests
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs" / "data" / "latest.json"
 
-MAX_NEWS = 80
+MAX_GDELT_NEWS = 80
+MAX_RSS_NEWS = 120
 MAX_PAPERS = 40
 REQUEST_TIMEOUT = 25
 
 USER_AGENT = (
-    "semiconductor-global-signal/1.0 "
+    "semiconductor-global-signal/1.1 "
     "(original-link-only collector; contact: repository owner)"
 )
 
 GDELT_ENDPOINT = "https://api.gdeltproject.org/api/v2/doc/doc"
 ARXIV_ENDPOINT = "https://export.arxiv.org/api/query"
 
-# GDELT는 OR 블록을 괄호로 묶는 방식이 안전하다.
 NEWS_QUERIES = [
     '(semiconductor OR "chip industry" OR foundry OR HBM OR DRAM OR NAND OR EUV)',
     '(TSMC OR ASML OR Intel OR Micron OR NVIDIA OR AMD)',
@@ -57,6 +61,166 @@ ARXIV_QUERY = (
     'all:semiconductor OR all:transistor OR all:CMOS OR all:nanofabrication '
     'OR all:"semiconductor device" OR all:"advanced packaging" OR all:"AI accelerator"'
 )
+
+# RSS는 실패해도 전체 수집이 멈추지 않게 설계한다.
+RSS_FEEDS = [
+    # 기업 / 뉴스룸
+    {
+        "name": "Samsung Global Newsroom",
+        "url": "https://news.samsung.com/global/feed",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "company"
+    },
+    {
+        "name": "SK hynix Newsroom",
+        "url": "https://news.skhynix.co.kr/feed/",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "company"
+    },
+    {
+        "name": "NVIDIA Press Room",
+        "url": "https://nvidianews.nvidia.com/releases.xml",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "company"
+    },
+    {
+        "name": "NVIDIA Developer Blog",
+        "url": "https://developer.nvidia.com/blog/feed",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "company"
+    },
+    {
+        "name": "AMD Press Releases",
+        "url": "https://ir.amd.com/news-events/press-releases/rss",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "company"
+    },
+    {
+        "name": "Intel Newsroom",
+        "url": "http://feeds.feedburner.com/IntelNewsroom?format=xml",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "company"
+    },
+
+    # 산업 전문 매체
+    {
+        "name": "Semiconductor Engineering",
+        "url": "https://semiengineering.com/feed/",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "industry"
+    },
+    {
+        "name": "Semiconductor Today",
+        "url": "https://www.semiconductor-today.com/rss/news.xml",
+        "region": "Europe",
+        "country": "United Kingdom",
+        "source_group": "industry"
+    },
+    {
+        "name": "SemiWiki",
+        "url": "https://semiwiki.com/feed/",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "industry"
+    },
+    {
+        "name": "EE Times Semiconductors",
+        "url": "https://www.eetimes.com/tag/semiconductors/feed/",
+        "region": "Americas",
+        "country": "United States",
+        "source_group": "industry"
+    },
+    {
+        "name": "EE Times Asia",
+        "url": "https://www.eetasia.com/feed/",
+        "region": "Asia",
+        "country": "",
+        "source_group": "industry"
+    },
+    {
+        "name": "The Register HPC",
+        "url": "https://www.theregister.com/on_prem/hpc/headlines.atom",
+        "region": "Europe",
+        "country": "United Kingdom",
+        "source_group": "industry"
+    },
+    {
+        "name": "The Register AI ML",
+        "url": "https://www.theregister.com/software/ai_ml/headlines.atom",
+        "region": "Europe",
+        "country": "United Kingdom",
+        "source_group": "industry"
+    }
+]
+
+SPECIALIST_RSS_SOURCES = {
+    "Semiconductor Engineering",
+    "Semiconductor Today",
+    "SemiWiki",
+    "EE Times Semiconductors",
+    "EE Times Asia"
+}
+
+SEMICONDUCTOR_KEYWORDS = [
+    "semiconductor",
+    "semiconductors",
+    "chip",
+    "chips",
+    "chiplet",
+    "chiplets",
+    "foundry",
+    "fab",
+    "wafer",
+    "silicon",
+    "transistor",
+    "cmos",
+    "logic",
+    "memory",
+    "hbm",
+    "dram",
+    "nand",
+    "sram",
+    "euv",
+    "duv",
+    "lithography",
+    "asml",
+    "tsmc",
+    "samsung",
+    "sk hynix",
+    "hynix",
+    "intel",
+    "micron",
+    "nvidia",
+    "amd",
+    "qualcomm",
+    "broadcom",
+    "arm",
+    "eda",
+    "synopsys",
+    "cadence",
+    "advanced packaging",
+    "coWoS",
+    "interposer",
+    "substrate",
+    "gan",
+    "sic",
+    "silicon carbide",
+    "gallium nitride",
+    "반도체",
+    "파운드리",
+    "메모리",
+    "디램",
+    "낸드",
+    "半導体",
+    "半导体"
+]
 
 COUNTRY_REGION = {
     # Asia
@@ -139,6 +303,45 @@ def clean_text(value: str | None) -> str:
     return value.strip()
 
 
+def limit_text(value: str, max_len: int = 420) -> str:
+    value = clean_text(value)
+
+    if len(value) <= max_len:
+        return value
+
+    return value[:max_len].rstrip() + "..."
+
+
+def normalize_url(url: str) -> str:
+    if not url:
+        return ""
+
+    try:
+        parsed = urlsplit(url)
+        query_pairs = parse_qsl(parsed.query, keep_blank_values=True)
+
+        filtered_pairs = [
+            (key, value)
+            for key, value in query_pairs
+            if not key.lower().startswith("utm_")
+            and key.lower() not in {"fbclid", "gclid", "mc_cid", "mc_eid"}
+        ]
+
+        normalized_query = urlencode(filtered_pairs, doseq=True)
+
+        return urlunsplit(
+            (
+                parsed.scheme,
+                parsed.netloc.lower(),
+                parsed.path.rstrip("/"),
+                normalized_query,
+                ""
+            )
+        )
+    except Exception:
+        return url
+
+
 def parse_gdelt_date(value: str | None) -> str:
     if not value:
         return ""
@@ -152,6 +355,17 @@ def parse_gdelt_date(value: str | None) -> str:
     return value
 
 
+def parse_struct_time(value) -> str:
+    if not value:
+        return ""
+
+    try:
+        timestamp = calendar.timegm(value)
+        return datetime.fromtimestamp(timestamp, tz=timezone.utc).isoformat()
+    except Exception:
+        return ""
+
+
 def infer_region(country: str | None) -> str:
     if not country:
         return "Global"
@@ -159,30 +373,90 @@ def infer_region(country: str | None) -> str:
     return COUNTRY_REGION.get(country, "Global")
 
 
+def is_semiconductor_relevant(title: str, snippet: str, source_name: str) -> bool:
+    if source_name in SPECIALIST_RSS_SOURCES:
+        return True
+
+    text = f"{title} {snippet}".lower()
+
+    return any(keyword.lower() in text for keyword in SEMICONDUCTOR_KEYWORDS)
+
+
 def http_get_json(url: str, params: dict) -> dict:
-    response = requests.get(
-        url,
-        params=params,
-        timeout=REQUEST_TIMEOUT,
-        headers={"User-Agent": USER_AGENT}
-    )
+    last_error: Exception | None = None
 
-    response.raise_for_status()
+    for attempt in range(3):
+        try:
+            response = requests.get(
+                url,
+                params=params,
+                timeout=REQUEST_TIMEOUT,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "application/json,text/plain,*/*"
+                }
+            )
 
-    text = response.text.strip()
+            if response.status_code == 429:
+                wait_seconds = 10 * (attempt + 1)
+                print(f"[WARN] 429 Too Many Requests. sleep={wait_seconds}s")
+                time.sleep(wait_seconds)
+                continue
 
-    if not text:
-        raise ValueError("Empty response from API")
+            response.raise_for_status()
 
-    try:
-        return response.json()
-    except json.JSONDecodeError as exc:
-        preview = text[:500].replace("\n", " ")
-        raise ValueError(
-            f"Non-JSON response from API. Status={response.status_code}, "
-            f"Content-Type={response.headers.get('content-type')}, "
-            f"Preview={preview}"
-        ) from exc
+            text = response.text.strip()
+
+            if not text:
+                raise ValueError("Empty response from API")
+
+            try:
+                return response.json()
+            except json.JSONDecodeError:
+                # GDELT가 content-type은 JSON인데 strict JSON 파싱이 깨지는 경우가 있어 fallback.
+                return json.loads(text, strict=False)
+
+        except Exception as exc:
+            last_error = exc
+
+            if attempt < 2:
+                time.sleep(3 * (attempt + 1))
+                continue
+
+    raise last_error if last_error else RuntimeError("Unknown JSON request error")
+
+
+def http_get_text(url: str) -> str:
+    last_error: Exception | None = None
+
+    for attempt in range(3):
+        try:
+            response = requests.get(
+                url,
+                timeout=REQUEST_TIMEOUT,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "application/rss+xml,application/atom+xml,application/xml,text/xml,text/html,*/*"
+                }
+            )
+
+            if response.status_code == 429:
+                wait_seconds = 10 * (attempt + 1)
+                print(f"[WARN] RSS 429 Too Many Requests. sleep={wait_seconds}s url={url}")
+                time.sleep(wait_seconds)
+                continue
+
+            response.raise_for_status()
+            return response.text
+
+        except Exception as exc:
+            last_error = exc
+
+            if attempt < 2:
+                time.sleep(3 * (attempt + 1))
+                continue
+
+    raise last_error if last_error else RuntimeError("Unknown text request error")
 
 
 def get_gdelt_country(article: dict) -> str:
@@ -227,11 +501,10 @@ def get_gdelt_snippet(article: dict, title: str) -> str:
         article.get("snippet")
         or article.get("description")
         or article.get("summary")
-        or article.get("seendate")
         or ""
     )
 
-    return snippet or title
+    return limit_text(snippet or title)
 
 
 def fetch_gdelt_news() -> list[FeedItem]:
@@ -261,7 +534,7 @@ def fetch_gdelt_news() -> list[FeedItem]:
 
         for article in articles:
             title = get_gdelt_title(article)
-            url = get_gdelt_url(article)
+            url = normalize_url(get_gdelt_url(article))
 
             if not title or not url:
                 continue
@@ -273,7 +546,7 @@ def fetch_gdelt_news() -> list[FeedItem]:
 
             items.append(
                 FeedItem(
-                    id=stable_id("news", url, title),
+                    id=stable_id("gdelt", url, title),
                     type="news",
                     region=infer_region(country),
                     country=country,
@@ -288,7 +561,94 @@ def fetch_gdelt_news() -> list[FeedItem]:
 
         time.sleep(5)
 
-    return dedupe(items)[:MAX_NEWS]
+    return dedupe(items)[:MAX_GDELT_NEWS]
+
+
+def get_entry_summary(entry) -> str:
+    summary = (
+        entry.get("summary")
+        or entry.get("description")
+        or entry.get("subtitle")
+        or ""
+    )
+
+    if not summary and entry.get("content"):
+        try:
+            summary = entry.get("content")[0].get("value", "")
+        except Exception:
+            summary = ""
+
+    return limit_text(summary)
+
+
+def get_entry_date(entry) -> str:
+    for key in ("published_parsed", "updated_parsed", "created_parsed"):
+        parsed = entry.get(key)
+
+        if parsed:
+            return parse_struct_time(parsed)
+
+    for key in ("published", "updated", "created"):
+        value = clean_text(entry.get(key))
+
+        if value:
+            return value
+
+    return ""
+
+
+def fetch_rss_news() -> list[FeedItem]:
+    items: list[FeedItem] = []
+
+    for feed in RSS_FEEDS:
+        name = feed["name"]
+        url = feed["url"]
+
+        print(f"[INFO] RSS feed: {name} / {url}")
+
+        try:
+            raw = http_get_text(url)
+            parsed = feedparser.parse(raw)
+        except Exception as exc:
+            print(f"[WARN] RSS feed failed: {name} / {exc}")
+            continue
+
+        if getattr(parsed, "bozo", False):
+            print(f"[WARN] RSS parse warning: {name} / {getattr(parsed, 'bozo_exception', '')}")
+
+        entries = parsed.entries or []
+        print(f"[INFO] RSS entries: {name} / {len(entries)}")
+
+        for entry in entries[:30]:
+            title = clean_text(entry.get("title"))
+            link = normalize_url(clean_text(entry.get("link")))
+            snippet = get_entry_summary(entry)
+            published_at = get_entry_date(entry)
+
+            if not title or not link:
+                continue
+
+            if not is_semiconductor_relevant(title, snippet, name):
+                continue
+
+            items.append(
+                FeedItem(
+                    id=stable_id("rss", link, title),
+                    type="news",
+                    region=feed.get("region", "Global"),
+                    country=feed.get("country", ""),
+                    source=name,
+                    published_at=published_at,
+                    title=title,
+                    snippet=snippet,
+                    url=link,
+                    content_mode="rss_snippet_only"
+                )
+            )
+
+        time.sleep(2)
+
+    return dedupe(items)[:MAX_RSS_NEWS]
 
 
 def fetch_arxiv_papers() -> list[FeedItem]:
@@ -322,9 +682,9 @@ def fetch_arxiv_papers() -> list[FeedItem]:
 
     for entry in root.findall("atom:entry", ns):
         title = clean_text(entry.findtext("atom:title", default="", namespaces=ns))
-        abstract = clean_text(entry.findtext("atom:summary", default="", namespaces=ns))
+        abstract = limit_text(entry.findtext("atom:summary", default="", namespaces=ns), max_len=900)
         published_at = clean_text(entry.findtext("atom:published", default="", namespaces=ns))
-        url = clean_text(entry.findtext("atom:id", default="", namespaces=ns))
+        url = normalize_url(clean_text(entry.findtext("atom:id", default="", namespaces=ns)))
 
         authors = []
 
@@ -338,7 +698,7 @@ def fetch_arxiv_papers() -> list[FeedItem]:
 
         for link in entry.findall("atom:link", ns):
             if link.attrib.get("title") == "pdf" or link.attrib.get("type") == "application/pdf":
-                pdf_url = link.attrib.get("href", "")
+                pdf_url = normalize_url(link.attrib.get("href", ""))
                 break
 
         if not title or not url:
@@ -369,7 +729,7 @@ def dedupe(items: Iterable[FeedItem]) -> list[FeedItem]:
     deduped: list[FeedItem] = []
 
     for item in items:
-        key = item.url or item.id
+        key = normalize_url(item.url) or item.id
 
         if key in seen:
             continue
@@ -388,20 +748,29 @@ def sort_items(items: list[FeedItem]) -> list[FeedItem]:
 
 
 def main() -> None:
-    news = fetch_gdelt_news()
+    gdelt_news = fetch_gdelt_news()
+    rss_news = fetch_rss_news()
     papers = fetch_arxiv_papers()
+
+    news = dedupe([*rss_news, *gdelt_news])
     items = sort_items(dedupe([*news, *papers]))
 
     payload = {
         "meta": {
             "generated_at": now_iso_kst(),
+            "gdelt_news_count": len(gdelt_news),
+            "rss_news_count": len(rss_news),
             "news_count": len(news),
             "paper_count": len(papers),
             "total_count": len(items),
             "policy": "Original links only. No full news republication.",
             "sources": [
                 "GDELT",
+                "RSS",
                 "arXiv"
+            ],
+            "rss_feeds": [
+                feed["name"] for feed in RSS_FEEDS
             ]
         },
         "items": [asdict(item) for item in items]
@@ -414,7 +783,13 @@ def main() -> None:
     )
 
     print(f"Wrote {OUTPUT}")
-    print(f"Items: {len(items)} / News: {len(news)} / Papers: {len(papers)}")
+    print(
+        f"Items: {len(items)} / "
+        f"News: {len(news)} / "
+        f"GDELT: {len(gdelt_news)} / "
+        f"RSS: {len(rss_news)} / "
+        f"Papers: {len(papers)}"
+    )
 
 
 if __name__ == "__main__":
