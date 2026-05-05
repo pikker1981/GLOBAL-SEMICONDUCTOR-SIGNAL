@@ -242,7 +242,7 @@ def fetch_gdelt_news() -> list[FeedItem]:
             "query": query,
             "mode": "ArtList",
             "format": "json",
-            "maxrecords": 75,
+            "maxrecords": 50,
             "sort": "HybridRel",
             "timespan": "48h"
         }
@@ -286,7 +286,7 @@ def fetch_gdelt_news() -> list[FeedItem]:
                 )
             )
 
-        time.sleep(1)
+        time.sleep(5)
 
     return dedupe(items)[:MAX_NEWS]
 
