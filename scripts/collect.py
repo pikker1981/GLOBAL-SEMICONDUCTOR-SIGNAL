@@ -158,56 +158,6 @@ RSS_FEEDS = [
         "country": "United Kingdom",
         "source_group": "industry"
     }
-    # 한국 반도체 / 산업 전문 매체
-    {
-        "name": "The Elec Semiconductor",
-        "url": "https://www.thelec.kr/rss/S1N2.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "The Elec Materials Equipment",
-        "url": "https://www.thelec.kr/rss/S1N3.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "ETNews Electronics",
-        "url": "http://rss.etnews.com/06.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "ETNews Materials",
-        "url": "http://rss.etnews.com/06064.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "ETNews Components",
-        "url": "http://rss.etnews.com/06062.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "ETNews Equipment",
-        "url": "http://rss.etnews.com/06061.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
-    {
-        "name": "KIPOST All Articles",
-        "url": "https://www.kipost.net/rss/allArticle.xml",
-        "region": "Asia",
-        "country": "South Korea",
-        "source_group": "korean_industry"
-    },
 ]
 
 SPECIALIST_RSS_SOURCES = {
@@ -215,15 +165,7 @@ SPECIALIST_RSS_SOURCES = {
     "Semiconductor Today",
     "SemiWiki",
     "EE Times Semiconductors",
-    "EE Times Asia",
-
-    # Korea
-    "The Elec Semiconductor",
-    "The Elec Materials Equipment",
-    "ETNews Electronics",
-    "ETNews Materials",
-    "ETNews Components",
-    "ETNews Equipment"
+    "EE Times Asia"
 }
 
 COMPANY_SIGNAL_SOURCES = {
@@ -301,42 +243,6 @@ SEMICONDUCTOR_KEYWORDS = [
     "낸드",
     "半導体",
     "半导体"
-    "반도체",
-    "파운드리",
-    "메모리",
-    "디램",
-    "DRAM",
-    "낸드",
-    "NAND",
-    "HBM",
-    "EUV",
-    "노광",
-    "식각",
-    "증착",
-    "패키징",
-    "첨단 패키징",
-    "후공정",
-    "전공정",
-    "소부장",
-    "소재",
-    "부품",
-    "장비",
-    "웨이퍼",
-    "팹리스",
-    "팹",
-    "시스템반도체",
-    "차량용 반도체",
-    "AI 반도체",
-    "온디바이스 AI",
-    "삼성전자",
-    "SK하이닉스",
-    "하이닉스",
-    "한미반도체",
-    "원익IPS",
-    "유진테크",
-    "테스",
-    "솔브레인",
-    "동진쎄미켐",
 ]
 
 COUNTRY_REGION = {
