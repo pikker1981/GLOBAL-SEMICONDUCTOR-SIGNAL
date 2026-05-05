@@ -303,6 +303,8 @@ class FeedItem:
     authors: list[str] | None = None
     pdf_url: str = ""
     content_mode: str = "snippet_only"
+    source_type: str = ""
+    insight_type: str = ""
 
 
 def now_iso_kst() -> str:
