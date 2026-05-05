@@ -995,3 +995,8 @@ pre,
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif !important;
 }
+.source-k-invest {
+  color: var(--warning);
+  background: rgba(255, 186, 0, 0.08);
+  border-color: rgba(255, 186, 0, 0.48);
+}
