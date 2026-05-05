@@ -158,6 +158,56 @@ RSS_FEEDS = [
         "country": "United Kingdom",
         "source_group": "industry"
     }
+    # 한국 반도체 / 산업 전문 매체
+    {
+        "name": "The Elec Semiconductor",
+        "url": "https://www.thelec.kr/rss/S1N2.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "The Elec Materials Equipment",
+        "url": "https://www.thelec.kr/rss/S1N3.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "ETNews Electronics",
+        "url": "http://rss.etnews.com/06.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "ETNews Materials",
+        "url": "http://rss.etnews.com/06064.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "ETNews Components",
+        "url": "http://rss.etnews.com/06062.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "ETNews Equipment",
+        "url": "http://rss.etnews.com/06061.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
+    {
+        "name": "KIPOST All Articles",
+        "url": "https://www.kipost.net/rss/allArticle.xml",
+        "region": "Asia",
+        "country": "South Korea",
+        "source_group": "korean_industry"
+    },
 ]
 
 SPECIALIST_RSS_SOURCES = {
