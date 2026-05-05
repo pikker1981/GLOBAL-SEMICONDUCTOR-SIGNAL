@@ -848,3 +848,131 @@ main,
     justify-content: flex-start;
   }
 }
+/* ================================
+   Card animation: ripple + typewriter
+   ================================ */
+
+.feed-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.feed-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.feed-card::before {
+  content: "";
+  position: absolute;
+  inset: -80%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 217, 146, 0.12) 0,
+      rgba(0, 217, 146, 0.12) 1px,
+      transparent 2px,
+      transparent 22px
+    );
+  transform: scale(0.72);
+  animation: signalRipple 7.5s linear infinite;
+}
+
+.feed-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(0, 217, 146, 0.16) 48%,
+      rgba(47, 214, 161, 0.08) 54%,
+      transparent 68%,
+      transparent 100%
+    );
+  transform: translateX(-130%) skewX(-12deg);
+}
+
+.feed-card:hover::before {
+  opacity: 0.28;
+  animation-duration: 3.8s;
+}
+
+.feed-card:hover::after {
+  opacity: 1;
+  animation: signalSweep 1.55s ease-in-out infinite;
+}
+
+.typing-title {
+  position: relative;
+}
+
+.typing-title.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 5px;
+  vertical-align: -0.15em;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(0, 217, 146, 0.75);
+  animation: caretBlink 0.72s steps(1) infinite;
+}
+
+@keyframes signalRipple {
+  0% {
+    transform: scale(0.72) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(0.9) rotate(8deg);
+  }
+
+  100% {
+    transform: scale(1.08) rotate(16deg);
+  }
+}
+
+@keyframes signalSweep {
+  0% {
+    transform: translateX(-130%) skewX(-12deg);
+  }
+
+  100% {
+    transform: translateX(130%) skewX(-12deg);
+  }
+}
+
+@keyframes caretBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-card::before,
+  .feed-card::after,
+  .typing-title.is-typing::after {
+    animation: none !important;
+  }
+
+  .feed-card::before,
+  .feed-card::after {
+    display: none;
+  }
+}
