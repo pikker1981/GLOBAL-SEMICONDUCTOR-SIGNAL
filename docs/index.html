@@ -1,1 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GLOBAL SEMICONDUCTOR SIGNAL</title>
+  <meta
+    name="description"
+    content="전 세계 반도체 뉴스와 논문 원문 피드를 수집해 보여주는 글로벌 반도체 뉴스 페이지"
+  />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="grid-noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Global Semiconductor Signal Home">
+      <span class="brand-mark" aria-hidden="true">◈</span>
+      <span>
+        <strong>SEMICONDUCTOR</strong>
+        <em>SIGNAL</em>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#top">Top</a>
+      <a href="#feed">Feed</a>
+      <a href="#sources">Sources</a>
+      <a class="github-link" href="https://github.com/" target="_blank" rel="noopener">
+        GitHub
+      </a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow">
+        <span class="live-dot"></span>
+        GLOBAL SEMICONDUCTOR ORIGINAL FEED
+      </div>
+
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <h1>
+            World chip news,<br />
+            papers, and market<br />
+            <span>signals.</span>
+          </h1>
+
+          <p>
+            전 세계 반도체 뉴스와 논문 원문 피드를 수집해 보여주는 GitHub 기반 페이지입니다.
+            뉴스 전문은 재게시하지 않고, 원문 제목·스니펫·초록·출처·링크 중심으로 표시합니다.
+          </p>
+        </div>
+
+        <aside class="status-panel" id="status">
+          <div class="status-row">
+            <span>Total</span>
+            <strong id="totalCount">—</strong>
+          </div>
+
+          <div class="status-row">
+            <span>News</span>
+            <strong id="newsCount">—</strong>
+          </div>
+
+          <div class="status-row">
+            <span>Papers</span>
+            <strong id="paperCount">—</strong>
+          </div>
+
+          <div class="status-row wide">
+            <span>Last Update</span>
+            <strong id="lastUpdated">—</strong>
+          </div>
+
+          <div class="status-code">
+            <code>collect.py → latest.json → GitHub Pages</code>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="feed-section" id="feed">
+      <div class="section-head">
+        <div>
+          <span class="section-label">LIVE FEED</span>
+          <h2>Original semiconductor feed</h2>
+        </div>
+
+        <button type="button" id="reloadButton" class="reload-btn">
+          Reload
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <label for="searchInput">Search feed</label>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="TSMC, HBM, ASML, EUV, foundry..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="filters" aria-label="Feed filters">
+          <button class="filter active" data-filter-type="all" data-filter-value="all">
+            ALL
+          </button>
+          <button class="filter" data-filter-type="type" data-filter-value="news">
+            NEWS
+          </button>
+          <button class="filter" data-filter-type="type" data-filter-value="paper">
+            PAPERS
+          </button>
+          <button class="filter" data-filter-type="region" data-filter-value="Asia">
+            ASIA
+          </button>
+          <button class="filter" data-filter-type="region" data-filter-value="Europe">
+            EUROPE
+          </button>
+          <button class="filter" data-filter-type="region" data-filter-value="Americas">
+            AMERICAS
+          </button>
+          <button class="filter" data-filter-type="region" data-filter-value="Global">
+            GLOBAL
+          </button>
+        </div>
+      </div>
+
+      <div class="feed-meta">
+        <span id="resultCount">—</span>
+        <span id="activeFilter">FILTER: ALL</span>
+      </div>
+
+      <div class="feed-list" id="feedList" aria-live="polite"></div>
+
+      <div class="empty-state hidden" id="emptyState">
+        <strong>NO SIGNAL</strong>
+        <p>현재 조건에 맞는 항목이 없습니다.</p>
+      </div>
+    </section>
+
+    <section class="sources-section" id="sources">
+      <div class="section-head">
+        <div>
+          <span class="section-label">SOURCE MAP</span>
+          <h2>Collection sources</h2>
+        </div>
+      </div>
+
+      <div class="source-grid">
+        <article class="source-card featured">
+          <span>NEWS</span>
+          <h3>GDELT</h3>
+          <p>
+            글로벌 뉴스 검색 결과에서 제목, 출처, 날짜, URL, 스니펫을 수집합니다.
+          </p>
+        </article>
+
+        <article class="source-card">
+          <span>PAPERS</span>
+          <h3>arXiv</h3>
+          <p>
+            반도체·소자·나노공정·AI accelerator 관련 논문 제목, 저자, 초록, PDF 링크를 수집합니다.
+          </p>
+        </article>
+
+        <article class="source-card">
+          <span>NEXT</span>
+          <h3>RSS / Newsrooms</h3>
+          <p>
+            TSMC, Samsung, SK hynix, Intel, ASML 등 공식 뉴스룸 RSS를 추가할 수 있습니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>GLOBAL SEMICONDUCTOR SIGNAL</span>
+    <span>Original links only · No full news republication</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
