@@ -490,4 +490,165 @@ els.searchInput.addEventListener("input", (event) => {
 
 els.reloadButton.addEventListener("click", loadFeed);
 
+/* ================================
+   GitHub Actions update integration
+   ================================ */
+const GITHUB_CONFIG_KEY = "gss_gh_config";
+
+function loadGithubConfig() {
+  try {
+    return JSON.parse(localStorage.getItem(GITHUB_CONFIG_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function saveGithubConfig(config) {
+  localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(config));
+}
+
+const modalEls = {
+  overlay: document.getElementById("tokenModal"),
+  ownerInput: document.getElementById("ghOwnerInput"),
+  repoInput: document.getElementById("ghRepoInput"),
+  tokenInput: document.getElementById("ghTokenInput"),
+  saveBtn: document.getElementById("tokenModalSave"),
+  cancelBtn: document.getElementById("tokenModalCancel"),
+  closeBtn: document.getElementById("tokenModalClose")
+};
+
+function openTokenModal() {
+  const config = loadGithubConfig();
+  modalEls.ownerInput.value = config.owner || "";
+  modalEls.repoInput.value = config.repo || "";
+  modalEls.tokenInput.value = config.token || "";
+  modalEls.overlay.classList.remove("hidden");
+  modalEls.ownerInput.focus();
+}
+
+function closeTokenModal() {
+  modalEls.overlay.classList.add("hidden");
+}
+
+modalEls.closeBtn.addEventListener("click", closeTokenModal);
+modalEls.cancelBtn.addEventListener("click", closeTokenModal);
+modalEls.overlay.addEventListener("click", (event) => {
+  if (event.target === modalEls.overlay) closeTokenModal();
+});
+
+modalEls.saveBtn.addEventListener("click", () => {
+  const owner = modalEls.ownerInput.value.trim();
+  const repo = modalEls.repoInput.value.trim();
+  const token = modalEls.tokenInput.value.trim();
+  if (!owner || !repo || !token) {
+    alert("Owner, Repo, Token을 모두 입력해주세요.");
+    return;
+  }
+  saveGithubConfig({ owner, repo, token });
+  closeTokenModal();
+  startUpdate();
+});
+
+document.getElementById("settingsButton").addEventListener("click", openTokenModal);
+
+const updateButton = document.getElementById("updateButton");
+
+function setUpdateState(stateName, message) {
+  updateButton.disabled = stateName === "loading";
+  updateButton.className = `update-btn${stateName !== "idle" ? ` update-btn--${stateName}` : ""}`;
+  updateButton.textContent = message;
+}
+
+async function triggerWorkflow(owner, repo, token) {
+  const res = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/dispatches`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ref: "main" })
+    }
+  );
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`GitHub API ${res.status}: ${body}`);
+  }
+}
+
+async function pollForCompletion(owner, repo, token, triggeredAt) {
+  const maxWaitMs = 5 * 60 * 1000;
+  const pollIntervalMs = 10 * 1000;
+  const deadline = Date.now() + maxWaitMs;
+
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+
+  while (Date.now() < deadline) {
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=5`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json"
+          }
+        }
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        const recentRuns = (data.workflow_runs || []).filter(
+          (run) => new Date(run.created_at).getTime() >= triggeredAt - 8000
+        );
+
+        if (recentRuns.length > 0) {
+          const latest = recentRuns[0];
+          const elapsed = Math.round((Date.now() - triggeredAt) / 1000);
+          setUpdateState("loading", `◉ 실행 중... (${elapsed}s)`);
+
+          if (latest.status === "completed") {
+            if (latest.conclusion === "success") return;
+            throw new Error(`워크플로우 종료: ${latest.conclusion}`);
+          }
+        }
+      }
+    } catch (pollError) {
+      if (pollError.message.startsWith("워크플로우")) throw pollError;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+  }
+
+  throw new Error("타임아웃: 5분 내에 완료되지 않았습니다.");
+}
+
+async function startUpdate() {
+  const config = loadGithubConfig();
+  if (!config.owner || !config.repo || !config.token) {
+    openTokenModal();
+    return;
+  }
+
+  setUpdateState("loading", "⟳ 트리거 중...");
+  const triggeredAt = Date.now();
+
+  try {
+    await triggerWorkflow(config.owner, config.repo, config.token);
+    setUpdateState("loading", "◉ 워크플로우 실행 중...");
+    await pollForCompletion(config.owner, config.repo, config.token, triggeredAt);
+    setUpdateState("success", "✓ 완료 — 데이터 로드 중");
+    await loadFeed();
+    setUpdateState("success", "✓ 업데이트 완료");
+    setTimeout(() => setUpdateState("idle", "지금 업데이트"), 4000);
+  } catch (error) {
+    console.error("[Update]", error);
+    setUpdateState("error", `✕ ${error.message}`);
+    setTimeout(() => setUpdateState("idle", "지금 업데이트"), 5000);
+  }
+}
+
+updateButton.addEventListener("click", startUpdate);
+
 loadFeed();

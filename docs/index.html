@@ -97,9 +97,11 @@
           <h2>Original semiconductor feed</h2>
         </div>
 
-        <button type="button" id="reloadButton" class="reload-btn">
-          Reload
-        </button>
+        <div class="section-head-actions">
+          <button type="button" id="settingsButton" class="settings-btn" title="GitHub 설정">⚙</button>
+          <button type="button" id="reloadButton" class="reload-btn">새로고침</button>
+          <button type="button" id="updateButton" class="update-btn">지금 업데이트</button>
+        </div>
       </div>
 
       <div class="toolbar">
@@ -240,6 +242,41 @@
     <span>GLOBAL SEMICONDUCTOR SIGNAL</span>
     <span>Original links only · No full news republication · Not investment advice</span>
   </footer>
+
+  <div class="modal-overlay hidden" id="tokenModal" role="dialog" aria-modal="true" aria-labelledby="tokenModalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="tokenModalTitle">GitHub API 설정</h3>
+        <button type="button" class="modal-close" id="tokenModalClose" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          GitHub Actions 워크플로우를 직접 트리거하려면 Personal Access Token이 필요합니다.
+          토큰은 브라우저 localStorage에만 저장되며 외부로 전송되지 않습니다.
+        </p>
+        <div class="modal-field">
+          <label for="ghOwnerInput">Repository Owner</label>
+          <input id="ghOwnerInput" type="text" placeholder="e.g. pikker1981" autocomplete="off" />
+        </div>
+        <div class="modal-field">
+          <label for="ghRepoInput">Repository Name</label>
+          <input id="ghRepoInput" type="text" placeholder="e.g. GLOBAL-SEMICONDUCTOR-SIGNAL" autocomplete="off" />
+        </div>
+        <div class="modal-field">
+          <label for="ghTokenInput">Personal Access Token</label>
+          <input id="ghTokenInput" type="password" placeholder="ghp_..." autocomplete="off" />
+        </div>
+        <p class="modal-hint">
+          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">토큰 발급 →</a>
+          <code>workflow</code> 또는 <code>repo</code> 권한 필요
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="tokenModalSave" class="update-btn">저장 후 업데이트 시작</button>
+        <button type="button" id="tokenModalCancel" class="reload-btn">취소</button>
+      </div>
+    </div>
+  </div>
 
   <script src="./app.js"></script>
 </body>
