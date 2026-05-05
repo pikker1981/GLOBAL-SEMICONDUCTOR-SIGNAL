@@ -349,6 +349,71 @@ function renderActiveFilterText() {
   els.activeFilter.textContent = `FILTER: TYPE=${content} / REGION=${region} / SOURCE=${source}`;
 }
 
+function startTitleTyping(titleEl) {
+  if (!titleEl) return;
+
+  const fullTitle = titleEl.dataset.fullTitle || titleEl.textContent || "";
+
+  if (!fullTitle) return;
+
+  if (titleEl._typingTimer) {
+    clearInterval(titleEl._typingTimer);
+  }
+
+  const chars = Array.from(fullTitle);
+  let index = 0;
+
+  titleEl.textContent = "";
+  titleEl.classList.add("is-typing");
+
+  const speed = Math.max(8, Math.min(22, Math.floor(520 / Math.max(chars.length, 1))));
+
+  titleEl._typingTimer = setInterval(() => {
+    index += 1;
+    titleEl.textContent = chars.slice(0, index).join("");
+
+    if (index >= chars.length) {
+      clearInterval(titleEl._typingTimer);
+      titleEl._typingTimer = null;
+
+      setTimeout(() => {
+        titleEl.classList.remove("is-typing");
+      }, 350);
+    }
+  }, speed);
+}
+
+function stopTitleTyping(titleEl) {
+  if (!titleEl) return;
+
+  if (titleEl._typingTimer) {
+    clearInterval(titleEl._typingTimer);
+    titleEl._typingTimer = null;
+  }
+
+  titleEl.textContent = titleEl.dataset.fullTitle || titleEl.textContent || "";
+  titleEl.classList.remove("is-typing");
+}
+
+function bindCardTypingEffects() {
+  document.querySelectorAll(".feed-card").forEach((card) => {
+    const titleEl = card.querySelector(".typing-title");
+
+    if (!titleEl) return;
+
+    const originalTitle = titleEl.dataset.fullTitle || titleEl.textContent || "";
+    titleEl.dataset.fullTitle = originalTitle;
+
+    card.addEventListener("mouseenter", () => {
+      startTitleTyping(titleEl);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      stopTitleTyping(titleEl);
+    });
+  });
+}
+
 function renderFeed() {
   const count = state.filteredItems.length;
   const totalPages = getTotalPages();
@@ -375,7 +440,8 @@ function renderFeed() {
       const sourceType = getSourceType(item);
       const sourceClass = getSourceBadgeClass(sourceType);
 
-      const title = escapeHtml(item.title || "Untitled");
+      const rawTitle = item.title || "Untitled";
+      const title = escapeHtml(rawTitle);
       const desc = escapeHtml(
         item.abstract || item.snippet || "No snippet available."
       );
@@ -398,7 +464,13 @@ function renderFeed() {
 
           <div class="card-body">
             <h3 class="card-title">
-              <a href="${url}" target="_blank" rel="noopener">${title}</a>
+              <a
+                class="typing-title"
+                data-full-title="${title}"
+                href="${url}"
+                target="_blank"
+                rel="noopener"
+              >${title}</a>
             </h3>
 
             <p class="card-desc">${desc}</p>
@@ -427,6 +499,7 @@ function renderFeed() {
     })
     .join("");
 
+  bindCardTypingEffects();
   renderPagination();
 }
 
