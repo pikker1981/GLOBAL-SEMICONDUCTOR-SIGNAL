@@ -8,7 +8,7 @@ const state = {
   },
   query: "",
   currentPage: 1,
-  pageSize: 10
+  pageSize: 20
 };
 
 const els = {
@@ -593,17 +593,38 @@ async function triggerWorkflow(owner, repo, token) {
   }
 }
 
-async function pollForCompletion(owner, repo, token, triggeredAt) {
+async function getLatestRunId(owner, repo, token) {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json"
+        }
+      }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const runs = data.workflow_runs || [];
+    return runs.length > 0 ? runs[0].id : null;
+  } catch {
+    return null;
+  }
+}
+
+async function pollForCompletion(owner, repo, token, prevRunId) {
   const maxWaitMs = 5 * 60 * 1000;
   const pollIntervalMs = 10 * 1000;
   const deadline = Date.now() + maxWaitMs;
+  const startTime = Date.now();
 
-  await new Promise((resolve) => setTimeout(resolve, 4000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   while (Date.now() < deadline) {
     try {
       const res = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=5`,
+        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=3`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -614,18 +635,16 @@ async function pollForCompletion(owner, repo, token, triggeredAt) {
 
       if (res.ok) {
         const data = await res.json();
-        const recentRuns = (data.workflow_runs || []).filter(
-          (run) => new Date(run.created_at).getTime() >= triggeredAt - 8000
-        );
+        const runs = data.workflow_runs || [];
+        const newRun = runs.find((run) => run.id !== prevRunId);
 
-        if (recentRuns.length > 0) {
-          const latest = recentRuns[0];
-          const elapsed = Math.round((Date.now() - triggeredAt) / 1000);
+        if (newRun) {
+          const elapsed = Math.round((Date.now() - startTime) / 1000);
           setUpdateState("loading", `◉ 실행 중... (${elapsed}s)`);
 
-          if (latest.status === "completed") {
-            if (latest.conclusion === "success") return;
-            throw new Error(`워크플로우 종료: ${latest.conclusion}`);
+          if (newRun.status === "completed") {
+            if (newRun.conclusion === "success") return;
+            throw new Error(`워크플로우 종료: ${newRun.conclusion}`);
           }
         }
       }
@@ -647,12 +666,12 @@ async function startUpdate() {
   }
 
   setUpdateState("loading", "⟳ 트리거 중...");
-  const triggeredAt = Date.now();
 
   try {
+    const prevRunId = await getLatestRunId(config.owner, config.repo, config.token);
     await triggerWorkflow(config.owner, config.repo, config.token);
     setUpdateState("loading", "◉ 워크플로우 실행 중...");
-    await pollForCompletion(config.owner, config.repo, config.token, triggeredAt);
+    await pollForCompletion(config.owner, config.repo, config.token, prevRunId);
     setUpdateState("success", "✓ 완료 — 데이터 로드 중");
     await loadFeed();
     setUpdateState("success", "✓ 업데이트 완료");
