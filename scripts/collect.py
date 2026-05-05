@@ -19,6 +19,7 @@ import json
 import re
 import time
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -378,69 +379,89 @@ def get_entry_date(entry) -> str:
     return ""
 
 
+def _fetch_one_rss(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] RSS feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] RSS feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] RSS entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = irrelevant = 0
+    for entry in entries[:150]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, RSS_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        if not is_semiconductor_relevant(title, snippet, name):
+            irrelevant += 1
+            continue
+        result.append(FeedItem(stable_id("rss", link, title), "news", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="rss_snippet_only", source_type="RSS"))
+        kept += 1
+    print(f"[INFO] RSS kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
+    return result
+
+
 def fetch_rss_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-    for feed in RSS_FEEDS:
-        name, url = feed["name"], feed["url"]
-        print(f"[INFO] RSS feed: {name} / {url}")
-        try:
-            parsed = feedparser.parse(http_get_text(url))
-        except Exception as exc:
-            print(f"[WARN] RSS feed failed: {name} / {exc}")
-            continue
-        entries = parsed.entries or []
-        print(f"[INFO] RSS entries: {name} / {len(entries)}")
-        kept = old = irrelevant = 0
-        for entry in entries[:150]:
-            title = clean_text(entry.get("title"))
-            link = normalize_url(clean_text(entry.get("link")))
-            snippet = get_entry_summary(entry)
-            published_at = get_entry_date(entry)
-            if not title or not link:
-                continue
-            if not is_recent_enough(published_at, RSS_MAX_AGE_DAYS, allow_unknown=True):
-                old += 1
-                continue
-            if not is_semiconductor_relevant(title, snippet, name):
-                irrelevant += 1
-                continue
-            items.append(FeedItem(stable_id("rss", link, title), "news", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="rss_snippet_only", source_type="RSS"))
-            kept += 1
-        print(f"[INFO] RSS kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
-        time.sleep(2)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(_fetch_one_rss, feed): feed for feed in RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] RSS worker error: {exc}")
     return dedupe(items)[:MAX_RSS_NEWS]
+
+
+def _fetch_one_k_invest(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] K-INVEST feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] K-INVEST feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] K-INVEST entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = irrelevant = 0
+    for entry in entries[:150]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, K_INVEST_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        if not is_k_invest_relevant(title, snippet):
+            irrelevant += 1
+            continue
+        result.append(FeedItem(stable_id("k-invest", link, title), "news", feed.get("region", "Asia"), feed.get("country", "South Korea"), name, published_at, title, link, snippet=snippet, content_mode="k_invest_rss_snippet_only", source_type="K-INVEST", insight_type="korean_stock"))
+        kept += 1
+    print(f"[INFO] K-INVEST kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
+    return result
 
 
 def fetch_k_invest_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-    for feed in K_INVEST_RSS_FEEDS:
-        name, url = feed["name"], feed["url"]
-        print(f"[INFO] K-INVEST feed: {name} / {url}")
-        try:
-            parsed = feedparser.parse(http_get_text(url))
-        except Exception as exc:
-            print(f"[WARN] K-INVEST feed failed: {name} / {exc}")
-            continue
-        entries = parsed.entries or []
-        print(f"[INFO] K-INVEST entries: {name} / {len(entries)}")
-        kept = old = irrelevant = 0
-        for entry in entries[:150]:
-            title = clean_text(entry.get("title"))
-            link = normalize_url(clean_text(entry.get("link")))
-            snippet = get_entry_summary(entry)
-            published_at = get_entry_date(entry)
-            if not title or not link:
-                continue
-            if not is_recent_enough(published_at, K_INVEST_MAX_AGE_DAYS, allow_unknown=True):
-                old += 1
-                continue
-            if not is_k_invest_relevant(title, snippet):
-                irrelevant += 1
-                continue
-            items.append(FeedItem(stable_id("k-invest", link, title), "news", feed.get("region", "Asia"), feed.get("country", "South Korea"), name, published_at, title, link, snippet=snippet, content_mode="k_invest_rss_snippet_only", source_type="K-INVEST", insight_type="korean_stock"))
-            kept += 1
-        print(f"[INFO] K-INVEST kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
-        time.sleep(2)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(_fetch_one_k_invest, feed): feed for feed in K_INVEST_RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] K-INVEST worker error: {exc}")    
     return dedupe(items)[:MAX_K_INVEST_NEWS]
 
 
