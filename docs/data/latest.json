@@ -1,1 +1,50 @@
-
+{
+  "meta": {
+    "generated_at": "2026-05-05T00:00:00+09:00",
+    "source_note": "Sample data. GitHub Actions will update this file by running scripts/collect.py.",
+    "policy": "Original links only. No full news republication."
+  },
+  "items": [
+    {
+      "id": "sample-news-tsmc-advanced-packaging",
+      "type": "news",
+      "region": "Asia",
+      "country": "Taiwan",
+      "source": "Sample Source",
+      "published_at": "2026-05-05T09:00:00+09:00",
+      "title": "TSMC expands advanced packaging capacity amid AI chip demand",
+      "snippet": "Sample item for layout testing. The production collector will replace this with GDELT article metadata and original links.",
+      "url": "https://www.tsmc.com/",
+      "content_mode": "snippet_only"
+    },
+    {
+      "id": "sample-news-asml-euv",
+      "type": "news",
+      "region": "Europe",
+      "country": "Netherlands",
+      "source": "Sample Source",
+      "published_at": "2026-05-04T18:30:00+09:00",
+      "title": "ASML reports continued demand for EUV lithography systems",
+      "snippet": "Sample item for Europe-region card display. News cards should remain title, snippet, source, date, and link only.",
+      "url": "https://www.asml.com/",
+      "content_mode": "snippet_only"
+    },
+    {
+      "id": "sample-paper-device-architecture",
+      "type": "paper",
+      "region": "Global",
+      "country": "",
+      "source": "arXiv",
+      "published_at": "2026-05-03T00:00:00+00:00",
+      "title": "A Novel Semiconductor Device Architecture for Low-Power AI Accelerators",
+      "abstract": "Sample paper abstract for layout testing. The collector will replace this with arXiv metadata, authors, abstract, paper URL, and PDF URL.",
+      "authors": [
+        "A. Researcher",
+        "B. Engineer"
+      ],
+      "url": "https://arxiv.org/",
+      "pdf_url": "https://arxiv.org/",
+      "content_mode": "open_abstract"
+    }
+  ]
+}
