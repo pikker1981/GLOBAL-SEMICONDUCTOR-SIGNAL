@@ -37,10 +37,12 @@ MAX_GDELT_NEWS = 250
 MAX_RSS_NEWS = 400
 MAX_K_INVEST_NEWS = 250
 MAX_PAPERS = 100
+MAX_WORLD_NEWS = 400
 
 RSS_MAX_AGE_DAYS = 30
 K_INVEST_MAX_AGE_DAYS = 14
 PAPER_MAX_AGE_DAYS = 180
+WORLD_MAX_AGE_DAYS = 7
 REQUEST_TIMEOUT = 25
 
 USER_AGENT = "semiconductor-global-signal/1.4 original-link-only"
@@ -111,6 +113,34 @@ K_INVEST_RSS_FEEDS = [
     {"name": "Asia Economy", "url": "https://view.asiae.co.kr/rss/all.htm", "region": "Asia", "country": "South Korea"},
     {"name": "Newspim Market", "url": "https://www.newspim.com/rss/market.xml", "region": "Asia", "country": "South Korea"},
     {"name": "Chosun Biz Economy", "url": "https://biz.chosun.com/rss/economy.xml", "region": "Asia", "country": "South Korea"},
+]
+
+WORLD_NEWS_RSS_FEEDS = [
+    {"name": "BBC World", "url": "https://feeds.bbci.co.uk/news/world/rss.xml", "region": "Global", "country": ""},
+    {"name": "BBC Business", "url": "https://feeds.bbci.co.uk/news/business/rss.xml", "region": "Global", "country": ""},
+    {"name": "BBC Technology", "url": "https://feeds.bbci.co.uk/news/technology/rss.xml", "region": "Global", "country": ""},
+    {"name": "Al Jazeera", "url": "https://www.aljazeera.com/xml/rss/all.xml", "region": "Global", "country": ""},
+    {"name": "Deutsche Welle", "url": "https://rss.dw.com/xml/rw_en", "region": "Europe", "country": "Germany"},
+    {"name": "France24", "url": "https://www.france24.com/en/rss", "region": "Europe", "country": "France"},
+    {"name": "NHK World", "url": "https://www3.nhk.or.jp/rss/news/cat0.xml", "region": "Asia", "country": "Japan"},
+    {"name": "CNN World", "url": "https://rss.cnn.com/rss/edition_world.rss", "region": "Americas", "country": "United States"},
+    {"name": "CNN Business", "url": "https://rss.cnn.com/rss/money_news_international.rss", "region": "Americas", "country": "United States"},
+    {"name": "The Guardian World", "url": "https://www.theguardian.com/world/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "The Guardian Technology", "url": "https://www.theguardian.com/technology/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "The Guardian Business", "url": "https://www.theguardian.com/business/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "Reuters Business", "url": "https://feeds.reuters.com/reuters/businessNews", "region": "Global", "country": ""},
+    {"name": "Reuters Technology", "url": "https://feeds.reuters.com/reuters/technologyNews", "region": "Global", "country": ""},
+    {"name": "South China Morning Post", "url": "https://www.scmp.com/rss/91/feed", "region": "Asia", "country": "China"},
+    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar", "region": "Asia", "country": "Japan"},
+    {"name": "Yonhap News", "url": "https://www.yna.co.kr/RSS/headline.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "KBS World", "url": "https://world.kbs.co.kr/rss/rss_news.htm", "region": "Asia", "country": "South Korea"},
+    {"name": "YTN", "url": "https://www.ytn.co.kr/rss/rss.php", "region": "Asia", "country": "South Korea"},
+    {"name": "Newsis", "url": "https://www.newsis.com/RSS/news_rss.rss", "region": "Asia", "country": "South Korea"},
+    {"name": "Chosun World", "url": "https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml", "region": "Asia", "country": "South Korea"},
+    {"name": "JoongAng Daily", "url": "https://koreajoongangdaily.joins.com/rss/feeds/news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Korea Herald", "url": "https://www.koreaherald.com/rss/news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Hankyoreh", "url": "https://www.hani.co.kr/rss/", "region": "Asia", "country": "South Korea"},
+    {"name": "Kyunghyang Shinmun", "url": "https://www.khan.co.kr/rss/rssdata/kh_news.xml", "region": "Asia", "country": "South Korea"},
 ]
 
 SPECIALIST_RSS_SOURCES = {
@@ -465,6 +495,46 @@ def fetch_k_invest_news() -> list[FeedItem]:
     return dedupe(items)[:MAX_K_INVEST_NEWS]
 
 
+def _fetch_one_world(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] WORLD feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] WORLD feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] WORLD entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = 0
+    for entry in entries[:100]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, WORLD_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        result.append(FeedItem(stable_id("world", link, title), "world", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="world_rss_snippet_only", source_type="WORLD-NEWS"))
+        kept += 1
+    print(f"[INFO] WORLD kept: {name} / {kept} (old={old})")
+    return result
+
+
+def fetch_world_news() -> list[FeedItem]:
+    items: list[FeedItem] = []
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        futures = {pool.submit(_fetch_one_world, feed): feed for feed in WORLD_NEWS_RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] WORLD worker error: {exc}")
+    return dedupe(items)[:MAX_WORLD_NEWS]
+
+
 def fetch_arxiv_papers() -> list[FeedItem]:
     params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "lastUpdatedDate", "sortOrder": "descending"}
     try:
@@ -516,10 +586,11 @@ def main() -> None:
     gdelt_news = fetch_gdelt_news()
     rss_news = fetch_rss_news()
     k_invest_news = fetch_k_invest_news()
+    world_news = fetch_world_news()
     papers = fetch_arxiv_papers()
 
     news = dedupe([*k_invest_news, *rss_news, *gdelt_news])
-    items = sort_items(dedupe([*news, *papers]))
+    items = sort_items(dedupe([*news, *world_news, *papers]))
 
     payload = {
         "meta": {
@@ -527,16 +598,19 @@ def main() -> None:
             "gdelt_news_count": len(gdelt_news),
             "rss_news_count": len(rss_news),
             "k_invest_news_count": len(k_invest_news),
+            "world_news_count": len(world_news),
             "news_count": len(news),
             "paper_count": len(papers),
             "total_count": len(items),
             "rss_max_age_days": RSS_MAX_AGE_DAYS,
             "k_invest_max_age_days": K_INVEST_MAX_AGE_DAYS,
+            "world_max_age_days": WORLD_MAX_AGE_DAYS,
             "paper_max_age_days": PAPER_MAX_AGE_DAYS,
             "policy": "Original links only. No full news republication. Not investment advice.",
-            "sources": ["GDELT", "RSS", "K-INVEST", "arXiv"],
+            "sources": ["GDELT", "RSS", "K-INVEST", "WORLD-NEWS", "arXiv"],
             "rss_feeds": [feed["name"] for feed in RSS_FEEDS],
             "k_invest_feeds": [feed["name"] for feed in K_INVEST_RSS_FEEDS],
+            "world_feeds": [feed["name"] for feed in WORLD_NEWS_RSS_FEEDS],
         },
         "items": [asdict(item) for item in items],
     }
@@ -551,6 +625,7 @@ def main() -> None:
         f"GDELT: {len(gdelt_news)} / "
         f"RSS: {len(rss_news)} / "
         f"K-INVEST: {len(k_invest_news)} / "
+        f"World: {len(world_news)} / "
         f"Papers: {len(papers)}"
     )
 
