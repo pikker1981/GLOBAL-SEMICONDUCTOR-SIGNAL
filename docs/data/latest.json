@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-05T14:25:01+09:00",
+    "generated_at": "2026-05-05T15:34:10+09:00",
     "gdelt_news_count": 80,
     "rss_news_count": 120,
     "news_count": 200,
@@ -31,6 +31,36 @@
     ]
   },
   "items": [
+    {
+      "id": "1530bff5d7f21f64155f18c4",
+      "type": "news",
+      "region": "Americas",
+      "country": "United States",
+      "source": "finance.yahoo.com",
+      "published_at": "2026-05-05T06:00:00+00:00",
+      "title": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/intel-corporation-intc-good-stock-180933645.html",
+      "snippet": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only"
+    },
+    {
+      "id": "315d2da58e94fa85440cbd45",
+      "type": "news",
+      "region": "Asia",
+      "country": "Taiwan",
+      "source": "cna.com.tw",
+      "published_at": "2026-05-05T05:45:00+00:00",
+      "title": "彭博 ： 蘋果與英特爾 、 三星洽談在美生產晶片 | 國際",
+      "url": "https://www.cna.com.tw:443/news/aopl/202605050137.aspx",
+      "snippet": "彭博 ： 蘋果與英特爾 、 三星洽談在美生產晶片 | 國際",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only"
+    },
     {
       "id": "8ea0b29776f4688451f4fb2d",
       "type": "news",
@@ -1199,21 +1229,6 @@
       "content_mode": "snippet_only"
     },
     {
-      "id": "b85172b472882d61fabea7d1",
-      "type": "news",
-      "region": "Americas",
-      "country": "United States",
-      "source": "insidermonkey.com",
-      "published_at": "2026-05-03T18:45:00+00:00",
-      "title": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
-      "url": "https://www.insidermonkey.com/blog/is-intel-corporation-intc-a-good-stock-to-buy-now-2-1745658",
-      "snippet": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
       "id": "1d277bd325ab53af4686f118",
       "type": "news",
       "region": "Americas",
@@ -1229,15 +1244,15 @@
       "content_mode": "snippet_only"
     },
     {
-      "id": "137c899e4290956e60880160",
+      "id": "b85172b472882d61fabea7d1",
       "type": "news",
-      "region": "Asia",
-      "country": "China",
-      "source": "163.com",
-      "published_at": "2026-05-03T16:45:00+00:00",
-      "title": "台积电先进封装大将余振华加盟联发科 助力先进封装研发突破",
-      "url": "https://www.163.com/dy/article/KS1U48B90511CPVM.html",
-      "snippet": "台积电先进封装大将余振华加盟联发科 助力先进封装研发突破",
+      "region": "Americas",
+      "country": "United States",
+      "source": "insidermonkey.com",
+      "published_at": "2026-05-03T18:45:00+00:00",
+      "title": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
+      "url": "https://www.insidermonkey.com/blog/is-intel-corporation-intc-a-good-stock-to-buy-now-2-1745658",
+      "snippet": "Is Intel Corporation ( INTC ) A Good Stock To Buy Now ?",
       "abstract": "",
       "authors": null,
       "pdf_url": "",
@@ -1552,21 +1567,6 @@
       "title": "NVIDIA vs Intel Stock Battle 2026 : AI Leader or Turnaround Star – Which to Buy Now ?",
       "url": "https://www.ibtimes.com/nvidia-vs-intel-stock-battle-2026-ai-leader-turnaround-star-which-buy-now-3802284",
       "snippet": "NVIDIA vs Intel Stock Battle 2026 : AI Leader or Turnaround Star – Which to Buy Now ?",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
-      "id": "c858b55fd8bfaf2d549567ed",
-      "type": "news",
-      "region": "Asia",
-      "country": "Taiwan",
-      "source": "technews.tw",
-      "published_at": "2026-05-03T08:00:00+00:00",
-      "title": "聯發科 ： 余振華擔任非全職顧問 ， 未來將持續投資台積電先進封裝",
-      "url": "https://technews.tw/2026/05/02/mediatek-yu-zhenhua-serves-as-a-part-time-advisor-and-will-continue-to-invest-in-tsmcs-advanced-packaging",
-      "snippet": "聯發科 ： 余振華擔任非全職顧問 ， 未來將持續投資台積電先進封裝",
       "abstract": "",
       "authors": null,
       "pdf_url": "",
