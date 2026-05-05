@@ -770,7 +770,7 @@ main,
 }
 
 .search-box {
-  width: min(100%, 680px);
+  width: min(100%, 980px);
   justify-self: center;
 }
 
@@ -798,7 +798,7 @@ main,
 }
 
 .feed-meta {
-  width: min(100%, 1080px);
+  width: min(100%, 1160px);
   margin: 18px auto;
 }
 
