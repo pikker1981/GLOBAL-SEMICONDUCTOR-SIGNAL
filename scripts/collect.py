@@ -215,7 +215,15 @@ SPECIALIST_RSS_SOURCES = {
     "Semiconductor Today",
     "SemiWiki",
     "EE Times Semiconductors",
-    "EE Times Asia"
+    "EE Times Asia",
+
+    # Korea
+    "The Elec Semiconductor",
+    "The Elec Materials Equipment",
+    "ETNews Electronics",
+    "ETNews Materials",
+    "ETNews Components",
+    "ETNews Equipment"
 }
 
 COMPANY_SIGNAL_SOURCES = {
@@ -293,6 +301,42 @@ SEMICONDUCTOR_KEYWORDS = [
     "낸드",
     "半導体",
     "半导体"
+    "반도체",
+    "파운드리",
+    "메모리",
+    "디램",
+    "DRAM",
+    "낸드",
+    "NAND",
+    "HBM",
+    "EUV",
+    "노광",
+    "식각",
+    "증착",
+    "패키징",
+    "첨단 패키징",
+    "후공정",
+    "전공정",
+    "소부장",
+    "소재",
+    "부품",
+    "장비",
+    "웨이퍼",
+    "팹리스",
+    "팹",
+    "시스템반도체",
+    "차량용 반도체",
+    "AI 반도체",
+    "온디바이스 AI",
+    "삼성전자",
+    "SK하이닉스",
+    "하이닉스",
+    "한미반도체",
+    "원익IPS",
+    "유진테크",
+    "테스",
+    "솔브레인",
+    "동진쎄미켐",
 ]
 
 COUNTRY_REGION = {
