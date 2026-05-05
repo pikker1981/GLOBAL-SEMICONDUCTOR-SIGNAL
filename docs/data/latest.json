@@ -1,17 +1,20 @@
 {
   "meta": {
-    "generated_at": "2026-05-05T15:34:10+09:00",
+    "generated_at": "2026-05-05T16:07:41+09:00",
     "gdelt_news_count": 80,
     "rss_news_count": 120,
-    "news_count": 200,
+    "k_invest_news_count": 80,
+    "news_count": 280,
     "paper_count": 40,
-    "total_count": 240,
+    "total_count": 320,
     "rss_max_age_days": 30,
+    "k_invest_max_age_days": 14,
     "paper_max_age_days": 180,
-    "policy": "Original links only. No full news republication.",
+    "policy": "Original links only. No full news republication. Not investment advice.",
     "sources": [
       "GDELT",
       "RSS",
+      "K-INVEST",
       "arXiv"
     ],
     "rss_feeds": [
@@ -27,10 +30,98 @@
       "EE Times Semiconductors",
       "EE Times Asia",
       "The Register HPC",
-      "The Register AI ML"
+      "The Register AI ML",
+      "The Elec Semiconductor",
+      "The Elec Materials Equipment",
+      "ETNews Electronics",
+      "ETNews Materials",
+      "ETNews Components",
+      "ETNews Equipment",
+      "KIPOST All Articles"
+    ],
+    "k_invest_feeds": [
+      "Hankyung Finance",
+      "Hankyung Economy",
+      "Maeil Business Securities",
+      "Maeil Business Economy",
+      "Maeil Business Corporate",
+      "Yonhap Infomax Securities",
+      "Yonhap Infomax IB Company",
+      "EToday Market",
+      "EToday Finance",
+      "EToday Economy",
+      "EToday Industry"
     ]
   },
   "items": [
+    {
+      "id": "58c799341c863ef474c3ab2a",
+      "type": "news",
+      "region": "Asia",
+      "country": "China",
+      "source": "finance.eastmoney.com",
+      "published_at": "2026-05-05T06:30:00+00:00",
+      "title": "芯荒 制约iphone销量 ？ 苹果据称考虑让英特尔 、 三星代工设备处理器 _ 东方财富网",
+      "url": "https://finance.eastmoney.com/a/202605053727850292.html",
+      "snippet": "芯荒 制约iphone销量 ？ 苹果据称考虑让英特尔 、 三星代工设备处理器 _ 东方财富网",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "b8ee026d5f8d02e611e1a2b1",
+      "type": "news",
+      "region": "Asia",
+      "country": "India",
+      "source": "indianexpress.com",
+      "published_at": "2026-05-05T06:30:00+00:00",
+      "title": "Apple holds talks with Intel , Samsung for US chipmaking : Reports",
+      "url": "https://indianexpress.com/article/technology/tech-news-technology/apple-holds-talks-with-intel-samsung-for-us-chipmaking-reports-10673466",
+      "snippet": "Apple holds talks with Intel , Samsung for US chipmaking : Reports",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "83ef500a270f67f7a7c1c649",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "edaily.co.kr",
+      "published_at": "2026-05-05T06:15:00+00:00",
+      "title": "삼성전자 , 美서 파운드리 세이프 포럼 … 2나노 새 전략 나올까",
+      "url": "https://www.edaily.co.kr/News/Read?newsId=02830646645445968&mediaCodeNo=257",
+      "snippet": "삼성전자 , 美서 파운드리 세이프 포럼 … 2나노 새 전략 나올까",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "83bd45119b10332218ef5521",
+      "type": "news",
+      "region": "Asia",
+      "country": "China",
+      "source": "163.com",
+      "published_at": "2026-05-05T06:15:00+00:00",
+      "title": "芯荒 制约iphone销量 ？ 苹果据称考虑让英特尔 、 三星代工设备处理器|台积电|三星电子|苹果公司|笔记本电脑",
+      "url": "https://www.163.com/dy/article/KS5UF1N505198CJN.html",
+      "snippet": "芯荒 制约iphone销量 ？ 苹果据称考虑让英特尔 、 三星代工设备处理器|台积电|三星电子|苹果公司|笔记本电脑",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
     {
       "id": "1530bff5d7f21f64155f18c4",
       "type": "news",
@@ -44,7 +135,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "315d2da58e94fa85440cbd45",
@@ -59,7 +152,77 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "209fd58c83b291ed66ab0f2e",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T05:29:59+00:00",
+      "title": "핀터레스트, 1분기 실적 호조에 시간외 15%대 폭등",
+      "url": "https://www.hankyung.com/article/202605056517i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "735b83d290150879563b3d0f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-05T05:17:30+00:00",
+      "title": "코스피 최고치 행진에도…금융위 직원 10명 중 1명꼴 국장 투자 [금융당국 백브리핑]",
+      "url": "https://www.hankyung.com/article/202604244163i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "b4c8a343491da0612b626aac",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T05:06:54+00:00",
+      "title": "[LX세미콘 분석] 실적 충격 낸 팹리스 기업…신사업 매출 확대 시점이 전환점",
+      "url": "https://www.hankyung.com/article/202605056515i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "d80f3f3012bb5a56ab3c0cf2",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-05T05:06:25+00:00",
+      "title": "환율 오르고, 제품 질 '기대 이하'…中 직구 성장세 '주춤'",
+      "url": "https://www.hankyung.com/article/2026050565037",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "8ea0b29776f4688451f4fb2d",
@@ -74,7 +237,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "c135edb2c1175b2a9ee252ca",
@@ -89,7 +254,43 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "580ee86c4c64e459ffab39fc",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T04:53:59+00:00",
+      "title": "[동양생명 분석] 8월 우리금융 편입·주식교환 이후 시너지 가능성에 '주목'",
+      "url": "https://www.hankyung.com/article/202605056498i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "cc30f6b289d1b162aef0858d",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T04:30:37+00:00",
+      "title": "[케이뱅크 분석] 지지부진한 주가 흐름…디지털자산 경쟁력 확보 '관건'",
+      "url": "https://www.hankyung.com/article/202605056472i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "113b42c65d1238df68f00d0c",
@@ -104,7 +305,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "5af352fcec99dfdbee47e0ce",
@@ -119,7 +322,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "92e1865928ef5633bc07ef9d",
@@ -134,7 +339,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "14289159ab55c0debc175ce5",
@@ -149,7 +356,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "598ed64a92a91f0e2ca19439",
@@ -164,7 +373,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "26622f2c09e5f27d485d1af5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-05T03:48:01+00:00",
+      "title": "“중동전 장기화시 韓성장률 0.9%p 뚝”…반도체 산업이 충격 막아준다",
+      "url": "https://www.mk.co.kr/news/economy/12035918",
+      "snippet": "앨버트 박 ADB수석이코노미스트 중동전쟁, 한국 성장률 하락 압력 원유 의존도 높은 한국 타격 클 것 연간 성장률 1.9%보다는 하향 전망 반도체 수출 호조가 한국 경제 버팀목 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "8520a31eeddc7f9e5eed4bb1",
@@ -179,7 +407,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "e376138f474b43aee2c7ba36",
@@ -194,7 +424,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "482d780f4d4104bd0572f728",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T03:19:20+00:00",
+      "title": "전쟁 두 달째, 유가 폭등 미 증시는 왜 계속 오를까 [김현석의 퀵브리프]",
+      "url": "https://www.hankyung.com/article/202605045803i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "abe03da29d3a546e49691f55",
@@ -209,7 +458,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "9805efa43572a8930be0f936",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T03:12:06+00:00",
+      "title": "돈 벌려면 미장으로?…미국 주식 왜 사야 하나",
+      "url": "https://www.hankyung.com/article/202605056397i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "bcff52905aa7d70392477677",
@@ -224,7 +492,94 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "4fb3af3f387bcc895899657e",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-05T02:32:30+00:00",
+      "title": "“어린이날 선물은 주식이 최고”…자녀에게 가장 많이 선물한 종목은?",
+      "url": "https://www.mk.co.kr/news/stock/12035904",
+      "snippet": "지난달 부모가 미성년 자녀에게 가장 많이 선물한 국내 주식은 삼성전자로 집계됐다. 5일 연합뉴스에 따르면 KB증권이 자사 고객이 ‘주식 선물하기’ 서비스를 통해 만 18세 이하 미..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "88dad4978534d020030f2bef",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T01:36:29+00:00",
+      "title": "꿈의 칠천피 시대…10대 증권사 고수들이 꼽은 9개 종목",
+      "url": "https://www.hankyung.com/article/202605044321i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "3c0773f0511bcdd991d8ee16",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T01:25:42+00:00",
+      "title": "박현주 회장 \"스페이스X로 2조 벌 것…조만간 美 증권사 인수\"",
+      "url": "https://www.hankyung.com/article/202604279944i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "54d50a28bed6ef9e752f9723",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T01:02:39+00:00",
+      "title": "[iM금융지주 분석] '비은행 확대' 긍정적…자본비율 관리가 주가 결정",
+      "url": "https://www.hankyung.com/article/202605056193i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "abbc87baea2d215f40137af5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-05T01:01:25+00:00",
+      "title": "K전력기기 수출 훈풍에 'AI 전력 인프라' 고공행진",
+      "url": "https://www.hankyung.com/article/202605032647i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "d700efc3d1e4ae9e22386537",
@@ -239,7 +594,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "a4067c2aff172fabcddec782",
@@ -254,7 +611,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "e6578f5f39e0de26da3af5a3",
@@ -269,7 +628,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "ee346f454078fb75923cd350",
@@ -284,7 +645,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "eef6bdca46969dcee683e33a",
@@ -299,7 +662,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "67cb05c56c84fd62aa016044",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T22:00:01+00:00",
+      "title": "확 커진 인터넷은행 예대금리차…시중은행의 18배",
+      "url": "https://www.hankyung.com/article/2026050454701",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "8304b2ec10bbf4b43f7f050a",
@@ -314,7 +696,43 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
+    },
+    {
+      "id": "1b1e10fb4e005ae8b6c79a73",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T20:49:32+00:00",
+      "title": "한국 성장률 전망 ‘쑥’…경기과열 조짐에 고개드는 금리 인상론",
+      "url": "https://www.mk.co.kr/news/economy/12035772",
+      "snippet": "주요 IB, 성장률 상향조정 JP모건 2.2%→3.0%으로 반도체 호황, 내수로도 확산 뜨거운 경기 흐름 이어지자 한은 부총재 “물가 압력 커 기준금리 인상 고민해할 때”한국 경..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "26bfddeef1ab7ab923f67381",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T20:47:49+00:00",
+      "title": "“아들, 10년 후엔 나한테 절 할거야”…어린이날 선물로 각광받는 ETF는",
+      "url": "https://www.mk.co.kr/news/stock/12035770",
+      "snippet": "8대 운용사 본부장 추천상품 AI와 반도체로 수익 높이고 채권 함께 담아 변동성 낮춰 장기투자 따른 복리 효과로 보수 수준도 자산규모 좌우 코스피200·S&P 500 추종 대표지..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "5b3246601d2a440c896f1dcb",
@@ -329,7 +747,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "dd81608c5401fd3e391fdebe",
@@ -344,7 +764,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "ebbb36123f56f9c2dfbdab46",
@@ -359,7 +781,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "436bc01ef5bacf4661c5064f",
@@ -374,7 +798,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "fa74d9a65e3007b07275ed90",
@@ -389,7 +815,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "dbb927e7bb1442bca0c936a1",
@@ -404,7 +832,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "81c242b22d36975a2c26f628",
@@ -419,22 +849,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
-      "id": "246e2bafa6929e3e14b21d43",
-      "type": "news",
-      "region": "Americas",
-      "country": "United States",
-      "source": "tickerreport.com",
-      "published_at": "2026-05-04T19:30:00+00:00",
-      "title": "Best Technology Stocks To Follow Now – May 4th",
-      "url": "https://www.tickerreport.com/banking-finance/13428661/best-technology-stocks-to-follow-now-may-4th.html",
-      "snippet": "Best Technology Stocks To Follow Now – May 4th",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "e7e98a56ce8c813368b214f1",
@@ -449,7 +866,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "1ba5730739d5aac719bc4e08",
@@ -464,7 +883,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "c0a11687effacbe9daef3882",
@@ -479,7 +900,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "41d29ded9b4d2163327d3c91",
@@ -494,7 +917,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "ef16bc02b311603ee54e0df2",
@@ -509,7 +934,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "615637cd343dd436962423e2",
@@ -524,7 +951,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "cfadd204a04acbaa850b6ef3",
@@ -539,7 +968,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "686f84bbd73daba1b689c61b",
@@ -554,7 +985,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "eb4e36ead8c67c9cc9939efc",
@@ -569,7 +1002,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "b4d7dfa1a79ecd680204326c",
@@ -584,7 +1019,43 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "0f7bf9fdc1fc1f88ec673baf",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T15:23:15+00:00",
+      "title": "버핏 \"증시 도박장 됐다\"…골드만 \"단기조정 시간 문제\" [빈난새의 개장전요것만]",
+      "url": "https://www.hankyung.com/article/202605045813i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "86d42a28553bb702ad200ef3",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T15:21:55+00:00",
+      "title": "지난 주 전세계 주식형 펀드로 6주 연속 자금 유입",
+      "url": "https://www.hankyung.com/article/202605045720i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "eb7d5ef1ad498aca506a50b6",
@@ -604,7 +1075,9 @@
         "François Sarrazin"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02702v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "953289cd4caacd40e7f691ee",
@@ -619,7 +1092,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "6b9c4876788c85ab5c13b7ed",
@@ -634,7 +1109,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "289bc17ece24fa5b48f3f155",
@@ -649,7 +1126,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "2944cd1e7e29bca9a59426c1",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T14:38:58+00:00",
+      "title": "뉴욕증시, 호르무즈 위기감에 하락 출발후 상승 시도",
+      "url": "https://www.hankyung.com/article/202605045811i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "f76813071d637ecab7db6228",
@@ -671,7 +1167,9 @@
         "Samaresh Das"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02646v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "c4a91f7209116f3ef268fddb",
@@ -686,7 +1184,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "c0240703633c942bfbe7232b",
@@ -701,7 +1201,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "50f027915faebb0354108e14",
@@ -716,7 +1218,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "cda702c83e52c07c1fd3d6b9",
@@ -731,7 +1235,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "975611b99834330b907641c9",
@@ -746,7 +1252,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "0dd717876c779c0a1fbec282",
@@ -764,7 +1272,9 @@
         "Kristian Sommer Thygesen"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02576v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "978748c80a67b64bed857bf0",
@@ -779,7 +1289,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "b5aee68a0fc4a8e298c5f70b",
@@ -800,7 +1312,9 @@
         "Carsten Ronning"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02535v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "daa06dc7fe256cd3372ddd16",
@@ -815,7 +1329,43 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "d0f1745197dc2dfdf464f7ab",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T11:00:07+00:00",
+      "title": "\"맥주가 러닝복을 판다\"…카스 라이트, 무신사와 협업 왜?",
+      "url": "https://www.hankyung.com/article/202605043842i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "57cc306ccce1d421734b87f4",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T10:50:56+00:00",
+      "title": "“지난달 5.2억달러 팔아 치워”…10개월 만에 순매도로 돌아선 ‘서학개미’",
+      "url": "https://www.mk.co.kr/news/stock/12035444",
+      "snippet": "지난달 국내 개인 투자자들의 해외 주식 투자가 10개월 만에 순매도로 전환된 것으로 나타났다. 4일 국제금융센터가 공개한 보고서에 따르면 국내 개인 투자자들은 지난 4월 한 달 동..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "555776ec2f4a073ff14f1ea0",
@@ -830,7 +1380,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
+    },
+    {
+      "id": "94bf03a82d984191ef9b8c47",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T10:06:19+00:00",
+      "title": "SK하이닉스와 삼성전자, TSMC가 끌어 올린 아시아 증시",
+      "url": "https://www.hankyung.com/article/202605045547i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "a3372fff145fa9a7b1fe9a8e",
@@ -845,7 +1414,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "ae2e52d67e30384a92cfcdc9",
@@ -860,7 +1431,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "0b8498b6312b90a325f97dd2",
@@ -885,7 +1458,9 @@
         "Dario Ballarini"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02397v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "e0190033f62df8da7ad4aa95",
@@ -903,7 +1478,9 @@
         "Leonardo Viti"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02383v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "d90014353ce138d35680cdac",
@@ -920,7 +1497,26 @@
         "Manish Kumar Mohanta"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02368v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
+    },
+    {
+      "id": "0f5e9acb4efafab50130ad07",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T09:02:13+00:00",
+      "title": "[단독] 7천피까지 단 1%…국민연금 올 수익 200조",
+      "url": "https://www.mk.co.kr/news/stock/12035378",
+      "snippet": "코스피가 5월 들어 첫 거래일인 4일 하루 새 5% 넘게 급등하며 6900선을 돌파했다. 이제 1%만 오르면 전대미문의 '7000피' 시대가 열린다. 이날 한국거래소에 따르면 코스..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "bc5e50643b9440f87dd6b517",
@@ -945,7 +1541,9 @@
         "Caspar Hopfmann"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02360v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "56a6ec0ad2f9c02142bd9d82",
@@ -968,7 +1566,162 @@
         "Yatao Bian"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02351v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
+    },
+    {
+      "id": "36045cd82a5c3a77b5d7e4c8",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:52:59+00:00",
+      "title": "삼천당·에이비엘 쇼크…바이오액티브ETF 털썩",
+      "url": "https://www.hankyung.com/article/2026050454431",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "2cec862e45a63be4646a588f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T08:52:50+00:00",
+      "title": "[단독] 주목받는 국민연금 5월 기금위 … \"이젠 차익실현을\" vs \"증시 충격 감안해야\"",
+      "url": "https://www.mk.co.kr/news/stock/12035363",
+      "snippet": "증시 불장 덕분에 올해 200조원 넘게 벌어들인 국민연금이 언제 국내 주식 수익 실현에 나설지 시장의 이목이 쏠리고 있다. 국민연금의 결정이 자칫 증시에 영향을 줄 수 있다는 우려..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "732b36bb32fc543776439612",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T08:52:49+00:00",
+      "title": "외국인, 하이닉스 ADR상장 앞두고 쓸어담아 … '1000조닉스' 등극",
+      "url": "https://www.mk.co.kr/news/stock/12035362",
+      "snippet": "2023년 영업적자 7조7303억원에, 주가가 7만원대에 머물던 SK하이닉스는 불과 3년 만에 연간 영업이익 250조원(증권가 컨센서스), 주가 140만원대의 전혀 다른 기업으로 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "a3d9d2910c2c17a1a526451d",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T08:51:41+00:00",
+      "title": "[코스닥 공시] AP위성",
+      "url": "https://www.mk.co.kr/news/stock/12035345",
+      "snippet": "◇AP위성=63억원 규모 위성통신 단말기 공급 계약.",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "ace92720a802b39018d8f693",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T08:51:40+00:00",
+      "title": "해외개미도 韓주식 바로 산다",
+      "url": "https://www.mk.co.kr/news/stock/12035342",
+      "snippet": "미국의 온라인 증권사 인터랙티브브로커스(IBKR)를 필두로 해외 증권사들이 한국 주식 직접투자 서비스를 내놓을 전망이다. 외국인 수급은 그간 기관투자자가 주도해왔는데 앞으로는 해외..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "b532d26862374338cc0ce973",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:48:47+00:00",
+      "title": "\"반도체 공급부족 심각해진다\"…외국인, 삼전닉스만 3조 순매수",
+      "url": "https://www.hankyung.com/article/2026050454631",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "1266cf59e3cf4e9048019f8f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:48:32+00:00",
+      "title": "'젠투 펀드' 판매 증권사에 82억 배상 판결",
+      "url": "https://www.hankyung.com/article/2026050454441",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "dc9f5da59cc519d52102f63a",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:47:57+00:00",
+      "title": "28% 뛴 삼성증권…'외국인 국내주식 거래 서비스' 임박",
+      "url": "https://www.hankyung.com/article/2026050454651",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "4567eb745a3ebfcd56290b0a",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:46:24+00:00",
+      "title": "\"한국 주식 여전히 싸다\"…외인 1.8조 폭식에 '1000조' 찍었다",
+      "url": "https://www.hankyung.com/article/2026050454501",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "bb333b0647538e12d27867e7",
@@ -983,7 +1736,230 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "2228ba84c7bdac925e5cba34",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T08:38:30+00:00",
+      "title": "KB, 신용 하위 50%에 중금리대출 1.5조 푼다",
+      "url": "https://www.mk.co.kr/news/economy/12035314",
+      "snippet": "KB국민은행이 올해 1조5300억원 규모의 민간중금리대출 공급에 나선다고 4일 밝혔다. 1분기 이미 공급한 3068억원이 포함된 수치다. 민간중금리대출은 개인신용평점 하위 50%에..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "ecabdb4cb991e222f9c6dd37",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T08:38:29+00:00",
+      "title": "인뱅3사 예적금 금리 줄인상 \"자금 조달해 대출여력 확보\"",
+      "url": "https://www.mk.co.kr/news/economy/12035313",
+      "snippet": "인터넷은행들이 최근 예·적금 상품 금리를 줄줄이 인상하면서 대출 여력 확보에 나섰다. 4일 금융권에 따르면 케이뱅크는 지난 1일 대표 예금 상품인 '코드K 정기예금' 금리를 기존 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "a528d18fb2474737db413746",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T08:38:28+00:00",
+      "title": "[표] 외국환율고시표",
+      "url": "https://www.mk.co.kr/news/economy/12035311",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "5e1020cb33bdbb364327e24a",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T08:38:27+00:00",
+      "title": "\"원전 발전량 조절기술 개발\"",
+      "url": "https://www.mk.co.kr/news/economy/12035309",
+      "snippet": "한국수력원자력이 원전 출력제어 안전성 증진 대책을 수립하고 '원전 탄력운전' 체계 구축에 속도를 낸다. 재생에너지 설비 급증으로 전력망 포화가 심화함에 따라 기저전원인 원전의 발전..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "fe38e1c7e48a7e3f7e250efa",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Economy",
+      "published_at": "2026-05-04T08:38:26+00:00",
+      "title": "韓銀 \"기준금리 인상 고민할때 됐다\"",
+      "url": "https://www.mk.co.kr/news/economy/12035307",
+      "snippet": "한국 경제가 '경기 과열' 국면에 진입하고 있다는 진단이 잇따르고 있다. 글로벌 주요 투자은행(IB)들이 한국의 성장률과 물가 전망치를 일제히 상향 조정한 가운데, 한국은행은 기준..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "7a44e26d3bf4409d43c526d3",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T08:35:43+00:00",
+      "title": "\"금리 인상 고민할 때 됐다\"…한은 '피벗' 신호",
+      "url": "https://www.hankyung.com/article/2026050454161",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "10f5d8a66e8cca36c6935bfe",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T08:31:04+00:00",
+      "title": "[단독] SK온·닛산, 15조 배터리 계약 전면 재검토",
+      "url": "https://www.hankyung.com/article/2026050453891",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "e311cb23fc8cf3d2a4c49aa2",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T08:30:59+00:00",
+      "title": "K조선 3사, 하루 새 1.5조원 수주 랠리",
+      "url": "https://www.hankyung.com/article/2026050453911",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "f9be73766a56092b94976a66",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T08:30:58+00:00",
+      "title": "[팬오션 분석] 벌크 안정·컨테이너 약세…“PBR 0.5배는 매력적 투자 타이밍”",
+      "url": "https://www.hankyung.com/article/202605045338i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "8cd963144ee37c66ac91968f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T07:55:03+00:00",
+      "title": "롯데관광개발, 지난달 월매출 '역대 최대' 600억원 돌파",
+      "url": "https://www.hankyung.com/article/202605045222i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "e4b4363138112cd5c378f417",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T07:52:22+00:00",
+      "title": "[포토] 파죽지세 코스피…7천피가 코앞",
+      "url": "https://www.hankyung.com/article/202605045243i",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "f7282c81cd9cda7bb7a69d3a",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Economy",
+      "published_at": "2026-05-04T07:43:16+00:00",
+      "title": "롯데관광, 제주 드림타워 4월 매출 634억원…\"역대 최고\"",
+      "url": "https://www.hankyung.com/article/202605045148g",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "f3f16432d5bfa601bfc346c5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T07:21:50+00:00",
+      "title": "SK하이닉스 12% 급등해 ‘140만닉스’…시총 1천조 돌파",
+      "url": "https://www.mk.co.kr/news/stock/12035188",
+      "snippet": "SK하이닉스 12% 급등해 ‘140만닉스’…시총 1천조 돌파 SK하이닉스가 4일 12% 넘게 급등해 사상 처음으로 ‘140만 닉스’에 올라선 채 장을 마쳤다. 이에 따라 시가총액도..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "335d5e503b31d1f4340c02e3",
@@ -998,7 +1974,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "c3ca42d14c3f9738b6ef9d3d",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T07:14:09+00:00",
+      "title": "'인공위성 영상 AI 솔루션' 텔레픽스 등 4社 코스닥 상장예심 신청",
+      "url": "https://www.hankyung.com/article/2026050451376",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "bd2affee4f23205a31426d5b",
@@ -1013,7 +2008,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "6719ef01e9001fef8702b10f",
@@ -1028,7 +2025,94 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
+    },
+    {
+      "id": "3167289b3e4b48f75e5796b5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T06:57:42+00:00",
+      "title": "반도체 진격에 '칠천피' 가시권…코스피 5% 급등 '최고치 또 경신'",
+      "url": "https://www.hankyung.com/article/2026050450026",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "031f53d3e4740dbab0a48b64",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T06:48:24+00:00",
+      "title": "반도체 차익 실현…LG이노텍으로 갈아탔다 [주식 초고수는 지금]",
+      "url": "https://www.mk.co.kr/news/stock/12035164",
+      "snippet": "미래에셋증권에서 거래하는 고수익 투자자들이 4일 오후 가장 많이 순매수한 종목은 LG이노텍으로 집계됐다. 이날 미래에셋증권에 따르면 최근 1개월간 투자 수익률 상위 1%에 해당하는..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "006a5f86a2a7a639036ff7a5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T06:35:59+00:00",
+      "title": "[속보] ‘5% 급등’ 코스피, 사상 최고 경신…6936.99",
+      "url": "https://www.mk.co.kr/news/stock/12035147",
+      "snippet": "반도체주 강세…SK하이닉스 신고가 4일, 6700선 출발 뒤 상승 폭 키워4일 코스피가 SK하이닉스의 사상 최고가 경신 등 반도체주 강세에 힘입어 6900선을 넘기며 상승 마감했다..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "e7fe98dd69c21a89b86bccc9",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T06:31:44+00:00",
+      "title": "[속보] 코스피, 종가 기준 사상 최고치 마감…6936.99",
+      "url": "https://www.hankyung.com/article/2026050449886",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "432bad1e4d16044de0173988",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T06:23:59+00:00",
+      "title": "이란전쟁, 협상 기대·경계감 섞여있지만…방산주, 실적 기반 상승세 ‘견조’",
+      "url": "https://www.mk.co.kr/news/stock/12035130",
+      "snippet": "방산주, 수주 실적 등 긍정적 전망 “수출 계약 시기 예상 어렵기도” 미국과 유럽의 방위비 지출 확대미국과 이란의 종전 협상 기대와 경계감이 뒤섞이며 불확실성이 여전한 가운데, 방..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "1b8f0de79d8e084c9037ce65",
@@ -1046,7 +2130,9 @@
         "Jingrun Chen"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.02267v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "273cb31845fb700e00884563",
@@ -1061,7 +2147,128 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "7a07f70fcc54aca216b600c4",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T04:55:36+00:00",
+      "title": "순매수 1위는 한화오션…삼천당제약도 저가매수",
+      "url": "https://www.hankyung.com/article/2026050329031",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "0d3c60a5baa7d329564e8f53",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T04:51:13+00:00",
+      "title": "외국인 한달 수익률, 개미의 3배",
+      "url": "https://www.hankyung.com/article/2026050329051",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "78bc534528817d143643e7d5",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Hankyung Finance",
+      "published_at": "2026-05-04T04:40:11+00:00",
+      "title": "고배당+주가 상승 매력 … '한국판 슈드' 인기",
+      "url": "https://www.hankyung.com/article/2026050329111",
+      "snippet": "",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "2eb03864b674a5d9a0fd919c",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T04:37:08+00:00",
+      "title": "SK하이닉스 집중 매수…롯데에너지머티리얼즈 차익 실현 [주식 초고수는 지금]",
+      "url": "https://www.mk.co.kr/news/stock/12035034",
+      "snippet": "미래에셋증권에서 거래하는 고수익 투자자들이 4일 오전 가장 많이 순매수한 종목은 SK하이닉스로 집계됐다. 이날 미래에셋증권에 따르면 최근 1개월간 투자 수익률 상위 1%에 해당하는..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "501f01bde182e189a63dcf4a",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T04:36:37+00:00",
+      "title": "포스코홀딩스, 주가 10%대 급등... “리튬 회복에 영업이익 70% 오를 것”",
+      "url": "https://www.mk.co.kr/news/stock/12035033",
+      "snippet": "포스코홀딩스가 증권가의 실적 전망치(컨센서스)를 웃도는 실적을 발표하며 당일 주가가 급등하고 있다. 포스코홀딩스는 4일 오전 10시 53분 전 거래일 대비 9.3% 상승한 50만5..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "2e173283a57f145a9788fd0c",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T04:36:06+00:00",
+      "title": "SK하이닉스, 역사적 신고가 ‘140만원’ 찍었다 [매경 자이앤트]",
+      "url": "https://www.mk.co.kr/news/stock/12035031",
+      "snippet": "코스피 반도체 대장주인 SK하이닉스가 강한 상승세를 보이고 있다. 4일 오전 11 SK하이닉스는 전 거래일 보다 11만6000원(9.02%) 오른 140만200원을 기록하며 역사적..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "78a6e097ab0ddcd48fee02d1",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T04:35:35+00:00",
+      "title": "코스피 랠리 속 증권株 급등…삼성증권 27% 상승 [매경 자이앤트]",
+      "url": "https://www.mk.co.kr/news/stock/12035030",
+      "snippet": "삼성증권이 순이익 1조원 돌파와 파격적인 배당 정책을 발표하며 주가가 역사적 신고가를 경신했다. 증권업계 전반에 토큰증권(STO)과 대체투자 강화 등 신사업 기대감이 확산되면서 유..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "18616267d245b4d6e3addb29",
@@ -1076,7 +2283,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "08032314e5b75c27025a40fe",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T03:59:55+00:00",
+      "title": "[속보] 코스피, 장중 사상 첫 6900선 돌파…6902.96",
+      "url": "https://www.mk.co.kr/news/stock/12035017",
+      "snippet": "코스피 지수가 4% 넘게 급등하며 사상 처음으로 장중 6900선을 넘어섰다. 4일 한국거래소에 따르면 코스피는 이날 낮 12시 59분 현재 전장보다 302.28포인트(4.58%) ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "5363e481ed166bf712b3a426",
@@ -1091,7 +2317,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "0b1151fc6bd37ba23e40662b",
@@ -1106,7 +2334,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "346549e83304d41b0ed12266",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T01:33:00+00:00",
+      "title": "크래프톤, ‘어닝 서프라이즈’에 12%대 급등…목표가 줄상향",
+      "url": "https://www.mk.co.kr/news/stock/12034909",
+      "snippet": "올해 1분기 ‘어닝 서프라이즈’(깜짝 호실적)를 기록한 크래프톤이 장 초반 급등세를 보이고 있다. 4일 오전 10시 현재 크래프톤 주가는 전일 대비 3만3000원(12.45%) 오..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "2f04451f62b32dd7c176bf69",
@@ -1121,7 +2368,111 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "236cfa70d9d6405e5c31a191",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T01:09:15+00:00",
+      "title": "[MK시그널] 케이에스피, AI 데이터센터 엔진 부품 공급 기대감으로 주가 상승세... MK시그널 추천 후 상승률 35.64% 기록",
+      "url": "https://www.mk.co.kr/news/stock/12034868",
+      "snippet": "5월 4일 케이에스피(073010)가 상승 중이다. 전일 케이에스피 주가는 종가기준 5,870원으로 하락 마감했다. 현재는 6,180원으로 (9시 10분 기준) 전일 종가 대비 5..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "d218699baa1106dfb2d7c42c",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T01:09:05+00:00",
+      "title": "[MK시그널] H2O 아메리카 매도신호 포착, 수익률 17% 달성",
+      "url": "https://www.mk.co.kr/news/stock/12034867",
+      "snippet": "안녕하세요. 미국 주식 핫 이슈 종목을 분석해드리는 AI 기자 ‘MK시그널’입니다. 1일, H2O 아메리카(HTO)가 MK시그널에서 매도 신호가 포착돼 수익률 17.06% 달성했습..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "d0a5cfc5229e88bab4bafbee",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:55:48+00:00",
+      "title": "“5월에 팔고 떠나라?”…코스피 신고가 랠리에 ‘셀 인 메이’ 공식 깨져",
+      "url": "https://www.mk.co.kr/news/stock/12034851",
+      "snippet": "주식시장이 전례 없는 상승 흐름을 이어가는 가운데, 올해는 “5월에 팔고 떠나라”는 이른바 ‘셀 인 메이(Sell in May)’ 공식이 통하지 않을 수 있다는 전망이 나오고 있다..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "6ce5a8ff1a68f4c05bdf567b",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:40:01+00:00",
+      "title": "“하이닉스 어디까지 오를거야”...기관·외국인 러브콜에 6%대 급등",
+      "url": "https://www.mk.co.kr/news/stock/12034795",
+      "snippet": "SK하이닉스 136만 돌파 삼성전자도 22만선 안착 외국인 1조 넘게 순매수삼성전자와 SK하이닉스가 장 초반 나란히 강세를 보이고 있다. 4일 한국거래소에 따르면 SK하이닉스는 이..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "9fcbb8d2567a966a4d743424",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:38:19+00:00",
+      "title": "한화투자증권, ‘코스피 종가 맞추기’ 이벤트…최대 50만원 지급",
+      "url": "https://www.mk.co.kr/news/stock/12034791",
+      "snippet": "한화투자증권은 ‘코스피 종가 맞추기’ 이벤트를 실시한다고 4일 밝혔다. 이번 이벤트는 비대면 종합계좌개설 신규고객과 휴면고객이 대상이다. 이벤트는 5월 한 달 간 한화투자증권 모바..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "484d934c5eddad03e676bf19",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:36:45+00:00",
+      "title": "“환율 널뛰기 무서워서요”...기업들 2경 넘게 쏟아부은 안전장치의 정체는",
+      "url": "https://www.mk.co.kr/news/stock/12034785",
+      "snippet": "지난해 장외파생상품 거래 2경6779조원 ‘역대 최대’ 무역증가·주식시장 변동성에 기업들 헤지수요 폭발적 증가지난해 국내 금융회사의 장외파생상품 거래 규모가 2경 6000조원을 돌..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "8a930aa836206e0155e4322c",
@@ -1136,7 +2487,94 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "80a07bf4f791aaafa3ec5f3f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:11:01+00:00",
+      "title": "도장 찍고 보자기 싼다…업비트 ‘기와’, 美 컨센서스서 북미 시장 공략",
+      "url": "https://www.mk.co.kr/news/stock/12034770",
+      "snippet": "마이애미 ‘컨센서스’ 단독 부스 설치 글로벌 L2 ‘옵티미즘’과 MOU 체결 韓 기술 담은 ‘보자기·도장’ 전격 공개 웹3 개발자 육성 ‘가속’ 프로그램 가동디지털자산 거래소 업..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "5d21cc7ea0347645b1f06c9d",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:10:10+00:00",
+      "title": "마이클 세일러 “이번 주 비트코인 안 사”…스트래티지 실적 ‘먹구름’",
+      "url": "https://www.mk.co.kr/news/stock/12034769",
+      "snippet": "비트코인 시가평가에 1분기 대규모 적자 전망 피터 쉬프 “투명해서 더 노골적인 폰지사기” 연 11.5% 고배당 우선주 STRC에 우려 확산세계 최대 비트코인 보유 상장사인 스트래티..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "13963560651e9352256862ac",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-04T00:04:37+00:00",
+      "title": "[속보] 코스피, 장중 사상 최고치 경신 출발…6782",
+      "url": "https://www.mk.co.kr/news/stock/12034758",
+      "snippet": "삼전닉스 2~4%대 상승세미국·이란의 긴장감이 여전한 가운데, 최근 상승세를 보인 코스피가 4일 장중 사상 최고치로 상승 출발했다. 이날 오전 9시 6분 현재 코스피는 전일 대비 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "06c5a51dfcbe6d64d5e4e37c",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T23:28:00+00:00",
+      "title": "불황뚫은 DL이앤씨, 주택 깜짝실적에 SMR사업까지…목표가 줄상향 [오늘 나온 보고서]",
+      "url": "https://www.mk.co.kr/news/stock/12034731",
+      "snippet": "하나증권, 목표가 10만→12만원 키움증권도 14.2만→14.9만으로하나증권이 DL이앤씨에 대해 “1분기 주택 부문 마진이 예상치를 크게 웃돌았다”며 목표주가를 기존 10만원에서 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "75feb1ef1798be0238a31c1c",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T23:10:44+00:00",
+      "title": "“지금 올라타도 안 늦었다”…AI 수요 폭증에 삼성전기 목표가 100만원",
+      "url": "https://www.mk.co.kr/news/stock/12034722",
+      "snippet": "하나증권은 4일 삼성전기에 대해 고부가 제품 중심의 수익성 개선과 공급 부족(쇼티지) 장기화가 전망된다며 목표주가를 기존 81만원에서 100만원으로 상향 조정했다. 삼성전기는 올해..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "08887d9aeab02073d96d8d81",
@@ -1151,7 +2589,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "42412706f074814746c970ec",
@@ -1166,7 +2606,43 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "395abea6cfa3c5d0b7068d55",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T21:07:48+00:00",
+      "title": "월가 30년 고수도 담은 한국ETF 뭐길래…2억달러 뭉칫돈 몰렸다",
+      "url": "https://www.mk.co.kr/news/stock/12034694",
+      "snippet": "한화자산운용의 美상장 방산ETF KDEF, 15개월새 수익률 214% 아부다비·유럽증시 진출 채비도미국 자산관리 서비스 기업 ‘퍼더(Farther)’의 투자위원회 의장인 데이비드 ..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "d4e56dc0e1ab4a894fdb820e",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T21:06:09+00:00",
+      "title": "“삼성전자, 저라면 안삽니다”…1억으로 156억 만든 전설의 투자원칙",
+      "url": "https://www.mk.co.kr/news/stock/12034690",
+      "snippet": "강방천 에셋플러스자산운용 설립자 “이익 액수보다 질이 더 중요한법 변동성 큰 반도체, 좋은 투자 아냐”오는 7일 문을 여는 재테크 정보 플랫폼 ‘매경플러스’는 대한민국 자본시장 최..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "5e1d0b367764007f6f531464",
@@ -1181,7 +2657,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "9c3494c888a2872459ea9911",
@@ -1196,22 +2674,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
-      "id": "81083c206c3ea365352d6940",
-      "type": "news",
-      "region": "Americas",
-      "country": "United States",
-      "source": "wccftech.com",
-      "published_at": "2026-05-03T20:30:00+00:00",
-      "title": "Anthropic Eyes united kingdom Startup Fusion Tech Promising 100x Faster AI Inference at One - Tenth the Cost of NVIDIA Groq",
-      "url": "https://wccftech.com/anthropic-sets-eyes-on-uk-startup-tech-speeds-up-ai-inference-100x-reduces-costs-10x",
-      "snippet": "Anthropic Eyes united kingdom Startup Fusion Tech Promising 100x Faster AI Inference at One - Tenth the Cost of NVIDIA Groq",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "58d58a1a9a00743045b273bf",
@@ -1226,7 +2691,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "1d277bd325ab53af4686f118",
@@ -1241,7 +2708,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "b85172b472882d61fabea7d1",
@@ -1256,7 +2725,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "705111ef9502f3ff47b163c2",
@@ -1276,7 +2747,9 @@
         "Arindam Basu"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01937v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "ca381ad691141686db182709",
@@ -1291,7 +2764,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "79323b33a9548a4edd55c3b3",
@@ -1306,7 +2781,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "be67d9a509e031c116c5a7d6",
@@ -1321,7 +2798,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "abe7ab1a27b84c0affd25353",
@@ -1336,7 +2815,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "04a2932251a9d090ce3eeb5a",
@@ -1351,7 +2832,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "eaf20726f608ff3292ce40e9",
@@ -1366,7 +2849,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "a238cee67460df31d9d62019",
@@ -1381,7 +2866,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "4c8acf6e97e393a2b5a0ba1b",
@@ -1396,22 +2883,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
-      "id": "3d415650d8ba63abf52df0f8",
-      "type": "news",
-      "region": "Asia",
-      "country": "China",
-      "source": "finance.sina.com.cn",
-      "published_at": "2026-05-03T11:15:00+00:00",
-      "title": "台积电先进封装大将余振华加盟联发科 助力先进封装研发突破",
-      "url": "https://finance.sina.com.cn/tech/roll/2026-05-03/doc-inhwrnny8683912.shtml",
-      "snippet": "台积电先进封装大将余振华加盟联发科 助力先进封装研发突破",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "603c10e4ee2798f59ae60082",
@@ -1426,7 +2900,26 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "4df437df0597d1e65e061023",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T10:31:34+00:00",
+      "title": "“엔비디아 미리 팔아야 하나요?”…초대형 IPO, 초대형 악재 우려",
+      "url": "https://www.mk.co.kr/news/stock/12034651",
+      "snippet": "스페이스X·앤스로픽·오픈AI 총기업가치 3조달러 상장예고 나스닥100 ‘M7지분’ 뺏어올듯 자금유입 준 M7 주가하락 우려최근 뉴욕 증시에서 올해 하반기 나스닥 입성을 앞둔 스페이..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "9acf7f83f0446d0e11986550",
@@ -1441,7 +2934,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "2e041492472383b6f959de8d",
@@ -1456,7 +2951,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "c3ee349845d3d52efda7997b",
@@ -1474,7 +2971,9 @@
         "Hiroaki Ishizuka"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01804v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "18336eab305bb7a40d55f999",
@@ -1489,7 +2988,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "0dadb4cfa0e60428757aa078",
@@ -1510,7 +3011,9 @@
         "H. Sasakura"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01801v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "230afd8deaec8ce7b4e696fc",
@@ -1525,7 +3028,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "c85aaf64ef7a56b482ccd3ba",
@@ -1540,7 +3045,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "6ce60eabe01336c10a99ae34",
@@ -1555,7 +3062,94 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
+    },
+    {
+      "id": "b68fb9e47cce8cceac1be15f",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T08:43:12+00:00",
+      "title": "액티브 시니어, 불장 탑승도 공격적 … 신규 계좌 증가율 60대 이상이 최고",
+      "url": "https://www.mk.co.kr/news/stock/12034592",
+      "snippet": "최근 시니어 빚투가 급증한 것은 60대 이상의 주식 투자자들이 빠르게 늘고 있기 때문으로 보인다. 3일 한국투자증권에 따르면 올해 4월까지 60대 이상 고객의 신규 계좌 수는 10..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "3ae6292bccf56639ad548b96",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T08:43:11+00:00",
+      "title": "시니어들 아슬아슬 … 신용융자·마통·카드론 '3중 빚투'",
+      "url": "https://www.mk.co.kr/news/stock/12034591",
+      "snippet": "\"낮에는 코스피 계속 쳐다보고 새벽엔 미국 증시 확인하느라 요즘 수면 시간이 크게 줄었습니다.\" 시중은행에 다니다가 퇴직 후 경기도에서 작은 카페를 운영하는 김 모씨(64)는 요즘..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "3adeb747862d015898cc4960",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T08:29:03+00:00",
+      "title": "씨티, 삼성전자 목표가 하향…\"노조 리스크에 발목 잡힐 것\"",
+      "url": "https://www.mk.co.kr/news/stock/12034572",
+      "snippet": "글로벌 투자은행(IB) 씨티그룹이 삼성전자의 목표주가를 하향 조정했다. 역대급 메모리 업사이클이 지속되고 있지만 격화하는 노조 파업에 따른 대규모 성과급 충당금 설정이 단기 실적의..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "4c93225dbad47b1c23fd3dfa",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T08:08:25+00:00",
+      "title": "'빅3' 상장 앞둔 월가 … 긴장감 도는 M7",
+      "url": "https://www.mk.co.kr/news/stock/12034539",
+      "snippet": "최근 뉴욕 증시에서 올해 하반기 나스닥 입성을 앞둔 스페이스X와 앤스로픽, 오픈AI 등 초대형 신규 상장주들에 이목이 집중되고 있다. 특히 이들 기업의 상장으로 기존 나스닥 시장을..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "ad4bd3e4032f992b6f057220",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-03T08:08:24+00:00",
+      "title": "증시 호황에 올해 10대그룹 시총 1500조 '쑥'",
+      "url": "https://www.mk.co.kr/news/stock/12034537",
+      "snippet": "국내 증시가 유례없는 호황을 맞이하며 상장사 시가총액이 6000조원을 돌파한 가운데 10대 그룹의 몸집도 1500조원 이상 불어난 것으로 나타났다. 특히 반도체 업황 회복에 힘입어..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
     },
     {
       "id": "137f843e6c33c1f9e9019c71",
@@ -1570,22 +3164,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "snippet_only"
-    },
-    {
-      "id": "f05ffc70b73d0d6a9021d5b8",
-      "type": "news",
-      "region": "Americas",
-      "country": "United States",
-      "source": "finance.yahoo.com",
-      "published_at": "2026-05-03T07:30:00+00:00",
-      "title": "The Memory Supercycle Is Back in Motion and Samsung and SK Hynix May Be the Stocks With the Most Torque",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/memory-supercycle-back-motion-samsung-230208099.html",
-      "snippet": "The Memory Supercycle Is Back in Motion and Samsung and SK Hynix May Be the Stocks With the Most Torque",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only"
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "67f88bdf4cca6b217fdc6a3a",
@@ -1603,7 +3184,9 @@
         "Rudra Banerjee"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01754v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "f8f6c2185d63fe7eeb0fdde7",
@@ -1625,7 +3208,9 @@
         "Ngai-Man Cheung"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01742v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "74ad82aeb988937f3eb85db6",
@@ -1652,7 +3237,9 @@
         "Aydogan Ozcan"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01738v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "069c33c49053f74030a75504",
@@ -1675,7 +3262,9 @@
         "Hiroki Wakatsuchi"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01683v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "71df5c5f5dc30f58f1596bc0",
@@ -1706,7 +3295,9 @@
         "Nicolò Maccaferri"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01583v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "c609c16c2ca2dfa4cf1c57e5",
@@ -1721,7 +3312,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "82f006100a4ccd0a7b56ee2d",
@@ -1750,7 +3343,9 @@
         "Dawei Li"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01285v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "ade1e492403edfbd5384e908",
@@ -1769,7 +3364,9 @@
         "Enrique P. Blair"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01244v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "780df7ced27a7440c8a4bba0",
@@ -1787,7 +3384,9 @@
         "Herbert G. Winful"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01152v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "d3a9ec0904a828ca5ae0e989",
@@ -1815,7 +3414,9 @@
         "Benjamin L. Cotts"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01141v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "719799903faeae1158388442",
@@ -1834,7 +3435,9 @@
         "Gabriel Gonzalez"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01119v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "8fb78bc2cd0072204f97c334",
@@ -1864,7 +3467,9 @@
         "Lucia Di Virgilio"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.01049v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "c52c437709892e065085f41f",
@@ -1879,7 +3484,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "a4a83817273f2e14f2bd0e63",
@@ -1905,7 +3512,9 @@
         "F. Pierre"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00669v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "44945a80941755353c6cc79c",
@@ -1930,7 +3539,9 @@
         "Benedicto A. V. Lima"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00599v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "5eeda0c2c475c06d0c6f2e95",
@@ -1952,7 +3563,9 @@
         "Giulia Tagliabue"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00575v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "f5b1ceb140b41fd08598d095",
@@ -1970,7 +3583,9 @@
         "Sayani Majumdar"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00544v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "3489cc2bc17d9cef6ef1a914",
@@ -1985,7 +3600,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "47814c9e69fe0009cbf8857b",
@@ -2000,7 +3617,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "50004bafdd756e1ddd6443a7",
@@ -2015,7 +3634,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "7776c01424775de80eab847e",
@@ -2036,7 +3657,9 @@
         "P. Gepner"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00462v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "7448da20319596d97df61090",
@@ -2062,7 +3685,9 @@
         "Wei-Zen Chen"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00319v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "efaa9888a32479404bcffe03",
@@ -2077,7 +3702,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "8ac661e6f7cb2d6c67cdd057",
@@ -2096,7 +3723,9 @@
         "Kostya S. Novoselov"
       ],
       "pdf_url": "https://arxiv.org/pdf/2605.00202v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "62f58b7fc1504bc973cd7d3f",
@@ -2111,7 +3740,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "94164272ea16ecb6569eb2ae",
@@ -2126,7 +3757,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "4f6db3e899da21c58c1ff388",
@@ -2141,7 +3774,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "11b8027f37fa919539c3998a",
@@ -2171,7 +3806,9 @@
         "M. Wenzel"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28105v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "1eed1ceb7bf87518b341bc95",
@@ -2192,7 +3829,9 @@
         "Pritiraj Mohanty"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28100v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "1848c98007d1114faf21b9fa",
@@ -2215,7 +3854,9 @@
         "Ian D. Sharp"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28094v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "316af0aad1339ef1b50883a9",
@@ -2237,7 +3878,9 @@
         "Hakan Bagci"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28083v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "42e995168468aea7f7603fe6",
@@ -2258,7 +3901,9 @@
         "Ana Silva"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28081v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "9b9c33d24f1191ab1a505db6",
@@ -2273,7 +3918,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "ad006807df14fd4fdb23f733",
@@ -2293,7 +3940,9 @@
         "Owen D. Miller"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28058v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "31fdaf374e6749bd166c4c2c",
@@ -2308,7 +3957,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "baecc5bebe9b405638ce86b3",
@@ -2332,7 +3983,9 @@
         "Marcin Bialek"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.28042v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "7976e9610f53301af234c24e",
@@ -2347,7 +4000,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "9ff1ef246761d1429460d93c",
@@ -2366,7 +4021,9 @@
         "Michela Becchi"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.27985v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "9ca69cb28ca9cabb7f1d8c8b",
@@ -2385,7 +4042,9 @@
         "Uğur Teğin"
       ],
       "pdf_url": "https://arxiv.org/pdf/2604.27898v1",
-      "content_mode": "open_abstract"
+      "content_mode": "open_abstract",
+      "source_type": "arXiv",
+      "insight_type": ""
     },
     {
       "id": "4c048fdfb108cb8fb3376b76",
@@ -2400,7 +4059,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "af75c22d0f713c8dda3a64dd",
@@ -2415,7 +4076,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "afcea1b50b989a994a4cd820",
@@ -2430,7 +4093,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c597e7d3977782a4ed490f9e",
@@ -2445,7 +4110,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "04a5a62a8fc0f6a535e9d1a0",
@@ -2460,7 +4127,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "f250b26035a1027d831947f0",
@@ -2475,7 +4144,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "16aff122ad7cc82b6b01acd3",
@@ -2490,7 +4161,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "1fd863fe8adc8c4d981f7b43",
@@ -2505,7 +4178,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "d4c014a9c9f7ce2c906068cd",
@@ -2520,7 +4195,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "3b2abb5f9d5f8db174dcc4e8",
@@ -2535,7 +4212,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "623422767a0370fdd8f592b6",
@@ -2550,7 +4229,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "083ffb2da34fd061b59573c1",
@@ -2565,7 +4246,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "1b3ae7b293c061aed650017d",
@@ -2580,7 +4263,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "bb7077f584ddbcaeb69d03c4",
@@ -2595,7 +4280,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "570afb60456b306df2cac294",
@@ -2610,7 +4297,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "1858b6e4a3f618537515ed8c",
@@ -2625,7 +4314,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "fbcedf901d1a494d5f47d3c4",
@@ -2640,7 +4331,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "0bcdf4b71a40f34560762bd0",
@@ -2655,7 +4348,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "7aa9dda8b280685be408b340",
@@ -2670,7 +4365,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "7c98a43ae757e6a2beed7914",
@@ -2685,7 +4382,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "65933346c8c379bc548989a1",
@@ -2700,7 +4399,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "9366567e88f7342e2075135b",
@@ -2715,7 +4416,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "92be7f2de20bad6c4c04fec1",
@@ -2730,7 +4433,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "58fe69adf3d4207030d676a0",
@@ -2745,7 +4450,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "4ac8fbb058df63fa62ae0b6c",
@@ -2760,7 +4467,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "35b53207f6394d024c551eaa",
@@ -2775,7 +4484,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "ab8c00a9cd3221a0747c0bfb",
@@ -2790,7 +4501,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "f4be586e3886565dcc83ec12",
@@ -2805,7 +4518,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "676c43cd862a0de981e70836",
@@ -2820,7 +4535,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "f37e52e53094c32173ae140c",
@@ -2835,7 +4552,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c8b346516d272fa6d7a4743d",
@@ -2850,7 +4569,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "e594c11ecd9b4a2e0f9c31de",
@@ -2865,7 +4586,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "f600df00866742c544418117",
@@ -2880,7 +4603,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "4159d2a265a7e060ff78f339",
@@ -2895,7 +4620,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "b3f6663850850d12dd011fdd",
@@ -2910,7 +4637,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "42292a3d677533d07f30efa5",
@@ -2925,7 +4654,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "b94955d2048c9a8bb41b205a",
@@ -2940,7 +4671,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "2a843854555668ca53740115",
@@ -2955,7 +4688,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c8000eca7a0fc4be65971eac",
@@ -2970,7 +4705,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "39c688a52a46808766492c3a",
@@ -2985,7 +4722,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "9987dc7a3f1343216b356f22",
@@ -3000,7 +4739,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "02bbf0456af037956b9507a3",
@@ -3015,7 +4756,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "79b825916e7146bc74782b13",
@@ -3030,7 +4773,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "5acf2f8198e6c9c4dff80573",
@@ -3045,7 +4790,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "296321a989bfa92125b0add0",
@@ -3060,7 +4807,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "d56b918b781e555e7194d30d",
@@ -3075,7 +4824,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c0f4754025e5773f55df4115",
@@ -3090,7 +4841,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "75cd0d3ab0aa292b54f8e5f5",
@@ -3105,7 +4858,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "dd1a366d12e4b98dfc0d4eb3",
@@ -3120,7 +4875,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "db6bf7968519a8f0316ef1d1",
@@ -3135,7 +4892,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "9a9f841d086880652d4304cc",
@@ -3150,7 +4909,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "ce44b9645f98ed74b3450dba",
@@ -3165,7 +4926,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "2d5b0b09c89d371fc2c2e7be",
@@ -3180,7 +4943,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "3c5948a165b14aa9cea021d6",
@@ -3195,7 +4960,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "910e7006be351972f2e5a23d",
@@ -3210,7 +4977,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "65e74b93072e74b1837a2af4",
@@ -3225,7 +4994,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "3826e08c821834e703342e26",
@@ -3240,7 +5011,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "ff44c033201b7b84c0ab7f38",
@@ -3255,7 +5028,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "7f7ffb7514c40520fb700148",
@@ -3270,7 +5045,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "0145419feae01d679a49806a",
@@ -3285,7 +5062,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "aa96cfbeaa54f6dfcccc1921",
@@ -3300,7 +5079,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "1c38473608bdc624c2c35155",
@@ -3315,7 +5096,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "b2f8a0b46c93191af3ee8280",
@@ -3330,7 +5113,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "fd53741c95c3cad9226bcd84",
@@ -3345,7 +5130,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "8d0563953a0286435df71d56",
@@ -3360,7 +5147,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "1a1d9a2a5da182da07a5b3e1",
@@ -3375,7 +5164,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "551dfe649bbd1a9279a31395",
@@ -3390,7 +5181,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "767d2a882c70a6735884ee7a",
@@ -3405,7 +5198,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "83ed8aa597e5579786848735",
@@ -3420,7 +5215,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "e415739a82e2e23fedd80582",
@@ -3435,7 +5232,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "a3540c4a3a7ec710713841c2",
@@ -3450,7 +5249,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "f7ae25754b5a27366a8e944d",
@@ -3465,7 +5266,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c6c5506e69c4e5152f3aa140",
@@ -3480,7 +5283,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "4bc320b5487b2f7a68203586",
@@ -3495,7 +5300,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "81794a43bfc47de01b350f6d",
@@ -3510,7 +5317,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "34561cb3924b2d963bff274b",
@@ -3525,7 +5334,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "283054076c588d55e7eaf229",
@@ -3540,7 +5351,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "17ff01034161647d6375767f",
@@ -3555,7 +5368,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "8f7341308a4ab59b01a55647",
@@ -3570,7 +5385,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "2f02365211713f661ef86b1c",
@@ -3585,7 +5402,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "e755d54baa3e2c1042ae3c81",
@@ -3600,7 +5419,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "b0330196f7b56788bdf82b68",
@@ -3615,7 +5436,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "9cd49fc07cbe4a5e18595671",
@@ -3630,7 +5453,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "353596b51e27bc84543a094c",
@@ -3645,7 +5470,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "efded11c03eb15d0df27f78b",
@@ -3660,7 +5487,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "b54dfbe6b9384e5af91f16d4",
@@ -3675,7 +5504,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "4c2d74d1e58fc9e3904bb826",
@@ -3690,7 +5521,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "fbf7e1ad4e053e3daa12f4e9",
@@ -3705,7 +5538,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "c9c3fa204b217c7c4485668a",
@@ -3720,7 +5555,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "e5c7160e7cadf5734aea95f8",
@@ -3735,7 +5572,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "49185b5a1fd222bb732091c9",
@@ -3750,7 +5589,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "0b4e2ad604bbb4372c5ecdd4",
@@ -3765,7 +5606,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "6f28eb1b68d614099373a760",
@@ -3780,7 +5623,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "46d516a9b783b0d33f161437",
@@ -3795,7 +5640,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "6ec602d8e0b05a11dca7a938",
@@ -3810,7 +5657,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "933df3adb88f7196faa6f7a1",
@@ -3825,7 +5674,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "5c2741a26b261fe410f12292",
@@ -3840,7 +5691,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "dc37502fe741c117f0449360",
@@ -3855,7 +5708,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "fcfbffd820d66743348bdd6a",
@@ -3870,7 +5725,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "61e46f7fb7616aa4c5317396",
@@ -3885,7 +5742,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "da9536cf18a3e3782b4007da",
@@ -3900,7 +5759,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     },
     {
       "id": "19e8fd2caf82895484860e4c",
@@ -3915,7 +5776,9 @@
       "abstract": "",
       "authors": null,
       "pdf_url": "",
-      "content_mode": "rss_snippet_only"
+      "content_mode": "rss_snippet_only",
+      "source_type": "RSS",
+      "insight_type": ""
     }
   ]
 }
