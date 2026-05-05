@@ -37,7 +37,7 @@ MAX_GDELT_NEWS = 250
 MAX_RSS_NEWS = 400
 MAX_K_INVEST_NEWS = 250
 MAX_PAPERS = 100
-MAX_WORLD_NEWS = 400
+MAX_WORLD_NEWS = 600
 
 RSS_MAX_AGE_DAYS = 30
 K_INVEST_MAX_AGE_DAYS = 14
@@ -141,6 +141,22 @@ WORLD_NEWS_RSS_FEEDS = [
     {"name": "Korea Herald", "url": "https://www.koreaherald.com/rss/news.xml", "region": "Asia", "country": "South Korea"},
     {"name": "Hankyoreh", "url": "https://www.hani.co.kr/rss/", "region": "Asia", "country": "South Korea"},
     {"name": "Kyunghyang Shinmun", "url": "https://www.khan.co.kr/rss/rssdata/kh_news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "AP News", "url": "https://feeds.apnews.com/rss/apf-topnews", "region": "Americas", "country": "United States"},
+    {"name": "VOA News", "url": "https://www.voanews.com/api/zktepig$_ev/rss.xml", "region": "Americas", "country": "United States"},
+    {"name": "Euronews", "url": "https://www.euronews.com/rss", "region": "Europe", "country": ""},
+    {"name": "CBC World", "url": "https://www.cbc.ca/cmlink/rss-world", "region": "Americas", "country": "Canada"},
+    {"name": "ABC News Australia", "url": "https://www.abc.net.au/news/feed/51120/rss.xml", "region": "Asia", "country": "Australia"},
+    {"name": "Channel NewsAsia", "url": "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml", "region": "Asia", "country": "Singapore"},
+    {"name": "CNBC World", "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "region": "Americas", "country": "United States"},
+    {"name": "MarketWatch", "url": "https://feeds.marketwatch.com/marketwatch/topstories/", "region": "Americas", "country": "United States"},
+    {"name": "Fortune", "url": "https://fortune.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/index", "region": "Americas", "country": "United States"},
+    {"name": "Wired", "url": "https://www.wired.com/feed/rss", "region": "Americas", "country": "United States"},
+    {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "The Verge", "url": "https://www.theverge.com/rss/index.xml", "region": "Americas", "country": "United States"},
+    {"name": "Asia Times", "url": "https://asiatimes.com/feed/", "region": "Asia", "country": ""},
+    {"name": "The Diplomat", "url": "https://thediplomat.com/feed/", "region": "Asia", "country": ""},
+    {"name": "Bangkok Post", "url": "https://www.bangkokpost.com/rss/data/topstories.xml", "region": "Asia", "country": "Thailand"},
 ]
 
 SPECIALIST_RSS_SOURCES = {
@@ -525,7 +541,7 @@ def _fetch_one_world(feed: dict) -> list[FeedItem]:
 
 def fetch_world_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-    with ThreadPoolExecutor(max_workers=10) as pool:
+    with ThreadPoolExecutor(max_workers=15) as pool:
         futures = {pool.submit(_fetch_one_world, feed): feed for feed in WORLD_NEWS_RSS_FEEDS}
         for future in as_completed(futures):
             try:
