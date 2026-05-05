@@ -79,6 +79,13 @@ RSS_FEEDS = [
     {"name": "ETNews Components", "url": "http://rss.etnews.com/06062.xml", "region": "Asia", "country": "South Korea"},
     {"name": "ETNews Equipment", "url": "http://rss.etnews.com/06061.xml", "region": "Asia", "country": "South Korea"},
     {"name": "KIPOST All Articles", "url": "https://www.kipost.net/rss/allArticle.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "IEEE Spectrum", "url": "https://spectrum.ieee.org/feeds/feed.rss", "region": "Americas", "country": "United States"},
+    {"name": "The Next Platform", "url": "https://www.nextplatform.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "ServeTheHome", "url": "https://www.servethehome.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "Tom's Hardware", "url": "https://www.tomshardware.com/feeds/all", "region": "Americas", "country": "United States"},
+    {"name": "Blocks and Files", "url": "https://blocksandfiles.com/feed/", "region": "Global", "country": ""},
+    {"name": "AnandTech", "url": "https://www.anandtech.com/rss/", "region": "Americas", "country": "United States"},
+    {"name": "ExtremeTech", "url": "https://www.extremetech.com/feed", "region": "Americas", "country": "United States"},
 ]
 
 K_INVEST_RSS_FEEDS = [
@@ -93,13 +100,24 @@ K_INVEST_RSS_FEEDS = [
     {"name": "EToday Finance", "url": "https://rss.etoday.co.kr/eto/finance_news.xml", "region": "Asia", "country": "South Korea"},
     {"name": "EToday Economy", "url": "https://rss.etoday.co.kr/eto/economy_news.xml", "region": "Asia", "country": "South Korea"},
     {"name": "EToday Industry", "url": "https://rss.etoday.co.kr/eto/industry_news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Securities", "url": "https://www.sedaily.com/RSS/S0601", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Finance", "url": "https://www.sedaily.com/RSS/S0602", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Industry", "url": "https://www.sedaily.com/RSS/S0604", "region": "Asia", "country": "South Korea"},
+    {"name": "Edaily Securities", "url": "https://rss.edaily.co.kr/edaily/section/stocknews.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Edaily Economy", "url": "https://rss.edaily.co.kr/edaily/section/economy.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Financial News", "url": "https://www.fnnews.com/rss/fn_recent.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Money Today Securities", "url": "https://rss.mt.co.kr/news/mt_securities.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Asia Economy", "url": "https://view.asiae.co.kr/rss/all.htm", "region": "Asia", "country": "South Korea"},
+    {"name": "Newspim Market", "url": "https://www.newspim.com/rss/market.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Chosun Biz Economy", "url": "https://biz.chosun.com/rss/economy.xml", "region": "Asia", "country": "South Korea"},
 ]
 
 SPECIALIST_RSS_SOURCES = {
     "Semiconductor Engineering", "Semiconductor Today", "SemiWiki",
     "EE Times Semiconductors", "EE Times Asia", "The Elec Semiconductor",
     "The Elec Materials Equipment", "ETNews Electronics", "ETNews Materials",
-    "ETNews Components", "ETNews Equipment"
+    "ETNews Components", "ETNews Equipment",
+    "IEEE Spectrum", "The Next Platform", "ServeTheHome", "Blocks and Files",
 }
 
 COMPANY_SIGNAL_SOURCES = {
