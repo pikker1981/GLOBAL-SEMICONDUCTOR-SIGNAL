@@ -1,19 +1,19 @@
 :root {
-  --bg: #050507;
-  --surface: #101010;
-  --surface-2: #151515;
-  --border: #3d3a39;
+  --bg: #f4f4f7;
+  --surface: #ffffff;
+  --surface-2: #ededf2;
+  --border: #d4d4dc;
   --green: #00d992;
   --mint: #2fd6a1;
   --purple: #818cf8;
-  --text: #f2f2f2;
+  --text: #111115;
   --white: #ffffff;
-  --muted: #b8b3b0;
-  --tertiary: #8b949e;
+  --muted: #52525e;
+  --tertiary: #7c7c8e;
   --danger: #fb565b;
-  --warning: #ffba00;
-  --shadow-warm: rgba(92, 88, 85, 0.2) 0 0 15px;
-  --shadow-float: rgba(0, 0, 0, 0.7) 0 20px 60px, rgba(148, 163, 184, 0.1) 0 0 0 1px inset;
+  --warning: #e8a000;
+  --shadow-warm: rgba(0, 0, 0, 0.07) 0 2px 16px;
+  --shadow-float: rgba(0, 0, 0, 0.1) 0 8px 40px, rgba(0, 0, 0, 0.06) 0 0 0 1px inset;
   --container: 1240px;
   --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
@@ -36,9 +36,9 @@ body {
   font-family: var(--font-body);
   font-feature-settings: "calt", "rlig";
   background:
-    radial-gradient(circle at 15% 5%, rgba(0, 217, 146, 0.09), transparent 24%),
-    radial-gradient(circle at 85% 10%, rgba(129, 140, 248, 0.08), transparent 24%),
-    linear-gradient(180deg, #050507 0%, #050507 62%, #070708 100%);
+    radial-gradient(circle at 15% 5%, rgba(0, 217, 146, 0.07), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(129, 140, 248, 0.06), transparent 28%),
+    linear-gradient(180deg, #f4f4f7 0%, #f0f0f5 62%, #ededf2 100%);
 }
 
 a {
@@ -60,10 +60,10 @@ button {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.4;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: linear-gradient(to bottom, black, transparent 80%);
 }
@@ -79,7 +79,7 @@ button {
   min-height: 72px;
   padding: 16px clamp(18px, 4vw, 44px);
   border-bottom: 1px solid var(--border);
-  background: rgba(5, 5, 7, 0.84);
+  background: rgba(244, 244, 247, 0.90);
   backdrop-filter: blur(16px);
 }
 
@@ -232,7 +232,7 @@ main,
 
 .status-panel {
   padding: 18px;
-  background: rgba(16, 16, 16, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: var(--shadow-float);
@@ -284,7 +284,7 @@ main,
   margin-top: 16px;
   padding: 14px;
   overflow-x: auto;
-  background: #080808;
+  background: #ededf2;
   border: 1px solid var(--border);
   border-radius: 6.4px;
 }
@@ -423,7 +423,7 @@ main,
   grid-template-columns: 132px minmax(0, 1fr) auto;
   gap: 18px;
   padding: 22px;
-  background: rgba(16, 16, 16, 0.94);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: var(--shadow-warm);
@@ -433,7 +433,7 @@ main,
 .feed-card:hover {
   transform: translateY(-2px);
   border-color: rgba(0, 217, 146, 0.7);
-  background: rgba(18, 18, 18, 0.98);
+  background: rgba(255, 255, 255, 1);
 }
 
 .card-side {
@@ -456,7 +456,7 @@ main,
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border);
   border-radius: 9999px;
 }
@@ -518,7 +518,7 @@ main,
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  background: #0b0b0c;
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 6px;
   transition: border-color 160ms ease, color 160ms ease;
@@ -546,6 +546,7 @@ main,
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
+  box-shadow: var(--shadow-warm);
 }
 
 .source-card.featured {
@@ -575,7 +576,7 @@ main,
   padding: 36px;
   text-align: center;
   background: var(--surface);
-  border: 1px dashed rgba(79, 93, 117, 0.55);
+  border: 1px dashed rgba(0, 0, 0, 0.18);
   border-radius: 8px;
 }
 
@@ -890,7 +891,7 @@ pre,
 
 .source-unknown {
   color: var(--tertiary);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
   border-color: var(--border);
 }
 
@@ -1067,7 +1068,7 @@ pre,
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(5, 5, 7, 0.82);
+  background: rgba(17, 17, 21, 0.55);
   backdrop-filter: blur(8px);
 }
 
