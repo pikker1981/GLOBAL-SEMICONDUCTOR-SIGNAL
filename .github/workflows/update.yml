@@ -1,4 +1,4 @@
-name: Update Semiconductor Original Feed
+name: Update Original Signal Feed
 
 on:
   workflow_dispatch:
@@ -26,13 +26,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Collect original semiconductor feed
+      - name: Collect original signal feed
         run: python scripts/collect.py
 
-      - name: Commit updated data
+      - name: Commit updated latest.json
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add docs/data/latest.json
-          git commit -m "Update semiconductor original feed" || echo "No changes to commit"
+          git commit -m "Update original signal feed" || echo "No changes to commit"
           git push
