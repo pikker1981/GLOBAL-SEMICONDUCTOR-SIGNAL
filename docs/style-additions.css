@@ -1,0 +1,32 @@
+/* ================================
+   K-POLITICS additions
+   Add to the bottom of docs/style.css
+   ================================ */
+
+.source-k-politics {
+  color: #fb7185;
+  background: rgba(251, 113, 133, 0.08);
+  border-color: rgba(251, 113, 133, 0.48);
+}
+
+.source-k-invest {
+  color: var(--warning, #ffba00);
+  background: rgba(255, 186, 0, 0.08);
+  border-color: rgba(255, 186, 0, 0.48);
+}
+
+.source-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1280px) {
+  .source-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .source-grid {
+    grid-template-columns: 1fr;
+  }
+}

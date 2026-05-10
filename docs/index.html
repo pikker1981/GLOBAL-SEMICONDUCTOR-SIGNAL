@@ -4,301 +4,103 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GLOBAL SEMICONDUCTOR SIGNAL</title>
-  <meta
-    name="description"
-    content="전 세계 반도체 뉴스와 논문, 한국 주식 투자 인사이트 원문 피드를 수집해 보여주는 글로벌 반도체 뉴스 페이지"
-  />
-
-  <link
-    rel="stylesheet"
-    as="style"
-    crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"
-  />
-
+  <meta name="description" content="전 세계 반도체 뉴스와 논문, 한국 주식 투자 인사이트, 국내 정치권 뉴스 원문 피드를 수집해 보여주는 글로벌 시그널 페이지" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css" />
   <link rel="stylesheet" href="./style.css" />
 </head>
-
 <body>
   <div class="grid-noise" aria-hidden="true"></div>
-
   <header class="topbar">
     <a class="brand" href="./index.html" aria-label="Global Semiconductor Signal Home">
       <span class="brand-mark" aria-hidden="true">◈</span>
-      <span>
-        <strong>SEMICONDUCTOR</strong>
-        <em>SIGNAL</em>
-      </span>
+      <span><strong>SEMICONDUCTOR</strong><em>SIGNAL</em></span>
     </a>
-
     <nav class="nav" aria-label="Primary navigation">
       <a href="#top">Top</a>
       <a href="#feed">Feed</a>
       <a href="#sources">Sources</a>
-      <a class="github-link" href="https://github.com/" target="_blank" rel="noopener">
-        GitHub
-      </a>
+      <a class="github-link" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-
   <main id="top">
     <section class="hero">
-      <div class="eyebrow">
-        <span class="live-dot"></span>
-        GLOBAL SEMICONDUCTOR ORIGINAL FEED
-      </div>
-
+      <div class="eyebrow"><span class="live-dot"></span>GLOBAL ORIGINAL SIGNAL FEED</div>
       <div class="hero-layout">
         <div class="hero-copy">
-          <h1>
-            World chip news,<br />
-            papers, and market<br />
-            <span>signals.</span>
-          </h1>
-
-          <p>
-            전 세계 반도체 뉴스와 논문 원문 피드, 한국 주식 투자 인사이트 피드를 수집해 보여주는 GitHub 기반 페이지입니다.
-            뉴스 전문은 재게시하지 않고, 원문 제목·스니펫·초록·출처·링크 중심으로 표시합니다.
-          </p>
+          <h1>World chip news,<br />papers, market<br /><span>and policy signals.</span></h1>
+          <p>전 세계 반도체 뉴스와 논문 원문 피드, 한국 주식 투자 인사이트, 국내 정치권 뉴스를 수집해 보여주는 GitHub 기반 페이지입니다. 뉴스 전문은 재게시하지 않고, 원문 제목·스니펫·출처·링크 중심으로 표시합니다.</p>
         </div>
-
         <aside class="status-panel" id="status">
-          <div class="status-row">
-            <span>Total</span>
-            <strong id="totalCount">—</strong>
-          </div>
-
-          <div class="status-row">
-            <span>News</span>
-            <strong id="newsCount">—</strong>
-          </div>
-
-          <div class="status-row">
-            <span>Papers</span>
-            <strong id="paperCount">—</strong>
-          </div>
-
-          <div class="status-row">
-            <span>World</span>
-            <strong id="worldCount">—</strong>
-          </div>
-
-          <div class="status-row wide">
-            <span>Last Update</span>
-            <strong id="lastUpdated">—</strong>
-          </div>
-
-          <div class="status-code">
-            <code>collect.py → latest.json → GitHub Pages</code>
-          </div>
+          <div class="status-row"><span>Total</span><strong id="totalCount">—</strong></div>
+          <div class="status-row"><span>News</span><strong id="newsCount">—</strong></div>
+          <div class="status-row"><span>Papers</span><strong id="paperCount">—</strong></div>
+          <div class="status-row wide"><span>Last Update</span><strong id="lastUpdated">—</strong></div>
+          <div class="status-code"><code>collect.py → latest.json → GitHub Pages</code></div>
         </aside>
       </div>
     </section>
 
     <section class="feed-section" id="feed">
       <div class="section-head">
-        <div>
-          <span class="section-label">LIVE FEED</span>
-          <h2>Original semiconductor feed</h2>
-        </div>
-
-        <div class="section-head-actions">
-          <button type="button" id="settingsButton" class="settings-btn" title="GitHub 설정">⚙</button>
-          <button type="button" id="reloadButton" class="reload-btn">새로고침</button>
-          <button type="button" id="updateButton" class="update-btn">지금 업데이트</button>
-        </div>
+        <div><span class="section-label">LIVE FEED</span><h2>Original signal feed</h2></div>
+        <button type="button" id="reloadButton" class="reload-btn">Reload</button>
       </div>
-
       <div class="toolbar">
         <div class="search-box">
           <label for="searchInput">Search feed</label>
-          <input
-            id="searchInput"
-            type="search"
-            placeholder="TSMC, HBM, ASML, EUV, foundry, 코스피, 수급, 실적..."
-            autocomplete="off"
-          />
+          <input id="searchInput" type="search" placeholder="TSMC, HBM, 코스피, 수급, 국회, 대통령, 정당, 선거..." autocomplete="off" />
         </div>
-
         <div class="filter-groups" aria-label="Feed filters">
           <div class="filter-group">
             <span class="filter-group-label">TYPE</span>
-
             <div class="filters">
-              <button class="filter active" data-filter-group="content" data-filter-value="all">
-                ALL
-              </button>
-              <button class="filter" data-filter-group="content" data-filter-value="news">
-                NEWS
-              </button>
-              <button class="filter" data-filter-group="content" data-filter-value="paper">
-                PAPERS
-              </button>
-              <button class="filter" data-filter-group="content" data-filter-value="k-invest">
-                K-INVEST
-              </button>
-              <button class="filter" data-filter-group="content" data-filter-value="world">
-                WORLD
-              </button>
+              <button class="filter active" data-filter-group="content" data-filter-value="all">ALL</button>
+              <button class="filter" data-filter-group="content" data-filter-value="news">NEWS</button>
+              <button class="filter" data-filter-group="content" data-filter-value="paper">PAPERS</button>
+              <button class="filter" data-filter-group="content" data-filter-value="k-invest">K-INVEST</button>
+              <button class="filter" data-filter-group="content" data-filter-value="k-politics">K-POLITICS</button>
             </div>
           </div>
-
           <div class="filter-group">
             <span class="filter-group-label">REGION</span>
-
             <div class="filters">
-              <button class="filter active" data-filter-group="region" data-filter-value="all">
-                ALL
-              </button>
-              <button class="filter" data-filter-group="region" data-filter-value="Asia">
-                ASIA
-              </button>
-              <button class="filter" data-filter-group="region" data-filter-value="Europe">
-                EUROPE
-              </button>
-              <button class="filter" data-filter-group="region" data-filter-value="Americas">
-                AMERICAS
-              </button>
-              <button class="filter" data-filter-group="region" data-filter-value="Global">
-                GLOBAL
-              </button>
+              <button class="filter active" data-filter-group="region" data-filter-value="all">ALL</button>
+              <button class="filter" data-filter-group="region" data-filter-value="Asia">ASIA</button>
+              <button class="filter" data-filter-group="region" data-filter-value="Europe">EUROPE</button>
+              <button class="filter" data-filter-group="region" data-filter-value="Americas">AMERICAS</button>
+              <button class="filter" data-filter-group="region" data-filter-value="Global">GLOBAL</button>
             </div>
           </div>
-
           <div class="filter-group">
             <span class="filter-group-label">SOURCE</span>
-
             <div class="filters">
-              <button class="filter active" data-filter-group="source" data-filter-value="all">
-                ALL
-              </button>
-              <button class="filter" data-filter-group="source" data-filter-value="GDELT">
-                GDELT
-              </button>
-              <button class="filter" data-filter-group="source" data-filter-value="RSS">
-                RSS
-              </button>
-              <button class="filter" data-filter-group="source" data-filter-value="arXiv">
-                arXiv
-              </button>
-              <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">
-                K-INVEST
-              </button>
-              <button class="filter" data-filter-group="source" data-filter-value="WORLD-NEWS">
-                WORLD-NEWS
-              </button>
+              <button class="filter active" data-filter-group="source" data-filter-value="all">ALL</button>
+              <button class="filter" data-filter-group="source" data-filter-value="GDELT">GDELT</button>
+              <button class="filter" data-filter-group="source" data-filter-value="RSS">RSS</button>
+              <button class="filter" data-filter-group="source" data-filter-value="arXiv">arXiv</button>
+              <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">K-INVEST</button>
+              <button class="filter" data-filter-group="source" data-filter-value="K-POLITICS">K-POLITICS</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="feed-meta">
-        <span id="resultCount">—</span>
-        <span id="activeFilter">FILTER: TYPE=ALL / REGION=ALL / SOURCE=ALL</span>
-      </div>
-
+      <div class="feed-meta"><span id="resultCount">—</span><span id="activeFilter">FILTER: TYPE=ALL / REGION=ALL / SOURCE=ALL</span></div>
       <div class="feed-list" id="feedList" aria-live="polite"></div>
-
-      <div class="empty-state hidden" id="emptyState">
-        <strong>NO SIGNAL</strong>
-        <p>현재 조건에 맞는 항목이 없습니다.</p>
-      </div>
+      <div class="empty-state hidden" id="emptyState"><strong>NO SIGNAL</strong><p>현재 조건에 맞는 항목이 없습니다.</p></div>
     </section>
 
     <section class="sources-section" id="sources">
-      <div class="section-head">
-        <div>
-          <span class="section-label">SOURCE MAP</span>
-          <h2>Collection sources</h2>
-        </div>
-      </div>
-
+      <div class="section-head"><div><span class="section-label">SOURCE MAP</span><h2>Collection sources</h2></div></div>
       <div class="source-grid">
-        <article class="source-card featured">
-          <span>NEWS</span>
-          <h3>GDELT</h3>
-          <p>
-            글로벌 뉴스 검색 결과에서 제목, 출처, 날짜, URL, 스니펫을 수집합니다.
-          </p>
-        </article>
-
-        <article class="source-card">
-          <span>RSS</span>
-          <h3>Newsrooms &amp; Media</h3>
-          <p>
-            Samsung · SK hynix · NVIDIA · AMD · Intel 뉴스룸 + Semiconductor Engineering · EE Times · SemiWiki · IEEE Spectrum · The Next Platform · ServeTheHome · Tom's Hardware · Blocks and Files · The Elec · ETNews · KIPOST 등 반도체 전문 매체 RSS.
-          </p>
-        </article>
-
-        <article class="source-card">
-          <span>PAPERS</span>
-          <h3>arXiv</h3>
-          <p>
-            반도체·소자·나노공정·AI accelerator 관련 논문 제목, 저자, 초록, PDF 링크를 수집합니다.
-          </p>
-        </article>
-
-        <article class="source-card">
-          <span>K-INVEST</span>
-          <h3>Korean Market Signals</h3>
-          <p>
-            한국경제 · 매일경제 · 서울경제 · 이데일리 · 파이낸셜뉴스 · 머니투데이 · 아시아경제 · 뉴스핌 · 조선비즈 · 연합인포맥스 · 이투데이에서 주식·실적·수급·증권사 리포트 피드를 수집합니다.
-          </p>
-        </article>
-
-        <article class="source-card">
-          <span>WORLD</span>
-          <h3>World Hot Issues</h3>
-          <p>
-            BBC · CNN · Reuters · The Guardian · Al Jazeera · Deutsche Welle · France24 · NHK · Nikkei Asia · SCMP 등 글로벌 주요 뉴스 + 연합뉴스 · KBS · YTN · 뉴시스 · 조선일보 · 중앙일보 · 코리아헤럴드 · 한겨레 · 경향신문에서 7일 이내 핫이슈를 수집합니다.
-          </p>
-        </article>
+        <article class="source-card featured"><span>NEWS</span><h3>GDELT</h3><p>글로벌 뉴스 검색 결과에서 제목, 출처, 날짜, URL, 스니펫을 수집합니다.</p></article>
+        <article class="source-card"><span>RSS</span><h3>Newsrooms</h3><p>기업 뉴스룸, 반도체 전문 매체, 한국 산업 매체 RSS에서 원문 링크 중심 피드를 수집합니다.</p></article>
+        <article class="source-card"><span>PAPERS</span><h3>arXiv</h3><p>반도체·소자·나노공정·AI accelerator 관련 논문 제목, 저자, 초록, PDF 링크를 수집합니다.</p></article>
+        <article class="source-card"><span>K-INVEST</span><h3>Korean Market Signals</h3><p>한국 주식시장, 실적, 수급, 증권사 리포트, 산업 흐름 관련 기사 피드를 별도 탭으로 수집합니다.</p></article>
+        <article class="source-card"><span>K-POLITICS</span><h3>Korean Political Signals</h3><p>국회, 정당, 대통령실, 정부, 선거, 정책 관련 국내 정치권 뉴스를 별도 탭으로 수집합니다.</p></article>
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <span>GLOBAL SEMICONDUCTOR SIGNAL</span>
-    <span>Original links only · No full news republication · Not investment advice</span>
-  </footer>
-
-  <div class="modal-overlay hidden" id="tokenModal" role="dialog" aria-modal="true" aria-labelledby="tokenModalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="tokenModalTitle">GitHub API 설정</h3>
-        <button type="button" class="modal-close" id="tokenModalClose" aria-label="닫기">✕</button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-desc">
-          GitHub Actions 워크플로우를 직접 트리거하려면 Personal Access Token이 필요합니다.
-          토큰은 브라우저 localStorage에만 저장되며 외부로 전송되지 않습니다.
-        </p>
-        <div class="modal-field">
-          <label for="ghOwnerInput">Repository Owner</label>
-          <input id="ghOwnerInput" type="text" placeholder="e.g. pikker1981" autocomplete="off" />
-        </div>
-        <div class="modal-field">
-          <label for="ghRepoInput">Repository Name</label>
-          <input id="ghRepoInput" type="text" placeholder="e.g. GLOBAL-SEMICONDUCTOR-SIGNAL" autocomplete="off" />
-        </div>
-        <div class="modal-field">
-          <label for="ghTokenInput">Personal Access Token</label>
-          <input id="ghTokenInput" type="password" placeholder="ghp_..." autocomplete="off" />
-        </div>
-        <p class="modal-hint">
-          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Classic 토큰 발급 →</a>
-          Scopes에서 <code>workflow</code> 체크 필수 (<code>repo</code>만으로는 부족)<br>
-          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained 토큰 →</a>
-          Repository permissions &gt; <code>Actions: Read and Write</code> 선택
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="tokenModalSave" class="update-btn">저장 후 업데이트 시작</button>
-        <button type="button" id="tokenModalCancel" class="reload-btn">취소</button>
-      </div>
-    </div>
-  </div>
-
+  <footer class="footer"><span>GLOBAL SEMICONDUCTOR SIGNAL</span><span>Original links only · No full news republication · Not investment advice</span></footer>
   <script src="./app.js"></script>
 </body>
 </html>
