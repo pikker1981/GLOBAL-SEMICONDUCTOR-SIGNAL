@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "generated_at": "RUN scripts/collect.py TO GENERATE",
+    "policy": "This is only an example placeholder. Do not upload over docs/data/latest.json unless intentionally resetting.",
+    "sources": [
+      "GDELT",
+      "RSS",
+      "K-INVEST",
+      "arXiv"
+    ]
+  },
+  "items": []
+}

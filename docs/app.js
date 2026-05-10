@@ -64,7 +64,6 @@ function formatDate(value) {
   if (!value) return "Unknown";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-
   return new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "2-digit",
@@ -78,7 +77,6 @@ function compactDate(value) {
   if (!value) return "UNKNOWN";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-
   return new Intl.DateTimeFormat("en-CA", {
     year: "numeric",
     month: "2-digit",
@@ -90,26 +88,18 @@ function getSourceType(item) {
   if (item.source_type) return item.source_type;
   if (item.type === "paper") return "arXiv";
   if (item.source === "arXiv") return "arXiv";
-
-  const mode = String(item.content_mode || "").toLowerCase();
-
-  if (mode.includes("k_politics")) return "K-POLITICS";
-  if (mode.includes("k_invest")) return "K-INVEST";
-  if (mode.includes("rss")) return "RSS";
+  if (String(item.content_mode || "").toLowerCase().includes("k_invest")) return "K-INVEST";
+  if (String(item.content_mode || "").toLowerCase().includes("rss")) return "RSS";
   if (item.type === "news") return "GDELT";
-
   return "UNKNOWN";
 }
 
 function getSourceBadgeClass(sourceType) {
   const normalized = String(sourceType || "").toLowerCase();
-
   if (normalized === "rss") return "source-rss";
   if (normalized === "gdelt") return "source-gdelt";
   if (normalized === "arxiv") return "source-arxiv";
   if (normalized === "k-invest") return "source-k-invest";
-  if (normalized === "k-politics") return "source-k-politics";
-
   return "source-unknown";
 }
 
@@ -153,8 +143,7 @@ function applyFilters() {
     const matchesContent =
       state.filters.content === "all" ||
       item.type === state.filters.content ||
-      (state.filters.content === "k-invest" && sourceType === "K-INVEST") ||
-      (state.filters.content === "k-politics" && sourceType === "K-POLITICS");
+      (state.filters.content === "k-invest" && sourceType === "K-INVEST");
 
     const matchesRegion =
       state.filters.region === "all" || item.region === state.filters.region;
@@ -188,7 +177,12 @@ function getVisiblePageNumbers(currentPage, totalPages) {
     return Array.from({ length: totalPages }, (_, index) => index + 1);
   }
 
-  const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+  const pages = new Set();
+  pages.add(1);
+  pages.add(totalPages);
+  pages.add(currentPage);
+  pages.add(currentPage - 1);
+  pages.add(currentPage + 1);
 
   if (currentPage <= 3) {
     pages.add(2);
@@ -244,19 +238,20 @@ function renderPagination() {
   const end = Math.min(currentPage * state.pageSize, totalItems);
 
   paginationEls.meta.textContent = `PAGE ${currentPage} / ${totalPages} · SHOWING ${start}-${end} OF ${totalItems}`;
-
   paginationEls.controls.innerHTML = "";
 
-  paginationEls.controls.appendChild(createPaginationButton("← PREV", {
-    disabled: currentPage === 1,
-    onClick: () => {
-      if (state.currentPage > 1) {
-        state.currentPage -= 1;
-        renderFeed();
-        scrollToFeedTop();
+  paginationEls.controls.appendChild(
+    createPaginationButton("← PREV", {
+      disabled: currentPage === 1,
+      onClick: () => {
+        if (state.currentPage > 1) {
+          state.currentPage -= 1;
+          renderFeed();
+          scrollToFeedTop();
+        }
       }
-    }
-  }));
+    })
+  );
 
   const pageNumbers = getVisiblePageNumbers(currentPage, totalPages);
 
@@ -274,43 +269,42 @@ function renderPagination() {
       paginationEls.controls.appendChild(ellipsis);
     }
 
-    paginationEls.controls.appendChild(createPaginationButton(String(page), {
-      active: page === currentPage,
-      onClick: () => {
-        state.currentPage = page;
-        renderFeed();
-        scrollToFeedTop();
-      }
-    }));
+    paginationEls.controls.appendChild(
+      createPaginationButton(String(page), {
+        active: page === currentPage,
+        onClick: () => {
+          state.currentPage = page;
+          renderFeed();
+          scrollToFeedTop();
+        }
+      })
+    );
   });
 
-  paginationEls.controls.appendChild(createPaginationButton("NEXT →", {
-    disabled: currentPage === totalPages,
-    onClick: () => {
-      if (state.currentPage < totalPages) {
-        state.currentPage += 1;
-        renderFeed();
-        scrollToFeedTop();
+  paginationEls.controls.appendChild(
+    createPaginationButton("NEXT →", {
+      disabled: currentPage === totalPages,
+      onClick: () => {
+        if (state.currentPage < totalPages) {
+          state.currentPage += 1;
+          renderFeed();
+          scrollToFeedTop();
+        }
       }
-    }
-  }));
+    })
+  );
 }
 
 function scrollToFeedTop() {
   const feedSection = document.getElementById("feed");
   if (!feedSection) return;
-
-  feedSection.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  feedSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderActiveFilterText() {
   const content = String(state.filters.content).toUpperCase();
   const region = String(state.filters.region).toUpperCase();
   const source = String(state.filters.source).toUpperCase();
-
   els.activeFilter.textContent = `FILTER: TYPE=${content} / REGION=${region} / SOURCE=${source}`;
 }
 
@@ -347,7 +341,6 @@ function stopTitleTyping(titleEl) {
     clearInterval(titleEl._typingTimer);
     titleEl._typingTimer = null;
   }
-
   titleEl.textContent = titleEl.dataset.fullTitle || titleEl.textContent || "";
   titleEl.classList.remove("is-typing");
 }
@@ -356,10 +349,8 @@ function bindCardTypingEffects() {
   document.querySelectorAll(".feed-card").forEach((card) => {
     const titleEl = card.querySelector(".typing-title");
     if (!titleEl) return;
-
     const originalTitle = titleEl.dataset.fullTitle || titleEl.textContent || "";
     titleEl.dataset.fullTitle = originalTitle;
-
     card.addEventListener("mouseenter", () => startTitleTyping(titleEl));
     card.addEventListener("mouseleave", () => stopTitleTyping(titleEl));
   });
@@ -379,7 +370,6 @@ function renderFeed() {
     count === 0 ? "0 RESULTS" : `${count} RESULTS · PAGE ${state.currentPage}/${totalPages}`;
 
   renderActiveFilterText();
-
   els.emptyState.classList.toggle("hidden", count !== 0);
 
   els.feedList.innerHTML = visibleItems
@@ -387,7 +377,6 @@ function renderFeed() {
       const isPaper = item.type === "paper";
       const sourceType = getSourceType(item);
       const sourceClass = getSourceBadgeClass(sourceType);
-
       const rawTitle = item.title || "Untitled";
       const title = escapeHtml(rawTitle);
       const desc = escapeHtml(item.abstract || item.snippet || "No snippet available.");
@@ -431,7 +420,10 @@ function renderFeed() {
           </div>
 
           <div class="card-actions">
-            <a class="open-link" href="${url}" target="_blank" rel="noopener">OPEN ORIGINAL</a>
+            <a class="open-link" href="${url}" target="_blank" rel="noopener">
+              OPEN ORIGINAL
+            </a>
+
             ${pdfUrl ? `<a class="pdf-link" href="${pdfUrl}" target="_blank" rel="noopener">PDF</a>` : ""}
           </div>
         </article>
@@ -456,27 +448,20 @@ async function loadFeed() {
   try {
     const response = await fetch(`./data/latest.json?ts=${Date.now()}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const payload = await response.json();
-
     state.items = Array.isArray(payload.items) ? payload.items : [];
-    state.items.sort(
-      (a, b) => new Date(b.published_at || 0) - new Date(a.published_at || 0)
-    );
-
+    state.items.sort((a, b) => new Date(b.published_at || 0) - new Date(a.published_at || 0));
     resetPage();
     renderStats(payload.meta || {});
     applyFilters();
   } catch (error) {
     console.error(error);
-
     els.feedList.innerHTML = `
       <div class="empty-state">
         <strong>LOAD FAILED</strong>
         <p>docs/data/latest.json 파일을 불러오지 못했습니다.</p>
       </div>
     `;
-
     paginationEls.wrapper.classList.add("hidden");
   }
 }
@@ -491,9 +476,7 @@ document.querySelectorAll("[data-filter-group]").forEach((button) => {
       .forEach((item) => item.classList.remove("active"));
 
     button.classList.add("active");
-
     state.filters[group] = value;
-
     resetPage();
     applyFilters();
   });
@@ -505,8 +488,6 @@ els.searchInput.addEventListener("input", (event) => {
   applyFilters();
 });
 
-if (els.reloadButton) {
-  els.reloadButton.addEventListener("click", loadFeed);
-}
+els.reloadButton.addEventListener("click", loadFeed);
 
 loadFeed();
