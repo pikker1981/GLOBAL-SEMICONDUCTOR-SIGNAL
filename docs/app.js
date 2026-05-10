@@ -1,7 +1,11 @@
 const state = {
   items: [],
   filteredItems: [],
-  filters: { content: "all", region: "all", source: "all" },
+  filters: {
+    content: "all",
+    region: "all",
+    source: "all"
+  },
   query: "",
   currentPage: 1,
   pageSize: 10
@@ -41,7 +45,9 @@ function createPaginationElements() {
 
   wrapper.appendChild(meta);
   wrapper.appendChild(controls);
+
   els.feedList.insertAdjacentElement("afterend", wrapper);
+
   return { wrapper, meta, controls };
 }
 
@@ -58,6 +64,7 @@ function formatDate(value) {
   if (!value) return "Unknown";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
+
   return new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "2-digit",
@@ -71,6 +78,7 @@ function compactDate(value) {
   if (!value) return "UNKNOWN";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
+
   return new Intl.DateTimeFormat("en-CA", {
     year: "numeric",
     month: "2-digit",
@@ -84,20 +92,24 @@ function getSourceType(item) {
   if (item.source === "arXiv") return "arXiv";
 
   const mode = String(item.content_mode || "").toLowerCase();
+
   if (mode.includes("k_politics")) return "K-POLITICS";
   if (mode.includes("k_invest")) return "K-INVEST";
   if (mode.includes("rss")) return "RSS";
   if (item.type === "news") return "GDELT";
+
   return "UNKNOWN";
 }
 
 function getSourceBadgeClass(sourceType) {
   const normalized = String(sourceType || "").toLowerCase();
+
   if (normalized === "rss") return "source-rss";
   if (normalized === "gdelt") return "source-gdelt";
   if (normalized === "arxiv") return "source-arxiv";
   if (normalized === "k-invest") return "source-k-invest";
   if (normalized === "k-politics") return "source-k-politics";
+
   return "source-unknown";
 }
 
@@ -112,11 +124,20 @@ function normalizeText(item) {
     getSourceType(item),
     item.insight_type,
     Array.isArray(item.authors) ? item.authors.join(" ") : ""
-  ].filter(Boolean).join(" ").toLowerCase();
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 }
 
-function resetPage() { state.currentPage = 1; }
-function getTotalPages() { return Math.max(1, Math.ceil(state.filteredItems.length / state.pageSize)); }
+function resetPage() {
+  state.currentPage = 1;
+}
+
+function getTotalPages() {
+  return Math.max(1, Math.ceil(state.filteredItems.length / state.pageSize));
+}
+
 function clampCurrentPage() {
   const totalPages = getTotalPages();
   if (state.currentPage < 1) state.currentPage = 1;
@@ -125,18 +146,27 @@ function clampCurrentPage() {
 
 function applyFilters() {
   const query = state.query.trim().toLowerCase();
+
   state.filteredItems = state.items.filter((item) => {
     const sourceType = getSourceType(item);
+
     const matchesContent =
       state.filters.content === "all" ||
       item.type === state.filters.content ||
       (state.filters.content === "k-invest" && sourceType === "K-INVEST") ||
       (state.filters.content === "k-politics" && sourceType === "K-POLITICS");
-    const matchesRegion = state.filters.region === "all" || item.region === state.filters.region;
-    const matchesSource = state.filters.source === "all" || sourceType === state.filters.source;
+
+    const matchesRegion =
+      state.filters.region === "all" || item.region === state.filters.region;
+
+    const matchesSource =
+      state.filters.source === "all" || sourceType === state.filters.source;
+
     const matchesSearch = !query || normalizeText(item).includes(query);
+
     return matchesContent && matchesRegion && matchesSource && matchesSearch;
   });
+
   clampCurrentPage();
   renderFeed();
 }
@@ -145,6 +175,7 @@ function renderStats(meta = {}) {
   const total = state.items.length;
   const news = state.items.filter((item) => item.type === "news").length;
   const papers = state.items.filter((item) => item.type === "paper").length;
+
   els.totalCount.textContent = total;
   els.newsCount.textContent = news;
   els.paperCount.textContent = papers;
@@ -153,11 +184,27 @@ function renderStats(meta = {}) {
 
 function getVisiblePageNumbers(currentPage, totalPages) {
   const maxButtons = 7;
-  if (totalPages <= maxButtons) return Array.from({ length: totalPages }, (_, index) => index + 1);
+  if (totalPages <= maxButtons) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
   const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
-  if (currentPage <= 3) { pages.add(2); pages.add(3); pages.add(4); }
-  if (currentPage >= totalPages - 2) { pages.add(totalPages - 1); pages.add(totalPages - 2); pages.add(totalPages - 3); }
-  return Array.from(pages).filter((page) => page >= 1 && page <= totalPages).sort((a, b) => a - b);
+
+  if (currentPage <= 3) {
+    pages.add(2);
+    pages.add(3);
+    pages.add(4);
+  }
+
+  if (currentPage >= totalPages - 2) {
+    pages.add(totalPages - 1);
+    pages.add(totalPages - 2);
+    pages.add(totalPages - 3);
+  }
+
+  return Array.from(pages)
+    .filter((page) => page >= 1 && page <= totalPages)
+    .sort((a, b) => a - b);
 }
 
 function createPaginationButton(label, options = {}) {
@@ -165,8 +212,17 @@ function createPaginationButton(label, options = {}) {
   button.type = "button";
   button.className = options.active ? "filter active" : "filter";
   button.textContent = label;
-  if (options.disabled) { button.disabled = true; button.style.opacity = "0.4"; button.style.cursor = "not-allowed"; }
-  if (typeof options.onClick === "function") button.addEventListener("click", options.onClick);
+
+  if (options.disabled) {
+    button.disabled = true;
+    button.style.opacity = "0.4";
+    button.style.cursor = "not-allowed";
+  }
+
+  if (typeof options.onClick === "function") {
+    button.addEventListener("click", options.onClick);
+  }
+
   return button;
 }
 
@@ -174,24 +230,39 @@ function renderPagination() {
   const totalItems = state.filteredItems.length;
   const totalPages = getTotalPages();
   const currentPage = state.currentPage;
+
   if (totalItems <= state.pageSize) {
     paginationEls.wrapper.classList.add("hidden");
     paginationEls.meta.textContent = "";
     paginationEls.controls.innerHTML = "";
     return;
   }
+
   paginationEls.wrapper.classList.remove("hidden");
+
   const start = (currentPage - 1) * state.pageSize + 1;
   const end = Math.min(currentPage * state.pageSize, totalItems);
+
   paginationEls.meta.textContent = `PAGE ${currentPage} / ${totalPages} · SHOWING ${start}-${end} OF ${totalItems}`;
+
   paginationEls.controls.innerHTML = "";
+
   paginationEls.controls.appendChild(createPaginationButton("← PREV", {
     disabled: currentPage === 1,
-    onClick: () => { if (state.currentPage > 1) { state.currentPage -= 1; renderFeed(); scrollToFeedTop(); } }
+    onClick: () => {
+      if (state.currentPage > 1) {
+        state.currentPage -= 1;
+        renderFeed();
+        scrollToFeedTop();
+      }
+    }
   }));
+
   const pageNumbers = getVisiblePageNumbers(currentPage, totalPages);
+
   pageNumbers.forEach((page, index) => {
     const previousPage = pageNumbers[index - 1];
+
     if (previousPage && page - previousPage > 1) {
       const ellipsis = document.createElement("span");
       ellipsis.textContent = "…";
@@ -202,27 +273,44 @@ function renderPagination() {
       ellipsis.style.fontFamily = "var(--font-body)";
       paginationEls.controls.appendChild(ellipsis);
     }
+
     paginationEls.controls.appendChild(createPaginationButton(String(page), {
       active: page === currentPage,
-      onClick: () => { state.currentPage = page; renderFeed(); scrollToFeedTop(); }
+      onClick: () => {
+        state.currentPage = page;
+        renderFeed();
+        scrollToFeedTop();
+      }
     }));
   });
+
   paginationEls.controls.appendChild(createPaginationButton("NEXT →", {
     disabled: currentPage === totalPages,
-    onClick: () => { if (state.currentPage < totalPages) { state.currentPage += 1; renderFeed(); scrollToFeedTop(); } }
+    onClick: () => {
+      if (state.currentPage < totalPages) {
+        state.currentPage += 1;
+        renderFeed();
+        scrollToFeedTop();
+      }
+    }
   }));
 }
 
 function scrollToFeedTop() {
   const feedSection = document.getElementById("feed");
   if (!feedSection) return;
-  feedSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  feedSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 function renderActiveFilterText() {
   const content = String(state.filters.content).toUpperCase();
   const region = String(state.filters.region).toUpperCase();
   const source = String(state.filters.source).toUpperCase();
+
   els.activeFilter.textContent = `FILTER: TYPE=${content} / REGION=${region} / SOURCE=${source}`;
 }
 
@@ -230,15 +318,21 @@ function startTitleTyping(titleEl) {
   if (!titleEl) return;
   const fullTitle = titleEl.dataset.fullTitle || titleEl.textContent || "";
   if (!fullTitle) return;
+
   if (titleEl._typingTimer) clearInterval(titleEl._typingTimer);
+
   const chars = Array.from(fullTitle);
   let index = 0;
+
   titleEl.textContent = "";
   titleEl.classList.add("is-typing");
+
   const speed = Math.max(8, Math.min(22, Math.floor(520 / Math.max(chars.length, 1))));
+
   titleEl._typingTimer = setInterval(() => {
     index += 1;
     titleEl.textContent = chars.slice(0, index).join("");
+
     if (index >= chars.length) {
       clearInterval(titleEl._typingTimer);
       titleEl._typingTimer = null;
@@ -249,7 +343,11 @@ function startTitleTyping(titleEl) {
 
 function stopTitleTyping(titleEl) {
   if (!titleEl) return;
-  if (titleEl._typingTimer) { clearInterval(titleEl._typingTimer); titleEl._typingTimer = null; }
+  if (titleEl._typingTimer) {
+    clearInterval(titleEl._typingTimer);
+    titleEl._typingTimer = null;
+  }
+
   titleEl.textContent = titleEl.dataset.fullTitle || titleEl.textContent || "";
   titleEl.classList.remove("is-typing");
 }
@@ -258,8 +356,10 @@ function bindCardTypingEffects() {
   document.querySelectorAll(".feed-card").forEach((card) => {
     const titleEl = card.querySelector(".typing-title");
     if (!titleEl) return;
+
     const originalTitle = titleEl.dataset.fullTitle || titleEl.textContent || "";
     titleEl.dataset.fullTitle = originalTitle;
+
     card.addEventListener("mouseenter", () => startTitleTyping(titleEl));
     card.addEventListener("mouseleave", () => stopTitleTyping(titleEl));
   });
@@ -268,71 +368,115 @@ function bindCardTypingEffects() {
 function renderFeed() {
   const count = state.filteredItems.length;
   const totalPages = getTotalPages();
+
   clampCurrentPage();
+
   const startIndex = (state.currentPage - 1) * state.pageSize;
   const endIndex = startIndex + state.pageSize;
   const visibleItems = state.filteredItems.slice(startIndex, endIndex);
-  els.resultCount.textContent = count === 0 ? "0 RESULTS" : `${count} RESULTS · PAGE ${state.currentPage}/${totalPages}`;
+
+  els.resultCount.textContent =
+    count === 0 ? "0 RESULTS" : `${count} RESULTS · PAGE ${state.currentPage}/${totalPages}`;
+
   renderActiveFilterText();
+
   els.emptyState.classList.toggle("hidden", count !== 0);
-  els.feedList.innerHTML = visibleItems.map((item) => {
-    const isPaper = item.type === "paper";
-    const sourceType = getSourceType(item);
-    const sourceClass = getSourceBadgeClass(sourceType);
-    const rawTitle = item.title || "Untitled";
-    const title = escapeHtml(rawTitle);
-    const desc = escapeHtml(item.abstract || item.snippet || "No snippet available.");
-    const source = escapeHtml(item.source || "Unknown source");
-    const region = escapeHtml(item.region || "Global");
-    const country = escapeHtml(item.country || "");
-    const authors = Array.isArray(item.authors) ? item.authors.join(", ") : "";
-    const metaSource = isPaper && authors ? escapeHtml(authors) : source;
-    const url = escapeHtml(item.url || "#");
-    const pdfUrl = escapeHtml(item.pdf_url || "");
-    return `
-      <article class="feed-card">
-        <div class="card-side">
-          <span class="card-kicker">${isPaper ? "PAPER" : "NEWS"}</span>
-          <span class="source-type-badge ${sourceClass}">${escapeHtml(sourceType)}</span>
-          <span class="card-region">${region}</span>
-          <span class="card-region">${compactDate(item.published_at)}</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title"><a class="typing-title" data-full-title="${title}" href="${url}" target="_blank" rel="noopener">${title}</a></h3>
-          <p class="card-desc">${desc}</p>
-          <div class="card-meta">
-            <span>ORIGIN: ${escapeHtml(sourceType)}</span>
-            <span>SOURCE: ${metaSource}</span>
-            ${country ? `<span>COUNTRY: ${country}</span>` : ""}
-            <span>PUBLISHED: ${formatDate(item.published_at)}</span>
-            ${item.insight_type ? `<span>INSIGHT: ${escapeHtml(item.insight_type)}</span>` : ""}
+
+  els.feedList.innerHTML = visibleItems
+    .map((item) => {
+      const isPaper = item.type === "paper";
+      const sourceType = getSourceType(item);
+      const sourceClass = getSourceBadgeClass(sourceType);
+
+      const rawTitle = item.title || "Untitled";
+      const title = escapeHtml(rawTitle);
+      const desc = escapeHtml(item.abstract || item.snippet || "No snippet available.");
+      const source = escapeHtml(item.source || "Unknown source");
+      const region = escapeHtml(item.region || "Global");
+      const country = escapeHtml(item.country || "");
+      const authors = Array.isArray(item.authors) ? item.authors.join(", ") : "";
+      const metaSource = isPaper && authors ? escapeHtml(authors) : source;
+      const url = escapeHtml(item.url || "#");
+      const pdfUrl = escapeHtml(item.pdf_url || "");
+
+      return `
+        <article class="feed-card">
+          <div class="card-side">
+            <span class="card-kicker">${isPaper ? "PAPER" : "NEWS"}</span>
+            <span class="source-type-badge ${sourceClass}">${escapeHtml(sourceType)}</span>
+            <span class="card-region">${region}</span>
+            <span class="card-region">${compactDate(item.published_at)}</span>
           </div>
-        </div>
-        <div class="card-actions">
-          <a class="open-link" href="${url}" target="_blank" rel="noopener">OPEN ORIGINAL</a>
-          ${pdfUrl ? `<a class="pdf-link" href="${pdfUrl}" target="_blank" rel="noopener">PDF</a>` : ""}
-        </div>
-      </article>`;
-  }).join("");
+
+          <div class="card-body">
+            <h3 class="card-title">
+              <a
+                class="typing-title"
+                data-full-title="${title}"
+                href="${url}"
+                target="_blank"
+                rel="noopener"
+              >${title}</a>
+            </h3>
+
+            <p class="card-desc">${desc}</p>
+
+            <div class="card-meta">
+              <span>ORIGIN: ${escapeHtml(sourceType)}</span>
+              <span>SOURCE: ${metaSource}</span>
+              ${country ? `<span>COUNTRY: ${country}</span>` : ""}
+              <span>PUBLISHED: ${formatDate(item.published_at)}</span>
+              ${item.insight_type ? `<span>INSIGHT: ${escapeHtml(item.insight_type)}</span>` : ""}
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="open-link" href="${url}" target="_blank" rel="noopener">OPEN ORIGINAL</a>
+            ${pdfUrl ? `<a class="pdf-link" href="${pdfUrl}" target="_blank" rel="noopener">PDF</a>` : ""}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
   bindCardTypingEffects();
   renderPagination();
 }
 
 async function loadFeed() {
-  els.feedList.innerHTML = `<div class="empty-state"><strong>LOADING SIGNAL</strong><p>latest.json 데이터를 불러오는 중입니다.</p></div>`;
+  els.feedList.innerHTML = `
+    <div class="empty-state">
+      <strong>LOADING SIGNAL</strong>
+      <p>latest.json 데이터를 불러오는 중입니다.</p>
+    </div>
+  `;
+
   paginationEls.wrapper.classList.add("hidden");
+
   try {
     const response = await fetch(`./data/latest.json?ts=${Date.now()}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
     const payload = await response.json();
+
     state.items = Array.isArray(payload.items) ? payload.items : [];
-    state.items.sort((a, b) => new Date(b.published_at || 0) - new Date(a.published_at || 0));
+    state.items.sort(
+      (a, b) => new Date(b.published_at || 0) - new Date(a.published_at || 0)
+    );
+
     resetPage();
     renderStats(payload.meta || {});
     applyFilters();
   } catch (error) {
     console.error(error);
-    els.feedList.innerHTML = `<div class="empty-state"><strong>LOAD FAILED</strong><p>docs/data/latest.json 파일을 불러오지 못했습니다.</p></div>`;
+
+    els.feedList.innerHTML = `
+      <div class="empty-state">
+        <strong>LOAD FAILED</strong>
+        <p>docs/data/latest.json 파일을 불러오지 못했습니다.</p>
+      </div>
+    `;
+
     paginationEls.wrapper.classList.add("hidden");
   }
 }
@@ -341,14 +485,28 @@ document.querySelectorAll("[data-filter-group]").forEach((button) => {
   button.addEventListener("click", () => {
     const group = button.dataset.filterGroup;
     const value = button.dataset.filterValue;
-    document.querySelectorAll(`[data-filter-group="${group}"]`).forEach((item) => item.classList.remove("active"));
+
+    document
+      .querySelectorAll(`[data-filter-group="${group}"]`)
+      .forEach((item) => item.classList.remove("active"));
+
     button.classList.add("active");
+
     state.filters[group] = value;
+
     resetPage();
     applyFilters();
   });
 });
 
-els.searchInput.addEventListener("input", (event) => { state.query = event.target.value; resetPage(); applyFilters(); });
-els.reloadButton.addEventListener("click", loadFeed);
+els.searchInput.addEventListener("input", (event) => {
+  state.query = event.target.value;
+  resetPage();
+  applyFilters();
+});
+
+if (els.reloadButton) {
+  els.reloadButton.addEventListener("click", loadFeed);
+}
+
 loadFeed();

@@ -1,0 +1,39 @@
+/* ================================
+   Restore Update Feed button
+   Add to bottom of docs/style.css
+   ================================ */
+
+.reload-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  color: var(--mint, #2fd6a1);
+  background: var(--surface, #101010);
+  border: 1px solid var(--border, #3d3a39);
+  border-radius: 6px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap;
+}
+
+.reload-btn:hover {
+  color: var(--green, #00d992);
+  border-color: var(--green, #00d992);
+  background: rgba(0, 217, 146, 0.04);
+}
+
+.source-k-politics {
+  color: #fb7185;
+  background: rgba(251, 113, 133, 0.08);
+  border-color: rgba(251, 113, 133, 0.48);
+}
+
+@media (max-width: 680px) {
+  .reload-btn {
+    width: 100%;
+  }
+}
