@@ -23,7 +23,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote_plus, urlencode, urlsplit, urlunsplit
 from zoneinfo import ZoneInfo
 
 import feedparser
@@ -35,10 +35,12 @@ OUTPUT = ROOT / "docs" / "data" / "latest.json"
 MAX_GDELT_NEWS = 80
 MAX_RSS_NEWS = 120
 MAX_K_INVEST_NEWS = 80
+MAX_K_POLITICS_NEWS = 120
 MAX_PAPERS = 40
 
 RSS_MAX_AGE_DAYS = 30
 K_INVEST_MAX_AGE_DAYS = 14
+K_POLITICS_MAX_AGE_DAYS = 7
 PAPER_MAX_AGE_DAYS = 180
 REQUEST_TIMEOUT = 25
 
@@ -95,6 +97,31 @@ K_INVEST_RSS_FEEDS = [
     {"name": "EToday Industry", "url": "https://rss.etoday.co.kr/eto/industry_news.xml", "region": "Asia", "country": "South Korea"},
 ]
 
+
+K_POLITICS_RSS_FEEDS = [
+    {"name": "Hankyung Politics", "url": "https://www.hankyung.com/feed/politics", "region": "Asia", "country": "South Korea"},
+    {"name": "Maeil Business Politics", "url": "https://www.mk.co.kr/rss/30200030/", "region": "Asia", "country": "South Korea"},
+    {"name": "Donga Politics", "url": "https://rss.donga.com/politics.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "MBN Politics", "url": "https://www.mbn.co.kr/rss/politics/", "region": "Asia", "country": "South Korea"},
+    {"name": "Yonhap News TV Politics", "url": "https://www.yonhapnewstv.co.kr/category/news/politics/feed/", "region": "Asia", "country": "South Korea"},
+]
+
+K_POLITICS_GOOGLE_NEWS_QUERIES = [
+    "대통령 OR 대통령실",
+    "국회 OR 정당 OR 여당 OR 야당",
+    "선거 OR 대선 OR 총선 OR 지방선거",
+    "정부 OR 장관 OR 국무총리",
+    "정치권 OR 국회의원",
+    "외교 국방 북한 안보",
+]
+
+K_POLITICS_GDELT_QUERIES = [
+    '(대통령 OR 대통령실 OR 국회 OR 여당 OR 야당 OR 정당 OR 정부 OR 장관 OR 총리)',
+    '(선거 OR 총선 OR 대선 OR 지방선거 OR 공천 OR 여론조사 OR 국정감사)',
+    '(정치 OR 국회의원 OR 더불어민주당 OR 국민의힘 OR 개혁신당 OR 조국혁신당)',
+    '(외교 OR 국방 OR 북한 OR 안보 OR 한미 OR 한일 OR 한중)',
+]
+
 SPECIALIST_RSS_SOURCES = {
     "Semiconductor Engineering", "Semiconductor Today", "SemiWiki",
     "EE Times Semiconductors", "EE Times Asia", "The Elec Semiconductor",
@@ -130,6 +157,15 @@ K_INVEST_KEYWORDS = [
     "ROE", "환율", "금리", "국채", "미국채", "FOMC", "반도체", "HBM", "AI 반도체",
     "2차전지", "배터리", "바이오", "조선", "방산", "원전", "전력기기", "화장품",
     "자동차", "로봇", "IPO", "공모주", "유상증자", "무상증자", "권리락", "인적분할", "물적분할"
+]
+
+
+K_POLITICS_KEYWORDS = [
+    "대통령", "대통령실", "청와대", "국회", "국회의원", "여당", "야당", "정당",
+    "더불어민주당", "민주당", "국민의힘", "개혁신당", "조국혁신당", "정치권",
+    "정부", "장관", "국무총리", "총리", "국정감사", "청문회", "법안", "개정안",
+    "예산안", "특검", "탄핵", "선거", "대선", "총선", "지방선거", "공천",
+    "여론조사", "지지율", "외교", "국방", "북한", "안보", "한미", "한일", "한중"
 ]
 
 COUNTRY_REGION = {
@@ -269,6 +305,11 @@ def is_k_invest_relevant(title: str, snippet: str) -> bool:
     text = f"{title} {snippet}".lower()
     return any(k.lower() in text for k in K_INVEST_KEYWORDS)
 
+
+
+def is_k_politics_relevant(title: str, snippet: str) -> bool:
+    text = f"{title} {snippet}".lower()
+    return any(k.lower() in text for k in K_POLITICS_KEYWORDS)
 
 def http_get_json(url: str, params: dict) -> dict:
     last_error: Exception | None = None
@@ -426,6 +467,212 @@ def fetch_k_invest_news() -> list[FeedItem]:
     return dedupe(items)[:MAX_K_INVEST_NEWS]
 
 
+
+def fetch_k_politics_rss_news() -> list[FeedItem]:
+    items: list[FeedItem] = []
+
+    for feed in K_POLITICS_RSS_FEEDS:
+        name, url = feed["name"], feed["url"]
+        print(f"[INFO] K-POLITICS feed: {name} / {url}")
+
+        try:
+            parsed = feedparser.parse(http_get_text(url))
+        except Exception as exc:
+            print(f"[WARN] K-POLITICS feed failed: {name} / {exc}")
+            continue
+
+        entries = parsed.entries or []
+        print(f"[INFO] K-POLITICS entries: {name} / {len(entries)}")
+
+        kept = old = irrelevant = 0
+
+        for entry in entries[:60]:
+            title = clean_text(entry.get("title"))
+            link = normalize_url(clean_text(entry.get("link")))
+            snippet = get_entry_summary(entry)
+            published_at = get_entry_date(entry)
+
+            if not title or not link:
+                continue
+
+            if not is_recent_enough(published_at, K_POLITICS_MAX_AGE_DAYS, allow_unknown=True):
+                old += 1
+                continue
+
+            if not is_k_politics_relevant(title, snippet):
+                irrelevant += 1
+                continue
+
+            items.append(
+                FeedItem(
+                    id=stable_id("k-politics", link, title),
+                    type="news",
+                    region=feed.get("region", "Asia"),
+                    country=feed.get("country", "South Korea"),
+                    source=name,
+                    published_at=published_at,
+                    title=title,
+                    url=link,
+                    snippet=snippet,
+                    content_mode="k_politics_rss_snippet_only",
+                    source_type="K-POLITICS",
+                    insight_type="korean_politics"
+                )
+            )
+            kept += 1
+
+        print(f"[INFO] K-POLITICS kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
+        time.sleep(2)
+
+    return dedupe(items)[:MAX_K_POLITICS_NEWS]
+
+
+def google_news_rss_url(query: str) -> str:
+    return f"https://news.google.com/rss/search?q={quote_plus(query + ' when:7d')}&hl=ko&gl=KR&ceid=KR:ko"
+
+
+def fetch_k_politics_google_news() -> list[FeedItem]:
+    feeds = [
+        {
+            "name": f"Google News Politics: {query}",
+            "url": google_news_rss_url(query),
+            "region": "Asia",
+            "country": "South Korea"
+        }
+        for query in K_POLITICS_GOOGLE_NEWS_QUERIES
+    ]
+
+    items: list[FeedItem] = []
+
+    for feed in feeds:
+        name, url = feed["name"], feed["url"]
+        print(f"[INFO] K-POLITICS Google feed: {name} / {url}")
+
+        try:
+            parsed = feedparser.parse(http_get_text(url))
+        except Exception as exc:
+            print(f"[WARN] K-POLITICS Google feed failed: {name} / {exc}")
+            continue
+
+        entries = parsed.entries or []
+        print(f"[INFO] K-POLITICS Google entries: {name} / {len(entries)}")
+
+        for entry in entries[:60]:
+            title = clean_text(entry.get("title"))
+            link = normalize_url(clean_text(entry.get("link")))
+            snippet = get_entry_summary(entry)
+            published_at = get_entry_date(entry)
+
+            if not title or not link:
+                continue
+
+            if not is_recent_enough(published_at, K_POLITICS_MAX_AGE_DAYS, allow_unknown=True):
+                continue
+
+            if not is_k_politics_relevant(title, snippet):
+                continue
+
+            items.append(
+                FeedItem(
+                    id=stable_id("k-politics-google", link, title),
+                    type="news",
+                    region="Asia",
+                    country="South Korea",
+                    source=name,
+                    published_at=published_at,
+                    title=title,
+                    url=link,
+                    snippet=snippet,
+                    content_mode="k_politics_google_news_snippet_only",
+                    source_type="K-POLITICS",
+                    insight_type="korean_politics"
+                )
+            )
+
+        time.sleep(2)
+
+    return dedupe(items)[:MAX_K_POLITICS_NEWS]
+
+
+def fetch_k_politics_gdelt_news() -> list[FeedItem]:
+    items: list[FeedItem] = []
+
+    for query in K_POLITICS_GDELT_QUERIES:
+        params = {
+            "query": query,
+            "mode": "ArtList",
+            "format": "json",
+            "maxrecords": 50,
+            "sort": "HybridRel",
+            "timespan": f"{K_POLITICS_MAX_AGE_DAYS * 24}h"
+        }
+
+        print(f"[INFO] K-POLITICS GDELT query: {query}")
+
+        try:
+            data = http_get_json(GDELT_ENDPOINT, params)
+        except Exception as exc:
+            print(f"[WARN] K-POLITICS GDELT query failed: {exc}")
+            continue
+
+        articles = data.get("articles", [])
+        print(f"[INFO] K-POLITICS GDELT articles: {len(articles)}")
+
+        for article in articles:
+            title = clean_text(article.get("title") or article.get("name") or "")
+            url = normalize_url(article.get("url") or article.get("url_mobile") or article.get("link") or "")
+
+            if not title or not url:
+                continue
+
+            snippet = limit_text(article.get("snippet") or article.get("description") or title)
+
+            if not is_k_politics_relevant(title, snippet):
+                continue
+
+            country = clean_text(
+                article.get("sourceCountry")
+                or article.get("sourcecountry")
+                or article.get("source_country")
+                or "South Korea"
+            )
+            source = clean_text(
+                article.get("sourceCommonName")
+                or article.get("sourcecommonname")
+                or article.get("domain")
+                or "Unknown"
+            )
+            published_at = parse_gdelt_date(article.get("seendate"))
+
+            items.append(
+                FeedItem(
+                    id=stable_id("k-politics-gdelt", url, title),
+                    type="news",
+                    region=infer_region(country) if country else "Asia",
+                    country=country or "South Korea",
+                    source=source,
+                    published_at=published_at,
+                    title=title,
+                    url=url,
+                    snippet=snippet,
+                    content_mode="k_politics_gdelt_snippet_only",
+                    source_type="K-POLITICS",
+                    insight_type="korean_politics"
+                )
+            )
+
+        time.sleep(5)
+
+    return dedupe(items)[:MAX_K_POLITICS_NEWS]
+
+
+def fetch_k_politics_news() -> list[FeedItem]:
+    rss_items = fetch_k_politics_rss_news()
+    google_items = fetch_k_politics_google_news()
+    gdelt_items = fetch_k_politics_gdelt_news()
+
+    return dedupe([*rss_items, *google_items, *gdelt_items])[:MAX_K_POLITICS_NEWS]
+
 def fetch_arxiv_papers() -> list[FeedItem]:
     params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "submittedDate", "sortOrder": "descending"}
     try:
@@ -480,7 +727,7 @@ def main() -> None:
     k_politics_news = fetch_k_politics_news()
     papers = fetch_arxiv_papers()
 
-    news = dedupe([*k_invest_news, *rss_news, *gdelt_news])
+    news = dedupe([*k_politics_news, *k_invest_news, *rss_news, *gdelt_news])
     items = sort_items(dedupe([*news, *papers]))
 
     payload = {
@@ -489,16 +736,20 @@ def main() -> None:
             "gdelt_news_count": len(gdelt_news),
             "rss_news_count": len(rss_news),
             "k_invest_news_count": len(k_invest_news),
+            "k_politics_news_count": len(k_politics_news),
             "news_count": len(news),
             "paper_count": len(papers),
             "total_count": len(items),
             "rss_max_age_days": RSS_MAX_AGE_DAYS,
             "k_invest_max_age_days": K_INVEST_MAX_AGE_DAYS,
+            "k_politics_max_age_days": K_POLITICS_MAX_AGE_DAYS,
             "paper_max_age_days": PAPER_MAX_AGE_DAYS,
             "policy": "Original links only. No full news republication. Not investment advice.",
-            "sources": ["GDELT", "RSS", "K-INVEST", "arXiv"],
+            "sources": ["GDELT", "RSS", "K-INVEST", "K-POLITICS", "arXiv"],
             "rss_feeds": [feed["name"] for feed in RSS_FEEDS],
             "k_invest_feeds": [feed["name"] for feed in K_INVEST_RSS_FEEDS],
+            "k_politics_feeds": [feed["name"] for feed in K_POLITICS_RSS_FEEDS],
+            "k_politics_google_news_queries": K_POLITICS_GOOGLE_NEWS_QUERIES,
         },
         "items": [asdict(item) for item in items],
     }
@@ -513,6 +764,7 @@ def main() -> None:
         f"GDELT: {len(gdelt_news)} / "
         f"RSS: {len(rss_news)} / "
         f"K-INVEST: {len(k_invest_news)} / "
+        f"K-POLITICS: {len(k_politics_news)} / "
         f"Papers: {len(papers)}"
     )
 
