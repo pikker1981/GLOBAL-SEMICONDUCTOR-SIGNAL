@@ -969,9 +969,8 @@ pre,
   }
 }
 
-
 /* ================================
-   Restore two feed buttons
+   Final restore: two buttons + K-POLITICS
    ================================ */
 
 .feed-actions {
@@ -1005,6 +1004,12 @@ pre,
   color: #050507 !important;
   background: var(--mint, #2fd6a1) !important;
   border-color: var(--mint, #2fd6a1) !important;
+}
+
+.source-k-politics {
+  color: #fb7185;
+  background: rgba(251, 113, 133, 0.08);
+  border-color: rgba(251, 113, 133, 0.48);
 }
 
 @media (max-width: 680px) {

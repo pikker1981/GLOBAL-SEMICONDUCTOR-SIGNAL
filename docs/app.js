@@ -89,6 +89,7 @@ function getSourceType(item) {
   if (item.source_type) return item.source_type;
   if (item.type === "paper") return "arXiv";
   if (item.source === "arXiv") return "arXiv";
+  if (String(item.content_mode || "").toLowerCase().includes("k_politics")) return "K-POLITICS";
   if (String(item.content_mode || "").toLowerCase().includes("k_invest")) return "K-INVEST";
   if (String(item.content_mode || "").toLowerCase().includes("rss")) return "RSS";
   if (item.type === "news") return "GDELT";
@@ -101,6 +102,7 @@ function getSourceBadgeClass(sourceType) {
   if (normalized === "gdelt") return "source-gdelt";
   if (normalized === "arxiv") return "source-arxiv";
   if (normalized === "k-invest") return "source-k-invest";
+  if (normalized === "k-politics") return "source-k-politics";
   return "source-unknown";
 }
 
@@ -144,7 +146,8 @@ function applyFilters() {
     const matchesContent =
       state.filters.content === "all" ||
       item.type === state.filters.content ||
-      (state.filters.content === "k-invest" && sourceType === "K-INVEST");
+      (state.filters.content === "k-invest" && sourceType === "K-INVEST") ||
+      (state.filters.content === "k-politics" && sourceType === "K-POLITICS");
 
     const matchesRegion =
       state.filters.region === "all" || item.region === state.filters.region;
@@ -485,7 +488,6 @@ function getGitHubActionsUrl() {
 function openUpdateWorkflow() {
   window.open(getGitHubActionsUrl(), "_blank", "noopener");
 }
-
 
 document.querySelectorAll("[data-filter-group]").forEach((button) => {
   button.addEventListener("click", () => {
