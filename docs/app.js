@@ -21,7 +21,8 @@ const els = {
   feedList: document.getElementById("feedList"),
   emptyState: document.getElementById("emptyState"),
   searchInput: document.getElementById("searchInput"),
-  reloadButton: document.getElementById("reloadButton")
+  reloadButton: document.getElementById("reloadButton"),
+  updateButton: document.getElementById("updateButton")
 };
 
 const paginationEls = createPaginationElements();
@@ -466,6 +467,26 @@ async function loadFeed() {
   }
 }
 
+
+function getGitHubActionsUrl() {
+  const host = window.location.hostname;
+  const parts = window.location.pathname.split("/").filter(Boolean);
+
+  if (!host.endsWith("github.io") || parts.length === 0) {
+    return "https://github.com/";
+  }
+
+  const owner = host.replace(".github.io", "");
+  const repo = parts[0];
+
+  return `https://github.com/${owner}/${repo}/actions/workflows/update.yml`;
+}
+
+function openUpdateWorkflow() {
+  window.open(getGitHubActionsUrl(), "_blank", "noopener");
+}
+
+
 document.querySelectorAll("[data-filter-group]").forEach((button) => {
   button.addEventListener("click", () => {
     const group = button.dataset.filterGroup;
@@ -488,6 +509,12 @@ els.searchInput.addEventListener("input", (event) => {
   applyFilters();
 });
 
-els.reloadButton.addEventListener("click", loadFeed);
+if (els.updateButton) {
+  els.updateButton.addEventListener("click", openUpdateWorkflow);
+}
+
+if (els.reloadButton) {
+  els.reloadButton.addEventListener("click", loadFeed);
+}
 
 loadFeed();

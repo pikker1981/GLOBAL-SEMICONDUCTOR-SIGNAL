@@ -968,3 +968,52 @@ pre,
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ================================
+   Restore two feed buttons
+   ================================ */
+
+.feed-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reload-btn,
+.update-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap;
+}
+
+.update-btn {
+  color: #050507 !important;
+  background: var(--green, #00d992) !important;
+  border-color: var(--green, #00d992) !important;
+  font-weight: 800;
+}
+
+.update-btn:hover {
+  color: #050507 !important;
+  background: var(--mint, #2fd6a1) !important;
+  border-color: var(--mint, #2fd6a1) !important;
+}
+
+@media (max-width: 680px) {
+  .feed-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .feed-actions .reload-btn {
+    flex: 1 1 0;
+  }
+}
