@@ -1,2 +1,23 @@
-# GLOBAL-SEMICONDUCTOR-SIGNAL
-전 세계 반도체 뉴스와 논문 원문 피드를 수집해 보여주는 글로벌 반도체 인텔리전스 페이지
+# K-POLITICS Update
+
+Overwrite these files:
+
+- docs/index.html
+- docs/app.js
+- scripts/collect.py
+- requirements.txt
+
+Then append `docs/style-additions.css` to the bottom of your existing `docs/style.css`.
+
+Run:
+
+```bat
+py -m pip install -r requirements.txt
+py scripts\collect.py
+```
+
+Expected final output:
+
+```txt
+Items: ? / News: ? / GDELT: ? / RSS: ? / K-INVEST: ? / K-POLITICS: ? / Papers: ?
+```
