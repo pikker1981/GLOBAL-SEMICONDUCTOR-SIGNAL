@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-11T08:50:20+09:00",
+    "generated_at": "2026-05-11T08:58:41+09:00",
     "gdelt_news_count": 80,
     "rss_news_count": 120,
     "k_invest_news_count": 80,
@@ -3337,23 +3337,6 @@
       "insight_type": "korean_stock"
     },
     {
-      "id": "a6864fae280205c79802aaa3",
-      "type": "news",
-      "region": "Asia",
-      "country": "South Korea",
-      "source": "Hankyung Economy",
-      "published_at": "2026-05-09T23:22:46+00:00",
-      "title": "코스피 7500과 세수 호황, 청와대는 무엇을 보고 있나 [여기는 논설실]",
-      "url": "https://www.hankyung.com/article/202605095486i",
-      "snippet": "",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "k_invest_rss_snippet_only",
-      "source_type": "K-INVEST",
-      "insight_type": "korean_stock"
-    },
-    {
       "id": "dbb7cd74122ff0f477d5e9c8",
       "type": "news",
       "region": "Asia",
@@ -3862,6 +3845,23 @@
       "content_mode": "k_invest_rss_snippet_only",
       "source_type": "K-INVEST",
       "insight_type": "korean_stock"
+    },
+    {
+      "id": "816ec05b9671ea55518eb39c",
+      "type": "news",
+      "region": "Asia",
+      "country": "China",
+      "source": "finance.ifeng.com",
+      "published_at": "2026-05-09T08:00:00+00:00",
+      "title": "直线拉升 ！ 芯片大牛股 ， 传来重磅消息",
+      "url": "https://finance.ifeng.com/c/8szHjTwGonf",
+      "snippet": "直线拉升 ！ 芯片大牛股 ， 传来重磅消息",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "snippet_only",
+      "source_type": "GDELT",
+      "insight_type": ""
     },
     {
       "id": "0f03d18dc0e39fe173144a2a",
@@ -4425,23 +4425,6 @@
       "insight_type": ""
     },
     {
-      "id": "5f1f171fb18466620accbb6c",
-      "type": "news",
-      "region": "Americas",
-      "country": "United States",
-      "source": "digitaltrends.com",
-      "published_at": "2026-05-08T23:45:00+00:00",
-      "title": "Apple could go back to Intel for chips , but not how you would expect ( or dread )",
-      "url": "https://www.digitaltrends.com/computing/apple-could-go-back-to-intel-for-chips-but-not-how-you-would-expect-or-dread",
-      "snippet": "Apple could go back to Intel for chips , but not how you would expect ( or dread )",
-      "abstract": "",
-      "authors": null,
-      "pdf_url": "",
-      "content_mode": "snippet_only",
-      "source_type": "GDELT",
-      "insight_type": ""
-    },
-    {
       "id": "66da7d191001a2371bd1bf0b",
       "type": "news",
       "region": "Asia",
@@ -4740,6 +4723,23 @@
       "title": "빚투 36조 vs 공매도 28조 … 사상최대 대결",
       "url": "https://www.mk.co.kr/news/stock/12041388",
       "snippet": "코스피가 7500선 턱밑까지 치솟으며 사상 최고치 행진을 이어가는 가운데 증시 주변 자금도 매수·매도 양방향에서 사상 최대 규모로 불어나고 있다. 강세장에 올라타려는 '빚투' 자금..",
+      "abstract": "",
+      "authors": null,
+      "pdf_url": "",
+      "content_mode": "k_invest_rss_snippet_only",
+      "source_type": "K-INVEST",
+      "insight_type": "korean_stock"
+    },
+    {
+      "id": "97c960ad33b0fbc66e121129",
+      "type": "news",
+      "region": "Asia",
+      "country": "South Korea",
+      "source": "Maeil Business Securities",
+      "published_at": "2026-05-08T08:54:58+00:00",
+      "title": "코오롱인더, 영업이익 130% 급증",
+      "url": "https://www.mk.co.kr/news/stock/12041386",
+      "snippet": "한국타이어앤테크놀로지가 올해 1분기(연결기준) 매출액 5조3139억원과 영업이익 5069억원을 기록했다고 8일 공시했다. 전년 동기 대비 매출은 7%, 영업이익은 42.9% 늘었다..",
       "abstract": "",
       "authors": null,
       "pdf_url": "",
