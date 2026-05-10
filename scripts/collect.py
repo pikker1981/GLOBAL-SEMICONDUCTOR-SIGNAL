@@ -477,6 +477,7 @@ def main() -> None:
     gdelt_news = fetch_gdelt_news()
     rss_news = fetch_rss_news()
     k_invest_news = fetch_k_invest_news()
+    k_politics_news = fetch_k_politics_news()
     papers = fetch_arxiv_papers()
 
     news = dedupe([*k_invest_news, *rss_news, *gdelt_news])
