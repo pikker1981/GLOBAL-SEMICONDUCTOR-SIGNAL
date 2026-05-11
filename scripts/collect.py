@@ -19,6 +19,7 @@ import json
 import re
 import time
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -32,16 +33,18 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs" / "data" / "latest.json"
 
-MAX_GDELT_NEWS = 80
-MAX_RSS_NEWS = 120
-MAX_K_INVEST_NEWS = 80
-MAX_K_POLITICS_NEWS = 120
-MAX_PAPERS = 40
+MAX_GDELT_NEWS = 250
+MAX_RSS_NEWS = 400
+MAX_K_INVEST_NEWS = 250
+MAX_PAPERS = 100
+MAX_WORLD_NEWS = 600
+MAX_K_POLITICS_NEWS = 300
 
 RSS_MAX_AGE_DAYS = 30
 K_INVEST_MAX_AGE_DAYS = 14
 K_POLITICS_MAX_AGE_DAYS = 7
 PAPER_MAX_AGE_DAYS = 180
+WORLD_MAX_AGE_DAYS = 7
 REQUEST_TIMEOUT = 25
 
 USER_AGENT = "semiconductor-global-signal/1.4 original-link-only"
@@ -81,6 +84,13 @@ RSS_FEEDS = [
     {"name": "ETNews Components", "url": "http://rss.etnews.com/06062.xml", "region": "Asia", "country": "South Korea"},
     {"name": "ETNews Equipment", "url": "http://rss.etnews.com/06061.xml", "region": "Asia", "country": "South Korea"},
     {"name": "KIPOST All Articles", "url": "https://www.kipost.net/rss/allArticle.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "IEEE Spectrum", "url": "https://spectrum.ieee.org/feeds/feed.rss", "region": "Americas", "country": "United States"},
+    {"name": "The Next Platform", "url": "https://www.nextplatform.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "ServeTheHome", "url": "https://www.servethehome.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "Tom's Hardware", "url": "https://www.tomshardware.com/feeds/all", "region": "Americas", "country": "United States"},
+    {"name": "Blocks and Files", "url": "https://blocksandfiles.com/feed/", "region": "Global", "country": ""},
+    {"name": "AnandTech", "url": "https://www.anandtech.com/rss/", "region": "Americas", "country": "United States"},
+    {"name": "ExtremeTech", "url": "https://www.extremetech.com/feed", "region": "Americas", "country": "United States"},
 ]
 
 K_INVEST_RSS_FEEDS = [
@@ -95,6 +105,60 @@ K_INVEST_RSS_FEEDS = [
     {"name": "EToday Finance", "url": "https://rss.etoday.co.kr/eto/finance_news.xml", "region": "Asia", "country": "South Korea"},
     {"name": "EToday Economy", "url": "https://rss.etoday.co.kr/eto/economy_news.xml", "region": "Asia", "country": "South Korea"},
     {"name": "EToday Industry", "url": "https://rss.etoday.co.kr/eto/industry_news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Securities", "url": "https://www.sedaily.com/RSS/S0601", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Finance", "url": "https://www.sedaily.com/RSS/S0602", "region": "Asia", "country": "South Korea"},
+    {"name": "Seoul Economic Daily Industry", "url": "https://www.sedaily.com/RSS/S0604", "region": "Asia", "country": "South Korea"},
+    {"name": "Edaily Securities", "url": "https://rss.edaily.co.kr/edaily/section/stocknews.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Edaily Economy", "url": "https://rss.edaily.co.kr/edaily/section/economy.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Financial News", "url": "https://www.fnnews.com/rss/fn_recent.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Money Today Securities", "url": "https://rss.mt.co.kr/news/mt_securities.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Asia Economy", "url": "https://view.asiae.co.kr/rss/all.htm", "region": "Asia", "country": "South Korea"},
+    {"name": "Newspim Market", "url": "https://www.newspim.com/rss/market.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Chosun Biz Economy", "url": "https://biz.chosun.com/rss/economy.xml", "region": "Asia", "country": "South Korea"},
+]
+
+WORLD_NEWS_RSS_FEEDS = [
+    {"name": "BBC World", "url": "https://feeds.bbci.co.uk/news/world/rss.xml", "region": "Global", "country": ""},
+    {"name": "BBC Business", "url": "https://feeds.bbci.co.uk/news/business/rss.xml", "region": "Global", "country": ""},
+    {"name": "BBC Technology", "url": "https://feeds.bbci.co.uk/news/technology/rss.xml", "region": "Global", "country": ""},
+    {"name": "Al Jazeera", "url": "https://www.aljazeera.com/xml/rss/all.xml", "region": "Global", "country": ""},
+    {"name": "Deutsche Welle", "url": "https://rss.dw.com/xml/rw_en", "region": "Europe", "country": "Germany"},
+    {"name": "France24", "url": "https://www.france24.com/en/rss", "region": "Europe", "country": "France"},
+    {"name": "NHK World", "url": "https://www3.nhk.or.jp/rss/news/cat0.xml", "region": "Asia", "country": "Japan"},
+    {"name": "CNN World", "url": "https://rss.cnn.com/rss/edition_world.rss", "region": "Americas", "country": "United States"},
+    {"name": "CNN Business", "url": "https://rss.cnn.com/rss/money_news_international.rss", "region": "Americas", "country": "United States"},
+    {"name": "The Guardian World", "url": "https://www.theguardian.com/world/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "The Guardian Technology", "url": "https://www.theguardian.com/technology/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "The Guardian Business", "url": "https://www.theguardian.com/business/rss", "region": "Europe", "country": "United Kingdom"},
+    {"name": "Reuters Business", "url": "https://feeds.reuters.com/reuters/businessNews", "region": "Global", "country": ""},
+    {"name": "Reuters Technology", "url": "https://feeds.reuters.com/reuters/technologyNews", "region": "Global", "country": ""},
+    {"name": "South China Morning Post", "url": "https://www.scmp.com/rss/91/feed", "region": "Asia", "country": "China"},
+    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar", "region": "Asia", "country": "Japan"},
+    {"name": "Yonhap News", "url": "https://www.yna.co.kr/RSS/headline.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "KBS World", "url": "https://world.kbs.co.kr/rss/rss_news.htm", "region": "Asia", "country": "South Korea"},
+    {"name": "YTN", "url": "https://www.ytn.co.kr/rss/rss.php", "region": "Asia", "country": "South Korea"},
+    {"name": "Newsis", "url": "https://www.newsis.com/RSS/news_rss.rss", "region": "Asia", "country": "South Korea"},
+    {"name": "Chosun World", "url": "https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml", "region": "Asia", "country": "South Korea"},
+    {"name": "JoongAng Daily", "url": "https://koreajoongangdaily.joins.com/rss/feeds/news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Korea Herald", "url": "https://www.koreaherald.com/rss/news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "Hankyoreh", "url": "https://www.hani.co.kr/rss/", "region": "Asia", "country": "South Korea"},
+    {"name": "Kyunghyang Shinmun", "url": "https://www.khan.co.kr/rss/rssdata/kh_news.xml", "region": "Asia", "country": "South Korea"},
+    {"name": "AP News", "url": "https://feeds.apnews.com/rss/apf-topnews", "region": "Americas", "country": "United States"},
+    {"name": "VOA News", "url": "https://www.voanews.com/api/zktepig$_ev/rss.xml", "region": "Americas", "country": "United States"},
+    {"name": "Euronews", "url": "https://www.euronews.com/rss", "region": "Europe", "country": ""},
+    {"name": "CBC World", "url": "https://www.cbc.ca/cmlink/rss-world", "region": "Americas", "country": "Canada"},
+    {"name": "ABC News Australia", "url": "https://www.abc.net.au/news/feed/51120/rss.xml", "region": "Asia", "country": "Australia"},
+    {"name": "Channel NewsAsia", "url": "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml", "region": "Asia", "country": "Singapore"},
+    {"name": "CNBC World", "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "region": "Americas", "country": "United States"},
+    {"name": "MarketWatch", "url": "https://feeds.marketwatch.com/marketwatch/topstories/", "region": "Americas", "country": "United States"},
+    {"name": "Fortune", "url": "https://fortune.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/index", "region": "Americas", "country": "United States"},
+    {"name": "Wired", "url": "https://www.wired.com/feed/rss", "region": "Americas", "country": "United States"},
+    {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/", "region": "Americas", "country": "United States"},
+    {"name": "The Verge", "url": "https://www.theverge.com/rss/index.xml", "region": "Americas", "country": "United States"},
+    {"name": "Asia Times", "url": "https://asiatimes.com/feed/", "region": "Asia", "country": ""},
+    {"name": "The Diplomat", "url": "https://thediplomat.com/feed/", "region": "Asia", "country": ""},
+    {"name": "Bangkok Post", "url": "https://www.bangkokpost.com/rss/data/topstories.xml", "region": "Asia", "country": "Thailand"},
 ]
 
 
@@ -126,7 +190,8 @@ SPECIALIST_RSS_SOURCES = {
     "Semiconductor Engineering", "Semiconductor Today", "SemiWiki",
     "EE Times Semiconductors", "EE Times Asia", "The Elec Semiconductor",
     "The Elec Materials Equipment", "ETNews Electronics", "ETNews Materials",
-    "ETNews Components", "ETNews Equipment"
+    "ETNews Components", "ETNews Equipment",
+    "IEEE Spectrum", "The Next Platform", "ServeTheHome", "Blocks and Files",
 }
 
 COMPANY_SIGNAL_SOURCES = {
@@ -311,6 +376,7 @@ def is_k_politics_relevant(title: str, snippet: str) -> bool:
     text = f"{title} {snippet}".lower()
     return any(k.lower() in text for k in K_POLITICS_KEYWORDS)
 
+
 def http_get_json(url: str, params: dict) -> dict:
     last_error: Exception | None = None
     for attempt in range(3):
@@ -356,7 +422,7 @@ def http_get_text(url: str) -> str:
 def fetch_gdelt_news() -> list[FeedItem]:
     items: list[FeedItem] = []
     for query in NEWS_QUERIES:
-        params = {"query": query, "mode": "ArtList", "format": "json", "maxrecords": 50, "sort": "HybridRel", "timespan": "48h"}
+        params = {"query": query, "mode": "ArtList", "format": "json", "maxrecords": 100, "sort": "HybridRel", "timespan": "96h"}
         print(f"[INFO] GDELT query: {query}")
         try:
             data = http_get_json(GDELT_ENDPOINT, params)
@@ -401,80 +467,138 @@ def get_entry_date(entry) -> str:
     return ""
 
 
+def _fetch_one_rss(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] RSS feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] RSS feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] RSS entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = irrelevant = 0
+    for entry in entries[:150]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, RSS_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        if not is_semiconductor_relevant(title, snippet, name):
+            irrelevant += 1
+            continue
+        result.append(FeedItem(stable_id("rss", link, title), "news", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="rss_snippet_only", source_type="RSS"))
+        kept += 1
+    print(f"[INFO] RSS kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
+    return result
+
+
 def fetch_rss_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-    for feed in RSS_FEEDS:
-        name, url = feed["name"], feed["url"]
-        print(f"[INFO] RSS feed: {name} / {url}")
-        try:
-            parsed = feedparser.parse(http_get_text(url))
-        except Exception as exc:
-            print(f"[WARN] RSS feed failed: {name} / {exc}")
-            continue
-        entries = parsed.entries or []
-        print(f"[INFO] RSS entries: {name} / {len(entries)}")
-        kept = old = irrelevant = 0
-        for entry in entries[:60]:
-            title = clean_text(entry.get("title"))
-            link = normalize_url(clean_text(entry.get("link")))
-            snippet = get_entry_summary(entry)
-            published_at = get_entry_date(entry)
-            if not title or not link:
-                continue
-            if not is_recent_enough(published_at, RSS_MAX_AGE_DAYS, allow_unknown=True):
-                old += 1
-                continue
-            if not is_semiconductor_relevant(title, snippet, name):
-                irrelevant += 1
-                continue
-            items.append(FeedItem(stable_id("rss", link, title), "news", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="rss_snippet_only", source_type="RSS"))
-            kept += 1
-        print(f"[INFO] RSS kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
-        time.sleep(2)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(_fetch_one_rss, feed): feed for feed in RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] RSS worker error: {exc}")
     return dedupe(items)[:MAX_RSS_NEWS]
+
+
+def _fetch_one_k_invest(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] K-INVEST feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] K-INVEST feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] K-INVEST entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = irrelevant = 0
+    for entry in entries[:150]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, K_INVEST_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        if not is_k_invest_relevant(title, snippet):
+            irrelevant += 1
+            continue
+        result.append(FeedItem(stable_id("k-invest", link, title), "news", feed.get("region", "Asia"), feed.get("country", "South Korea"), name, published_at, title, link, snippet=snippet, content_mode="k_invest_rss_snippet_only", source_type="K-INVEST", insight_type="korean_stock"))
+        kept += 1
+    print(f"[INFO] K-INVEST kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
+    return result
 
 
 def fetch_k_invest_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-    for feed in K_INVEST_RSS_FEEDS:
-        name, url = feed["name"], feed["url"]
-        print(f"[INFO] K-INVEST feed: {name} / {url}")
-        try:
-            parsed = feedparser.parse(http_get_text(url))
-        except Exception as exc:
-            print(f"[WARN] K-INVEST feed failed: {name} / {exc}")
-            continue
-        entries = parsed.entries or []
-        print(f"[INFO] K-INVEST entries: {name} / {len(entries)}")
-        kept = old = irrelevant = 0
-        for entry in entries[:60]:
-            title = clean_text(entry.get("title"))
-            link = normalize_url(clean_text(entry.get("link")))
-            snippet = get_entry_summary(entry)
-            published_at = get_entry_date(entry)
-            if not title or not link:
-                continue
-            if not is_recent_enough(published_at, K_INVEST_MAX_AGE_DAYS, allow_unknown=True):
-                old += 1
-                continue
-            if not is_k_invest_relevant(title, snippet):
-                irrelevant += 1
-                continue
-            items.append(FeedItem(stable_id("k-invest", link, title), "news", feed.get("region", "Asia"), feed.get("country", "South Korea"), name, published_at, title, link, snippet=snippet, content_mode="k_invest_rss_snippet_only", source_type="K-INVEST", insight_type="korean_stock"))
-            kept += 1
-        print(f"[INFO] K-INVEST kept: {name} / {kept} (old={old}, irrelevant={irrelevant})")
-        time.sleep(2)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(_fetch_one_k_invest, feed): feed for feed in K_INVEST_RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] K-INVEST worker error: {exc}")    
     return dedupe(items)[:MAX_K_INVEST_NEWS]
+
+
+def _fetch_one_world(feed: dict) -> list[FeedItem]:
+    name, url = feed["name"], feed["url"]
+    print(f"[INFO] WORLD feed: {name} / {url}")
+    try:
+        parsed = feedparser.parse(http_get_text(url))
+    except Exception as exc:
+        print(f"[WARN] WORLD feed failed: {name} / {exc}")
+        return []
+    entries = parsed.entries or []
+    print(f"[INFO] WORLD entries: {name} / {len(entries)}")
+    result: list[FeedItem] = []
+    kept = old = 0
+    for entry in entries[:100]:
+        title = clean_text(entry.get("title"))
+        link = normalize_url(clean_text(entry.get("link")))
+        snippet = get_entry_summary(entry)
+        published_at = get_entry_date(entry)
+        if not title or not link:
+            continue
+        if not is_recent_enough(published_at, WORLD_MAX_AGE_DAYS, allow_unknown=True):
+            old += 1
+            continue
+        result.append(FeedItem(stable_id("world", link, title), "world", feed.get("region", "Global"), feed.get("country", ""), name, published_at, title, link, snippet=snippet, content_mode="world_rss_snippet_only", source_type="WORLD-NEWS"))
+        kept += 1
+    print(f"[INFO] WORLD kept: {name} / {kept} (old={old})")
+    return result
+
+
+def fetch_world_news() -> list[FeedItem]:
+    items: list[FeedItem] = []
+    with ThreadPoolExecutor(max_workers=15) as pool:
+        futures = {pool.submit(_fetch_one_world, feed): feed for feed in WORLD_NEWS_RSS_FEEDS}
+        for future in as_completed(futures):
+            try:
+                items.extend(future.result())
+            except Exception as exc:
+                print(f"[WARN] WORLD worker error: {exc}")
+    return dedupe(items)[:MAX_WORLD_NEWS]
 
 
 
 def fetch_k_politics_rss_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-
     for feed in K_POLITICS_RSS_FEEDS:
         name, url = feed["name"], feed["url"]
         print(f"[INFO] K-POLITICS feed: {name} / {url}")
-
         try:
             parsed = feedparser.parse(http_get_text(url))
         except Exception as exc:
@@ -485,7 +609,6 @@ def fetch_k_politics_rss_news() -> list[FeedItem]:
         print(f"[INFO] K-POLITICS entries: {name} / {len(entries)}")
 
         kept = old = irrelevant = 0
-
         for entry in entries[:60]:
             title = clean_text(entry.get("title"))
             link = normalize_url(clean_text(entry.get("link")))
@@ -494,11 +617,9 @@ def fetch_k_politics_rss_news() -> list[FeedItem]:
 
             if not title or not link:
                 continue
-
             if not is_recent_enough(published_at, K_POLITICS_MAX_AGE_DAYS, allow_unknown=True):
                 old += 1
                 continue
-
             if not is_k_politics_relevant(title, snippet):
                 irrelevant += 1
                 continue
@@ -533,21 +654,14 @@ def google_news_rss_url(query: str) -> str:
 
 def fetch_k_politics_google_news() -> list[FeedItem]:
     feeds = [
-        {
-            "name": f"Google News Politics: {query}",
-            "url": google_news_rss_url(query),
-            "region": "Asia",
-            "country": "South Korea"
-        }
+        {"name": f"Google News Politics: {query}", "url": google_news_rss_url(query), "region": "Asia", "country": "South Korea"}
         for query in K_POLITICS_GOOGLE_NEWS_QUERIES
     ]
 
     items: list[FeedItem] = []
-
     for feed in feeds:
         name, url = feed["name"], feed["url"]
         print(f"[INFO] K-POLITICS Google feed: {name} / {url}")
-
         try:
             parsed = feedparser.parse(http_get_text(url))
         except Exception as exc:
@@ -565,10 +679,8 @@ def fetch_k_politics_google_news() -> list[FeedItem]:
 
             if not title or not link:
                 continue
-
             if not is_recent_enough(published_at, K_POLITICS_MAX_AGE_DAYS, allow_unknown=True):
                 continue
-
             if not is_k_politics_relevant(title, snippet):
                 continue
 
@@ -596,7 +708,6 @@ def fetch_k_politics_google_news() -> list[FeedItem]:
 
 def fetch_k_politics_gdelt_news() -> list[FeedItem]:
     items: list[FeedItem] = []
-
     for query in K_POLITICS_GDELT_QUERIES:
         params = {
             "query": query,
@@ -606,42 +717,25 @@ def fetch_k_politics_gdelt_news() -> list[FeedItem]:
             "sort": "HybridRel",
             "timespan": f"{K_POLITICS_MAX_AGE_DAYS * 24}h"
         }
-
         print(f"[INFO] K-POLITICS GDELT query: {query}")
-
         try:
             data = http_get_json(GDELT_ENDPOINT, params)
         except Exception as exc:
             print(f"[WARN] K-POLITICS GDELT query failed: {exc}")
             continue
 
-        articles = data.get("articles", [])
-        print(f"[INFO] K-POLITICS GDELT articles: {len(articles)}")
-
-        for article in articles:
+        for article in data.get("articles", []):
             title = clean_text(article.get("title") or article.get("name") or "")
             url = normalize_url(article.get("url") or article.get("url_mobile") or article.get("link") or "")
-
             if not title or not url:
                 continue
 
             snippet = limit_text(article.get("snippet") or article.get("description") or title)
-
             if not is_k_politics_relevant(title, snippet):
                 continue
 
-            country = clean_text(
-                article.get("sourceCountry")
-                or article.get("sourcecountry")
-                or article.get("source_country")
-                or "South Korea"
-            )
-            source = clean_text(
-                article.get("sourceCommonName")
-                or article.get("sourcecommonname")
-                or article.get("domain")
-                or "Unknown"
-            )
+            country = clean_text(article.get("sourceCountry") or article.get("sourcecountry") or article.get("source_country") or "South Korea")
+            source = clean_text(article.get("sourceCommonName") or article.get("sourcecommonname") or article.get("domain") or "Unknown")
             published_at = parse_gdelt_date(article.get("seendate"))
 
             items.append(
@@ -670,11 +764,10 @@ def fetch_k_politics_news() -> list[FeedItem]:
     rss_items = fetch_k_politics_rss_news()
     google_items = fetch_k_politics_google_news()
     gdelt_items = fetch_k_politics_gdelt_news()
-
     return dedupe([*rss_items, *google_items, *gdelt_items])[:MAX_K_POLITICS_NEWS]
 
 def fetch_arxiv_papers() -> list[FeedItem]:
-    params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "submittedDate", "sortOrder": "descending"}
+    params = {"search_query": ARXIV_QUERY, "start": 0, "max_results": MAX_PAPERS, "sortBy": "lastUpdatedDate", "sortOrder": "descending"}
     try:
         response = requests.get(ARXIV_ENDPOINT, params=params, timeout=REQUEST_TIMEOUT, headers={"User-Agent": USER_AGENT})
         response.raise_for_status()
@@ -724,11 +817,12 @@ def main() -> None:
     gdelt_news = fetch_gdelt_news()
     rss_news = fetch_rss_news()
     k_invest_news = fetch_k_invest_news()
+    world_news = fetch_world_news()
     k_politics_news = fetch_k_politics_news()
     papers = fetch_arxiv_papers()
 
     news = dedupe([*k_politics_news, *k_invest_news, *rss_news, *gdelt_news])
-    items = sort_items(dedupe([*news, *papers]))
+    items = sort_items(dedupe([*news, *world_news, *papers]))
 
     payload = {
         "meta": {
@@ -737,19 +831,22 @@ def main() -> None:
             "rss_news_count": len(rss_news),
             "k_invest_news_count": len(k_invest_news),
             "k_politics_news_count": len(k_politics_news),
+            "world_news_count": len(world_news),
             "news_count": len(news),
             "paper_count": len(papers),
             "total_count": len(items),
             "rss_max_age_days": RSS_MAX_AGE_DAYS,
             "k_invest_max_age_days": K_INVEST_MAX_AGE_DAYS,
             "k_politics_max_age_days": K_POLITICS_MAX_AGE_DAYS,
+            "world_max_age_days": WORLD_MAX_AGE_DAYS,
             "paper_max_age_days": PAPER_MAX_AGE_DAYS,
             "policy": "Original links only. No full news republication. Not investment advice.",
-            "sources": ["GDELT", "RSS", "K-INVEST", "K-POLITICS", "arXiv"],
+            "sources": ["GDELT", "RSS", "K-INVEST", "WORLD-NEWS", "arXiv"],
             "rss_feeds": [feed["name"] for feed in RSS_FEEDS],
             "k_invest_feeds": [feed["name"] for feed in K_INVEST_RSS_FEEDS],
             "k_politics_feeds": [feed["name"] for feed in K_POLITICS_RSS_FEEDS],
             "k_politics_google_news_queries": K_POLITICS_GOOGLE_NEWS_QUERIES,
+            "world_feeds": [feed["name"] for feed in WORLD_NEWS_RSS_FEEDS],
         },
         "items": [asdict(item) for item in items],
     }
@@ -764,7 +861,7 @@ def main() -> None:
         f"GDELT: {len(gdelt_news)} / "
         f"RSS: {len(rss_news)} / "
         f"K-INVEST: {len(k_invest_news)} / "
-        f"K-POLITICS: {len(k_politics_news)} / "
+        f"World: {len(world_news)} / "
         f"Papers: {len(papers)}"
     )
 
