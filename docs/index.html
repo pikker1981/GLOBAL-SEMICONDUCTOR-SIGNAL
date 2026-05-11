@@ -78,6 +78,16 @@
             <strong id="paperCount">—</strong>
           </div>
 
+          <div class="status-row">
+            <span>World</span>
+            <strong id="worldCount">—</strong>
+          </div>
+
+          <div class="status-row">
+            <span>K-Politics</span>
+            <strong id="kPoliticsCount">—</strong>
+          </div>
+
           <div class="status-row wide">
             <span>Last Update</span>
             <strong id="lastUpdated">—</strong>
@@ -97,14 +107,10 @@
           <h2>Original semiconductor feed</h2>
         </div>
 
-        <div class="feed-actions">
-          <button type="button" id="updateButton" class="reload-btn update-btn">
-            Update Data
-          </button>
-
-          <button type="button" id="reloadButton" class="reload-btn">
-            Reload
-          </button>
+        <div class="section-head-actions">
+          <button type="button" id="settingsButton" class="settings-btn" title="GitHub 설정">⚙</button>
+          <button type="button" id="reloadButton" class="reload-btn">새로고침</button>
+          <button type="button" id="updateButton" class="update-btn">지금 업데이트</button>
         </div>
       </div>
 
@@ -136,8 +142,12 @@
               <button class="filter" data-filter-group="content" data-filter-value="k-invest">
                 K-INVEST
               </button>
+
               <button class="filter" data-filter-group="content" data-filter-value="k-politics">
                 K-POLITICS
+              </button>
+              <button class="filter" data-filter-group="content" data-filter-value="world">
+                WORLD
               </button>
             </div>
           </div>
@@ -183,8 +193,12 @@
               <button class="filter" data-filter-group="source" data-filter-value="K-INVEST">
                 K-INVEST
               </button>
+
               <button class="filter" data-filter-group="source" data-filter-value="K-POLITICS">
                 K-POLITICS
+              </button>
+              <button class="filter" data-filter-group="source" data-filter-value="WORLD-NEWS">
+                WORLD-NEWS
               </button>
             </div>
           </div>
@@ -223,9 +237,9 @@
 
         <article class="source-card">
           <span>RSS</span>
-          <h3>Newsrooms</h3>
+          <h3>Newsrooms &amp; Media</h3>
           <p>
-            기업 뉴스룸, 반도체 전문 매체, 한국 산업 매체 RSS에서 원문 링크 중심 피드를 수집합니다.
+            Samsung · SK hynix · NVIDIA · AMD · Intel 뉴스룸 + Semiconductor Engineering · EE Times · SemiWiki · IEEE Spectrum · The Next Platform · ServeTheHome · Tom's Hardware · Blocks and Files · The Elec · ETNews · KIPOST 등 반도체 전문 매체 RSS.
           </p>
         </article>
 
@@ -241,7 +255,15 @@
           <span>K-INVEST</span>
           <h3>Korean Market Signals</h3>
           <p>
-            한국 주식시장, 실적, 수급, 증권사 리포트, 산업 흐름 관련 기사 피드를 별도 탭으로 수집합니다.
+            한국경제 · 매일경제 · 서울경제 · 이데일리 · 파이낸셜뉴스 · 머니투데이 · 아시아경제 · 뉴스핌 · 조선비즈 · 연합인포맥스 · 이투데이에서 주식·실적·수급·증권사 리포트 피드를 수집합니다.
+          </p>
+        </article>
+
+        <article class="source-card">
+          <span>WORLD</span>
+          <h3>World Hot Issues</h3>
+          <p>
+            BBC · CNN · Reuters · The Guardian · Al Jazeera · Deutsche Welle · France24 · NHK · Nikkei Asia · SCMP 등 글로벌 주요 뉴스 + 연합뉴스 · KBS · YTN · 뉴시스 · 조선일보 · 중앙일보 · 코리아헤럴드 · 한겨레 · 경향신문에서 7일 이내 핫이슈를 수집합니다.
           </p>
         </article>
 
@@ -260,6 +282,43 @@
     <span>GLOBAL SEMICONDUCTOR SIGNAL</span>
     <span>Original links only · No full news republication · Not investment advice</span>
   </footer>
+
+  <div class="modal-overlay hidden" id="tokenModal" role="dialog" aria-modal="true" aria-labelledby="tokenModalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="tokenModalTitle">GitHub API 설정</h3>
+        <button type="button" class="modal-close" id="tokenModalClose" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          GitHub Actions 워크플로우를 직접 트리거하려면 Personal Access Token이 필요합니다.
+          토큰은 브라우저 localStorage에만 저장되며 외부로 전송되지 않습니다.
+        </p>
+        <div class="modal-field">
+          <label for="ghOwnerInput">Repository Owner</label>
+          <input id="ghOwnerInput" type="text" placeholder="e.g. pikker1981" autocomplete="off" />
+        </div>
+        <div class="modal-field">
+          <label for="ghRepoInput">Repository Name</label>
+          <input id="ghRepoInput" type="text" placeholder="e.g. GLOBAL-SEMICONDUCTOR-SIGNAL" autocomplete="off" />
+        </div>
+        <div class="modal-field">
+          <label for="ghTokenInput">Personal Access Token</label>
+          <input id="ghTokenInput" type="password" placeholder="ghp_..." autocomplete="off" />
+        </div>
+        <p class="modal-hint">
+          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Classic 토큰 발급 →</a>
+          Scopes에서 <code>workflow</code> 체크 필수 (<code>repo</code>만으로는 부족)<br>
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained 토큰 →</a>
+          Repository permissions &gt; <code>Actions: Read and Write</code> 선택
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="tokenModalSave" class="update-btn">저장 후 업데이트 시작</button>
+        <button type="button" id="tokenModalCancel" class="reload-btn">취소</button>
+      </div>
+    </div>
+  </div>
 
   <script src="./app.js"></script>
 </body>

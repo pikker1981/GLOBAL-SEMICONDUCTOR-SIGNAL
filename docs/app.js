@@ -8,7 +8,7 @@ const state = {
   },
   query: "",
   currentPage: 1,
-  pageSize: 10
+  pageSize: 20
 };
 
 const els = {
@@ -22,7 +22,8 @@ const els = {
   emptyState: document.getElementById("emptyState"),
   searchInput: document.getElementById("searchInput"),
   reloadButton: document.getElementById("reloadButton"),
-  updateButton: document.getElementById("updateButton")
+  worldCount: document.getElementById("worldCount"),
+  kPoliticsCount: document.getElementById("kPoliticsCount")
 };
 
 const paginationEls = createPaginationElements();
@@ -89,6 +90,7 @@ function getSourceType(item) {
   if (item.source_type) return item.source_type;
   if (item.type === "paper") return "arXiv";
   if (item.source === "arXiv") return "arXiv";
+  if (item.type === "world") return "WORLD-NEWS";
   if (String(item.content_mode || "").toLowerCase().includes("k_politics")) return "K-POLITICS";
   if (String(item.content_mode || "").toLowerCase().includes("k_invest")) return "K-INVEST";
   if (String(item.content_mode || "").toLowerCase().includes("rss")) return "RSS";
@@ -103,6 +105,7 @@ function getSourceBadgeClass(sourceType) {
   if (normalized === "arxiv") return "source-arxiv";
   if (normalized === "k-invest") return "source-k-invest";
   if (normalized === "k-politics") return "source-k-politics";
+  if (normalized === "world-news") return "source-world-news";
   return "source-unknown";
 }
 
@@ -147,7 +150,8 @@ function applyFilters() {
       state.filters.content === "all" ||
       item.type === state.filters.content ||
       (state.filters.content === "k-invest" && sourceType === "K-INVEST") ||
-      (state.filters.content === "k-politics" && sourceType === "K-POLITICS");
+      (state.filters.content === "k-politics" && sourceType === "K-POLITICS") ||
+      (state.filters.content === "world" && sourceType === "WORLD-NEWS");
 
     const matchesRegion =
       state.filters.region === "all" || item.region === state.filters.region;
@@ -168,10 +172,14 @@ function renderStats(meta = {}) {
   const total = state.items.length;
   const news = state.items.filter((item) => item.type === "news").length;
   const papers = state.items.filter((item) => item.type === "paper").length;
+  const world = state.items.filter((item) => item.type === "world").length;
+  const kPolitics = state.items.filter((item) => getSourceType(item) === "K-POLITICS").length;
 
   els.totalCount.textContent = total;
   els.newsCount.textContent = news;
   els.paperCount.textContent = papers;
+  if (els.worldCount) els.worldCount.textContent = world;
+  if (els.kPoliticsCount) els.kPoliticsCount.textContent = kPolitics;
   els.lastUpdated.textContent = formatDate(meta.generated_at);
 }
 
@@ -470,25 +478,6 @@ async function loadFeed() {
   }
 }
 
-
-function getGitHubActionsUrl() {
-  const host = window.location.hostname;
-  const parts = window.location.pathname.split("/").filter(Boolean);
-
-  if (!host.endsWith("github.io") || parts.length === 0) {
-    return "https://github.com/";
-  }
-
-  const owner = host.replace(".github.io", "");
-  const repo = parts[0];
-
-  return `https://github.com/${owner}/${repo}/actions/workflows/update.yml`;
-}
-
-function openUpdateWorkflow() {
-  window.open(getGitHubActionsUrl(), "_blank", "noopener");
-}
-
 document.querySelectorAll("[data-filter-group]").forEach((button) => {
   button.addEventListener("click", () => {
     const group = button.dataset.filterGroup;
@@ -511,12 +500,221 @@ els.searchInput.addEventListener("input", (event) => {
   applyFilters();
 });
 
-if (els.updateButton) {
-  els.updateButton.addEventListener("click", openUpdateWorkflow);
+els.reloadButton.addEventListener("click", loadFeed);
+
+/* ================================
+   GitHub Actions update integration
+   ================================ */
+const GITHUB_CONFIG_KEY = "gss_gh_config";
+
+function loadGithubConfig() {
+  try {
+    return JSON.parse(localStorage.getItem(GITHUB_CONFIG_KEY) || "{}");
+  } catch {
+    return {};
+  }
 }
 
-if (els.reloadButton) {
-  els.reloadButton.addEventListener("click", loadFeed);
+function saveGithubConfig(config) {
+  localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(config));
 }
+
+const modalEls = {
+  overlay: document.getElementById("tokenModal"),
+  ownerInput: document.getElementById("ghOwnerInput"),
+  repoInput: document.getElementById("ghRepoInput"),
+  tokenInput: document.getElementById("ghTokenInput"),
+  saveBtn: document.getElementById("tokenModalSave"),
+  cancelBtn: document.getElementById("tokenModalCancel"),
+  closeBtn: document.getElementById("tokenModalClose")
+};
+
+function openTokenModal() {
+  const config = loadGithubConfig();
+  modalEls.ownerInput.value = config.owner || "";
+  modalEls.repoInput.value = config.repo || "";
+  modalEls.tokenInput.value = config.token || "";
+  modalEls.overlay.classList.remove("hidden");
+  modalEls.ownerInput.focus();
+}
+
+function closeTokenModal() {
+  modalEls.overlay.classList.add("hidden");
+}
+
+modalEls.closeBtn.addEventListener("click", closeTokenModal);
+modalEls.cancelBtn.addEventListener("click", closeTokenModal);
+modalEls.overlay.addEventListener("click", (event) => {
+  if (event.target === modalEls.overlay) closeTokenModal();
+});
+
+modalEls.saveBtn.addEventListener("click", () => {
+  const owner = modalEls.ownerInput.value.trim();
+  const repo = modalEls.repoInput.value.trim();
+  const token = modalEls.tokenInput.value.trim();
+  if (!owner || !repo || !token) {
+    alert("Owner, Repo, Token을 모두 입력해주세요.");
+    return;
+  }
+  saveGithubConfig({ owner, repo, token });
+  closeTokenModal();
+  startUpdate();
+});
+
+document.getElementById("settingsButton").addEventListener("click", openTokenModal);
+
+const updateButton = document.getElementById("updateButton");
+
+function setUpdateState(stateName, message) {
+  updateButton.disabled = stateName === "loading";
+  updateButton.className = `update-btn${stateName !== "idle" ? ` update-btn--${stateName}` : ""}`;
+  updateButton.textContent = message;
+}
+
+async function triggerWorkflow(owner, repo, token) {
+  const res = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/dispatches`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ref: "main" })
+    }
+  );
+  if (!res.ok) {
+    if (res.status === 403) {
+      const err = new Error("TOKEN_PERMISSION");
+      err.status = 403;
+      throw err;
+    }
+    if (res.status === 401) {
+      const err = new Error("TOKEN_INVALID");
+      err.status = 401;
+      throw err;
+    }
+    if (res.status === 404) {
+      const err = new Error("TOKEN_NOT_FOUND");
+      err.status = 404;
+      throw err;
+    }
+    const body = await res.text();
+    throw new Error(`GitHub API ${res.status}: ${body}`);
+  }
+}
+
+async function getLatestRunId(owner, repo, token) {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json"
+        }
+      }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const runs = data.workflow_runs || [];
+    return runs.length > 0 ? runs[0].id : null;
+  } catch {
+    return null;
+  }
+}
+
+async function pollForCompletion(owner, repo, token, prevRunId) {
+  const maxWaitMs = 5 * 60 * 1000;
+  const pollIntervalMs = 10 * 1000;
+  const deadline = Date.now() + maxWaitMs;
+  const startTime = Date.now();
+
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  while (Date.now() < deadline) {
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update.yml/runs?per_page=3`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json"
+          }
+        }
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        const runs = data.workflow_runs || [];
+        const newRun = runs.find((run) => run.id !== prevRunId);
+
+        if (newRun) {
+          const elapsed = Math.round((Date.now() - startTime) / 1000);
+          setUpdateState("loading", `◉ 실행 중... (${elapsed}s)`);
+
+          if (newRun.status === "completed") {
+            if (newRun.conclusion === "success") return;
+            throw new Error(`워크플로우 종료: ${newRun.conclusion}`);
+          }
+        }
+      }
+    } catch (pollError) {
+      if (pollError.message.startsWith("워크플로우")) throw pollError;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+  }
+
+  throw new Error("타임아웃: 5분 내에 완료되지 않았습니다.");
+}
+
+async function startUpdate() {
+  const config = loadGithubConfig();
+  if (!config.owner || !config.repo || !config.token) {
+    openTokenModal();
+    return;
+  }
+
+  setUpdateState("loading", "⟳ 트리거 중...");
+
+  try {
+    const prevRunId = await getLatestRunId(config.owner, config.repo, config.token);
+    await triggerWorkflow(config.owner, config.repo, config.token);
+    setUpdateState("loading", "◉ 워크플로우 실행 중...");
+    await pollForCompletion(config.owner, config.repo, config.token, prevRunId);
+    setUpdateState("success", "✓ 완료 — 데이터 로드 중");
+    await loadFeed();
+    setUpdateState("success", "✓ 업데이트 완료");
+    setTimeout(() => setUpdateState("idle", "지금 업데이트"), 4000);
+  } catch (error) {
+    console.error("[Update]", error);
+    if (error.message === "TOKEN_PERMISSION") {
+      setUpdateState("error", "✕ 토큰 권한 부족 — 설정을 확인하세요");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else if (error.message === "TOKEN_INVALID") {
+      setUpdateState("error", "✕ 토큰이 유효하지 않습니다");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else if (error.message === "TOKEN_NOT_FOUND") {
+      setUpdateState("error", "✕ Owner/Repo를 확인하세요");
+      setTimeout(() => {
+        setUpdateState("idle", "지금 업데이트");
+        openTokenModal();
+      }, 1500);
+    } else {
+      setUpdateState("error", `✕ ${error.message}`);
+      setTimeout(() => setUpdateState("idle", "지금 업데이트"), 5000);
+    }
+  }
+}
+
+updateButton.addEventListener("click", startUpdate);
 
 loadFeed();
