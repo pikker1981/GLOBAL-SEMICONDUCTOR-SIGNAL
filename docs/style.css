@@ -1,19 +1,19 @@
 :root {
-  --bg: #f4f4f7;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #ededf2;
-  --border: #d4d4dc;
+  --surface-2: #fafafa;
+  --border: #e5e5e5;
   --green: #00d992;
   --mint: #2fd6a1;
   --purple: #818cf8;
-  --text: #111115;
+  --text: #000000;
   --white: #ffffff;
-  --muted: #52525e;
-  --tertiary: #7c7c8e;
+  --muted: #737373;
+  --tertiary: #a3a3a3;
   --danger: #fb565b;
   --warning: #e8a000;
-  --shadow-warm: rgba(0, 0, 0, 0.07) 0 2px 16px;
-  --shadow-float: rgba(0, 0, 0, 0.1) 0 8px 40px, rgba(0, 0, 0, 0.06) 0 0 0 1px inset;
+  --shadow-warm: none;
+  --shadow-float: none;
   --container: 1240px;
   --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Helvetica, Arial, sans-serif;
@@ -35,10 +35,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-feature-settings: "calt", "rlig";
-  background:
-    radial-gradient(circle at 15% 5%, rgba(0, 217, 146, 0.07), transparent 28%),
-    radial-gradient(circle at 85% 10%, rgba(129, 140, 248, 0.06), transparent 28%),
-    linear-gradient(180deg, #f4f4f7 0%, #f0f0f5 62%, #ededf2 100%);
+  background: var(--bg);
 }
 
 a {
@@ -56,16 +53,7 @@ button {
 }
 
 .grid-noise {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: linear-gradient(to bottom, black, transparent 80%);
+  display: none;
 }
 
 .topbar {
@@ -79,7 +67,7 @@ button {
   min-height: 72px;
   padding: 16px clamp(18px, 4vw, 44px);
   border-bottom: 1px solid var(--border);
-  background: rgba(244, 244, 247, 0.90);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(16px);
 }
 
@@ -98,7 +86,7 @@ button {
   color: var(--green);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 12px;
   filter: drop-shadow(0 0 4px var(--green));
   animation: pulseGlow 2.6s ease-in-out infinite;
 }
@@ -147,7 +135,7 @@ button {
   color: var(--mint) !important;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
 }
 
 .github-link:hover {
@@ -197,7 +185,6 @@ main,
   height: 9px;
   border-radius: 9999px;
   background: var(--green);
-  box-shadow: 0 0 0 6px rgba(0, 217, 146, 0.08), 0 0 18px rgba(0, 217, 146, 0.65);
 }
 
 .hero-layout {
@@ -219,7 +206,6 @@ main,
 
 .hero h1 span {
   color: var(--green);
-  text-shadow: 0 0 18px rgba(0, 217, 146, 0.18);
 }
 
 .hero p {
@@ -232,10 +218,9 @@ main,
 
 .status-panel {
   padding: 18px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: var(--shadow-float);
+  border-radius: 12px;
 }
 
 .status-row {
@@ -244,7 +229,7 @@ main,
   justify-content: space-between;
   gap: 16px;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(61, 58, 57, 0.7);
+  border-bottom: 1px solid var(--border);
 }
 
 .status-row:first-child {
@@ -284,9 +269,9 @@ main,
   margin-top: 16px;
   padding: 14px;
   overflow-x: auto;
-  background: #ededf2;
+  background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 6.4px;
+  border-radius: 12px;
 }
 
 .status-code code {
@@ -331,7 +316,7 @@ main,
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
   transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
 }
 
@@ -371,17 +356,16 @@ main,
 .search-box input {
   width: 100%;
   height: 46px;
-  padding: 0 14px;
+  padding: 0 20px;
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
   outline: none;
 }
 
 .search-box input:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(0, 217, 146, 0.12);
 }
 
 .filters {
@@ -400,7 +384,7 @@ main,
 }
 
 .filter.active {
-  color: #050507;
+  color: #000000;
   background: var(--green);
   border-color: var(--green);
 }
@@ -423,10 +407,9 @@ main,
   grid-template-columns: 132px minmax(0, 1fr) auto;
   gap: 18px;
   padding: 22px;
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: var(--shadow-warm);
+  border-radius: 12px;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
@@ -520,7 +503,7 @@ main,
   letter-spacing: 0.04em;
   background: #ffffff;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
   transition: border-color 160ms ease, color 160ms ease;
 }
 
@@ -545,8 +528,7 @@ main,
   padding: 24px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: var(--shadow-warm);
+  border-radius: 12px;
 }
 
 .source-card.featured {
@@ -575,9 +557,9 @@ main,
 .empty-state {
   padding: 36px;
   text-align: center;
-  background: var(--surface);
-  border: 1px dashed rgba(0, 0, 0, 0.18);
-  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
 }
 
 .empty-state strong {
@@ -992,7 +974,7 @@ pre,
   color: var(--green);
   background: rgba(0, 217, 146, 0.06);
   border: 1px solid var(--green);
-  border-radius: 6px;
+  border-radius: 9999px;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
@@ -1042,7 +1024,7 @@ pre,
   color: var(--tertiary);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
   font-size: 16px;
   cursor: pointer;
   transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
@@ -1081,7 +1063,6 @@ pre,
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: var(--shadow-float);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1114,7 +1095,7 @@ pre,
   color: var(--tertiary);
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 9999px;
   font-size: 14px;
   cursor: pointer;
   transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
@@ -1157,11 +1138,11 @@ pre,
 
 .modal-field input {
   height: 42px;
-  padding: 0 12px;
+  padding: 0 16px;
   color: var(--text);
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 9999px;
   font-size: 13px;
   outline: none;
   transition: border-color 140ms ease;
