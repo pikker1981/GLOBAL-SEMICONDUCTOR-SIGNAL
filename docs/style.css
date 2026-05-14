@@ -1187,3 +1187,13 @@ pre,
   background: rgba(251, 113, 133, 0.08);
   border-color: rgba(251, 113, 133, 0.48);
 }
+
+/* ================================
+   Active filter readability fix
+   ================================ */
+
+.filter.active,
+.filter[aria-pressed="true"],
+button.filter.active {
+  color: #ffffff !important;
+}
